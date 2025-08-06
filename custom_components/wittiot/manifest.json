@@ -1,0 +1,15 @@
+{
+  "domain": "wsviewplus",
+  "name": "WSViewPlus",
+  "codeowners": ["@WSViewPlus"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/PPw096/ha-wsviewplus",
+  "homekit": {},
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/PPw096/ha-wsviewplus/issues",
+  "requirements": ["wittiot==1.0.8"],
+  "ssdp": [],
+  "version": "1.0.0",
+  "zeroconf": []
+}

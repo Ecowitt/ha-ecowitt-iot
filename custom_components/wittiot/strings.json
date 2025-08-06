@@ -1,0 +1,148 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "host": "[%key:common::config_flow::data::host%]"
+        },
+        "data_description": {
+          "host": "The IP address of the device."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "no_devices": "You have connected to the device but have not received the returned data. Please check the device or restart the device."
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "tempinf": {
+        "name": "Indoor temperature"
+      },
+      "humidityin": {
+        "name": "Indoor humidity"
+      },
+      "tempf": {
+        "name": "Outdoor temperature"
+      },
+      "baromrelin": {
+        "name": "Relative pressure"
+      },
+      "baromabsin": {
+        "name": "Absolute pressure"
+      },
+      "humidity": {
+        "name": "Outdoor humidity"
+      },
+      "winddir": {
+        "name": "Wind direction"
+      },
+      "windspeedmph": {
+        "name": "Wind speed"
+      },
+      "windgustmph": {
+        "name": "Wind gust"
+      },
+      "solarradiation": {
+        "name": "Solar irradiance"
+      },
+      "uv": {
+        "name": "UV-Index"
+      },
+      "daywindmax": {
+        "name": "Day wind max"
+      },
+      "feellike": {
+        "name": "Feel like"
+      },
+      "dewpoint": {
+        "name": "Dew point"
+      },
+      "rainratein": {
+        "name": "Rain rate"
+      },
+      "eventrainin": {
+        "name": "Rain event"
+      },
+      "dailyrainin": {
+        "name": "Daily rainfall"
+      },
+      "weeklyrainin": {
+        "name": "Weekly rainfall"
+      },
+      "monthlyrainin": {
+        "name": "Monthly rainfall"
+      },
+      "yearlyrainin": {
+        "name": "Yearly rainfall"
+      },
+      "rrain_piezo": {
+        "name": "Piezo rain rate"
+      },
+      "erain_piezo": {
+        "name": "Piezo rain event"
+      },
+      "drain_piezo": {
+        "name": "Daily piezo rainfall"
+      },
+      "wrain_piezo": {
+        "name": "Weekly piezo rainfall"
+      },
+      "mrain_piezo": {
+        "name": "Monthly piezo rainfall"
+      },
+      "yrain_piezo": {
+        "name": "Yearly piezo rainfall"
+      },
+      "co2in": {
+        "name": "Indoor co2"
+      },
+      "co2in_24h": {
+        "name": "Indoor 24H avg co2"
+      },
+      "co2": {
+        "name": "CO2"
+      },
+      "co2_24h": {
+        "name": "24H avg co2"
+      },
+      "pm25_co2": {
+        "name": "CO2 PM2.5"
+      },
+      "pm25_24h_co2": {
+        "name": "CO2 24H PM2.5 AQI"
+      },
+      "pm10_co2": {
+        "name": "CO2 PM10"
+      },
+      "pm10_24h_co2": {
+        "name": "CO2 24H PM10 AQI"
+      },
+      "pm10_aqi_co2": {
+        "name": "CO2 PM10 AQI"
+      },
+      "pm25_aqi_co2": {
+        "name": "CO2 PM2.5 AQI"
+      },
+      "tf_co2": {
+        "name": "CO2 temperature"
+      },
+      "humi_co2": {
+        "name": "CO2 humidity"
+      },
+      "lightning": {
+        "name": "Thunder last distamce"
+      },
+      "lightning_time": {
+        "name": "Thunder last timestamp"
+      },
+      "lightning_num": {
+        "name": "Thunder daily count"
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+    "name": "WSViewPlus integration",
+    "render_readme": true,
+    "homeassistant": "2023.11.0"
+}
