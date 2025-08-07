@@ -412,7 +412,7 @@ class MainDevWsviewplusSensor(
 
 
 class SubDevWsviewplusSensor(
-    CoordinatorEntity[WWsviewplusDataUpdateCoordinator], SensorEntity
+    CoordinatorEntity[WsviewplusDataUpdateCoordinator], SensorEntity
 ):
     """Define an Local sensor."""
 
