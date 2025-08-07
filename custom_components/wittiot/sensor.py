@@ -29,7 +29,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
-from .coordinator import WittiotDataUpdateCoordinator
+from .coordinator import WsviewplusDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
