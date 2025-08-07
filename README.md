@@ -5,7 +5,9 @@
 
  
 This integrated simulation WSView Plus app uses web interfaces to obtain data from the local network.
+
 Apple app download link: https://apps.apple.com/app/wsview-plus/id1581353359
+
 Android app download link: https://play.google.com/store/apps/details?id=com.ost.wsautool
 
 ## :computer: Installation
