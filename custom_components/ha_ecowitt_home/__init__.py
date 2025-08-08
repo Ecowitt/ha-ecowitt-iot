@@ -1,4 +1,4 @@
-"""The WSViewPlus integration."""
+"""The Ecowitt Official Integration."""
 from __future__ import annotations
 
 import logging
@@ -8,7 +8,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.const import CONF_HOST
 from .const import DOMAIN
-from .coordinator import WsviewplusDataUpdateCoordinator
+from .coordinator import EcowittDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,9 +17,9 @@ PLATFORMS = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up WSViewPlus from a config entry."""
+    """Set up Ecowitt Official Integration from a config entry."""
 
-    coordinator = WsviewplusDataUpdateCoordinator(
+    coordinator = EcowittDataUpdateCoordinator(
         hass,
     )
 

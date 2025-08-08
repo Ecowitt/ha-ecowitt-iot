@@ -1,0 +1,15 @@
+{
+  "domain": "ha_ecowitt_home",
+  "name": "Ecowitt Integration for Home Assistan",
+  "codeowners": ["@Ecowitt"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Ecowitt/ha-ha_ecowitt_home",
+  "homekit": {},
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Ecowitt/ha-ha_ecowitt_home/issues",
+  "requirements": ["wittiot==1.0.10"],
+  "ssdp": [],
+  "version": "1.0.0",
+  "zeroconf": []
+}

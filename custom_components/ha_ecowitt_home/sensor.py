@@ -29,7 +29,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
-from .coordinator import WsviewplusDataUpdateCoordinator
+from .coordinator import EcowittDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -307,7 +307,7 @@ SENSOR_DESCRIPTIONS = (
     ),
 )
 
-WSVIEWPLUS_SENSORS_MAPPING: Final = {
+ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.TEMPERATURE: SensorEntityDescription(
         key="TEMPERATURE",
         native_unit_of_measurement="°F",
@@ -346,15 +346,15 @@ async def async_setup_entry(
     """Set up sensor entities based on a config entry."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_entities(
-        MainDevWsviewplusSensor(coordinator, entry.unique_id, desc)
+        MainDevEcowittSensor(coordinator, entry.unique_id, desc)
         for desc in SENSOR_DESCRIPTIONS
         if desc.key in coordinator.data
     )
     # Subdevice Data
-    subsensors: list[SubDevWsviewplusSensor] = []
+    subsensors: list[SubDevEcowittSensor] = []
     for key in coordinator.data:
         if key in MultiSensorInfo.SENSOR_INFO:
-            mapping = WSVIEWPLUS_SENSORS_MAPPING[
+            mapping = ECOWITT_SENSORS_MAPPING[
                 MultiSensorInfo.SENSOR_INFO[key]["data_type"]
             ]
             description = dataclasses.replace(
@@ -369,7 +369,7 @@ async def async_setup_entry(
             #     key,
             # )
             subsensors.append(
-                SubDevWsviewplusSensor(
+                SubDevEcowittSensor(
                     coordinator,
                     entry.unique_id,
                     MultiSensorInfo.SENSOR_INFO[key]["dev_type"],
@@ -379,8 +379,8 @@ async def async_setup_entry(
     async_add_entities(subsensors)
 
 
-class MainDevWsviewplusSensor(
-    CoordinatorEntity[WsviewplusDataUpdateCoordinator], SensorEntity
+class MainDevEcowittSensor(
+    CoordinatorEntity[EcowittDataUpdateCoordinator], SensorEntity
 ):
     """Define a Local sensor."""
 
@@ -389,7 +389,7 @@ class MainDevWsviewplusSensor(
 
     def __init__(
         self,
-        coordinator: WsviewplusDataUpdateCoordinator,
+        coordinator: EcowittDataUpdateCoordinator,
         device_name: str,
         description: SensorEntityDescription,
     ) -> None:
@@ -397,7 +397,7 @@ class MainDevWsviewplusSensor(
         super().__init__(coordinator)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}")},
-            manufacturer="Wsviewplus",
+            manufacturer="Ecowitt",
             name=f"{device_name}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
@@ -411,8 +411,8 @@ class MainDevWsviewplusSensor(
         return self.coordinator.data.get(self.entity_description.key)
 
 
-class SubDevWsviewplusSensor(
-    CoordinatorEntity[WsviewplusDataUpdateCoordinator], SensorEntity
+class SubDevEcowittSensor(
+    CoordinatorEntity[EcowittDataUpdateCoordinator], SensorEntity
 ):
     """Define an Local sensor."""
 
@@ -421,7 +421,7 @@ class SubDevWsviewplusSensor(
 
     def __init__(
         self,
-        coordinator: WsviewplusDataUpdateCoordinator,
+        coordinator: EcowittDataUpdateCoordinator,
         device_name: str,
         sensor_type: str,
         description: SensorEntityDescription,
@@ -430,7 +430,7 @@ class SubDevWsviewplusSensor(
         super().__init__(coordinator)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
-            manufacturer="Wsviewplus",
+            manufacturer="Ecowitt",
             name=f"{device_name}_{sensor_type}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",

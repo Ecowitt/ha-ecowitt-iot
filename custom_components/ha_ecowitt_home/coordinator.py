@@ -1,4 +1,4 @@
-"""The WSViewPlus integration coordinator."""
+"""The Ecowitt integration coordinator."""
 from __future__ import annotations
 
 from datetime import timedelta
@@ -22,8 +22,8 @@ SCAN_INTERVAL = timedelta(seconds=60)
 _LOGGER = logging.getLogger(__name__)
 
 
-class WsviewplusDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
-    """Define an object to hold WSViewPlus data."""
+class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
+    """Define an object to hold Ecowitt data."""
 
     config_entry: ConfigEntry
 

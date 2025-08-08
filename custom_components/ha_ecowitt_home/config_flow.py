@@ -1,4 +1,4 @@
-"""Config flow for WSViewPlus integration."""
+"""Config flow for Ecowitt Official Integration."""
 from __future__ import annotations
 
 import logging
@@ -18,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for WSViewPlus."""
+    """Handle a config flow for Ecowitt Official Integration."""
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
