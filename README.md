@@ -23,7 +23,7 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 ### Manual
 1. Download the latest release from [here](https://github.com/Ecowitt/ha-ecowitt-iot/releases).
 1. Create a folder called `custom_components` in the same directory as the Home Assistant `configuration.yaml`.
-1. Extract the contents of the zip into folder called `ha_ecowitt_home` inside `custom_components`.
+1. Extract the contents of the zip into folder called `ha_ecowitt_iot` inside `custom_components`.
 1. Restart Home Assistant
 1. Click the button below, or in the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Ecowitt Official Integration"
 
