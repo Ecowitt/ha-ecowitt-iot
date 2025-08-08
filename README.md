@@ -12,22 +12,22 @@ This integrated uses web interfaces to obtain data from the local network.
 This integration can be added to Home Assistant as a [custom HACS repository](https://hacs.xyz/docs/faq/custom_repositories):
 1. From the HACS page, click the 3 dots at the top right corner.
 1. Select `Custom repositories`.
-1. Add the URL `https://github.com/Ecowitt/ha-ecowitt-home`
+1. Add the URL `https://github.com/Ecowitt/ha-ecowitt-iot`
 1. Select the category `Integration`.
 1. Click the ADD button.
 1. Restart Home Assistant
 1. Click the button below, or in the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Ecowitt Official Integration"
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-home&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-iot&category=integration)
 
 ### Manual
-1. Download the latest release from [here](https://github.com/Ecowitt/ha-ecowitt-home/releases).
+1. Download the latest release from [here](https://github.com/Ecowitt/ha-ecowitt-iot/releases).
 1. Create a folder called `custom_components` in the same directory as the Home Assistant `configuration.yaml`.
 1. Extract the contents of the zip into folder called `ha_ecowitt_home` inside `custom_components`.
 1. Restart Home Assistant
 1. Click the button below, or in the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Ecowitt Official Integration"
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-home&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-iot&category=integration)
 
 ## :bulb: Usage
 1. The following steps must be performed to set up this integration.
