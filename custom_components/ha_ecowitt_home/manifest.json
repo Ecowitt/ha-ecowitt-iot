@@ -1,6 +1,6 @@
 {
   "domain": "ha_ecowitt_home",
-  "name": "Ecowitt Integration for Home Assistan",
+  "name": "Ecowitt Official Integration",
   "codeowners": ["@Ecowitt"],
   "config_flow": true,
   "dependencies": [],
