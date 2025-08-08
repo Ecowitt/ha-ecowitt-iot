@@ -1,3 +1,3 @@
 """Constants for the Ecowitt Official Integration."""
 
-DOMAIN = "ha_ecowitt_home"
+DOMAIN = "ha_ecowitt_iot"
