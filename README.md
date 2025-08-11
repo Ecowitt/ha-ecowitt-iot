@@ -33,7 +33,7 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 Compatibility Instructions:
 | HA Integration        |  IoT device (developing)    |Model|
 |:-----------:|:-----------:|:-----------|
-| ×      | ×      |GW1000,WS6006,WN1900,WS2320,WS2910,HP2550,HP3500,HP2560|
+| ×      | ×      |GW1000,WS6006,WN1900,WN1910,WS2320,WS2910,HP2550,HP3500,HP2560|
 | ✓      | ×      |GW1100|
 | ✓  | ✓  |GW1200,GW2000,GW3000,WS6210,WN1700,WN1820,WN1821,WN1920,WN1980,WS3800,WS3820,WS3900,WS3910|
 
