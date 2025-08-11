@@ -35,7 +35,7 @@ Compatibility Instructions:
 |:-----------:|:-----------:|:-----------|
 | ×      | ×      |GW1000,WS6006,WS2320,WS2910,HP2550,HP3500,HP2560|
 | ✓      | ×      |GW1100|
-| ✓  | ✓  |GW1200,GW2000,GW3000,WS6210,WN1700,WN1820,WN1821,WN1980,WS3800,WS3820,WS3900,WS3910|
+| ✓  | ✓  |GW1200,GW2000,GW3000,WS6210,WN1700,WN1820,WN1821,WN1920,WN1980,WS3800,WS3820,WS3900,WS3910|
 
 To set up this integration, follow these steps:
 1. Configure your gateway device on your LAN using the WSView Plus app or Ecowitt app on your phone.
