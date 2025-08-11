@@ -30,6 +30,16 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-iot&category=integration)
 
 ## :bulb: Usage
+Compatibility Instructions
+| Model      | HA Integration        |  IoT device (developing)    |
+|:-----------|:-----------:|:-----------:|
+| GW1000,WS6006| ×      | ×      |
+| WS2320,WS2910| ×      | ×      |
+| GW1100  | ✓      | ×      |
+| GW1200,GW2000,GW3000,WS6210| ✓  | ✓  |
+| WN1700,WN1820,WN1821,WN1980| ✓  | ✓  |
+| WS3800,WS3820,WS3900,WS3910| ✓  | ✓  |
+
 To set up this integration, follow these steps:
 1. Configure your gateway device on your LAN using the WSView Plus app or Ecowitt app on your phone.
 2. Obtain the device's IP address through the web UI or WSView Plus app (Note: If the gateway does not support displaying real-time data in the web UI or WSView Plus, it is not compatible with Home Assistant integration).
