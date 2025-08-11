@@ -39,5 +39,5 @@ To set up this integration, follow these steps:
 
 ![Step 1](./img/TF1.jpg)
 ![Step 2](./img/TF2.jpg)
-![Step 3](./img/TF3.jpg)
+![Step 3](./img/TF3-3.jpg)
 ![Step 4](./img/TF4.jpg)
