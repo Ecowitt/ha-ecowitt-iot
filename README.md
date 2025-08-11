@@ -39,7 +39,7 @@ Compatibility Instructions:
 
 To set up this integration, follow these steps:
 1. Configure your gateway device on your LAN using the WSView Plus app or Ecowitt app on your phone.
-2. Obtain the device's IP address through the web UI or WSView Plus app (Note: If the gateway does not support displaying real-time data in the web UI or WSView Plus, it is not compatible with Home Assistant integration).
+2. Obtain the device's IP address through the web UI or WSView Plus app.
 3. Enter the device's IP address in the integration. Upon successful connection, the integration will retrieve data from the gateway device.
 
 
