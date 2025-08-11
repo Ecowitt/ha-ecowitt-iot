@@ -30,9 +30,12 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-iot&category=integration)
 
 ## :bulb: Usage
-1. The following steps must be performed to set up this integration.
-1. Configure gateway devices to your LAN using the WSView Plus app or Ecowitt app on your phone and then view the device IP address.
-1. Enter the IP address of the device in the integration, and the integration will obtain the data of the gateway device after a successful connection.
+To set up this integration, follow these steps:
+1. Configure your gateway device on your LAN using the WSView Plus app or Ecowitt app on your phone.
+2. Obtain the device's IP address through the web UI or WSView Plus app (Note: If the gateway does not support displaying real-time data in the web UI or WSView Plus, it is not compatible with Home Assistant integration).
+3. Enter the device's IP address in the integration. Upon successful connection, the integration will retrieve data from the gateway device.
+
+
 
 ![Step 1](./img/20240223161726.png)
 ![Step 2](./img/20240223161811.png)
