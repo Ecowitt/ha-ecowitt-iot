@@ -30,7 +30,7 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Ecowitt&repository=ha-ecowitt-iot&category=integration)
 
 ## :bulb: Usage
-Compatibility Instructions
+Compatibility Instructions:
 | HA Integration        |  IoT device (developing)    |Model|
 |:-----------:|:-----------:|:-----------|
 | ×      | ×      |GW1000,WS6006,WS2320,WS2910,HP2550,HP3500,HP2560|
