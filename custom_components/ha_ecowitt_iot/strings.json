@@ -57,7 +57,7 @@
         "name": "Day wind max"
       },
       "feellike": {
-        "name": "Feel like"
+        "name": "Feel likes"
       },
       "dewpoint": {
         "name": "Dew point"
@@ -135,7 +135,7 @@
         "name": "CO2 humidity"
       },
       "lightning": {
-        "name": "Thunder last distamce"
+        "name": "Thunder last distance"
       },
       "lightning_time": {
         "name": "Thunder last timestamp"
