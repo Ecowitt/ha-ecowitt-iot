@@ -43,7 +43,7 @@ HA Default Integration Compatibility Instructions: www.home-assistant.io/integra
 | ✓      | ×      |GW1000,WS6006,WN1900,WN1910,WS2320,WS2910,HP2550,HP3500,HP2560,GW1100,GW1200,GW2000,GW3000,WS6210,WN1700,WN1820,WN1821,WN1920,WN1980,WS3800,WS3820,WS3900,WS3910|
 
 
-To set up this integration, follow these steps:
+To set up Ecowitt Official Integration, follow these steps:
 1. Configure your gateway device on your LAN using the WSView Plus app or Ecowitt app on your phone.
 2. Obtain the device's IP address through the web UI or WSView Plus app.
 3. Enter the device's IP address in the integration. Upon successful connection, the integration will retrieve data from the gateway device.
