@@ -1,6 +1,7 @@
 """The Ecowitt integration coordinator."""
 from __future__ import annotations
 
+from datetime import datetime
 from datetime import timedelta
 import logging
 from typing import Any
