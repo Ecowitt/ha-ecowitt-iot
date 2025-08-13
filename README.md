@@ -4,7 +4,7 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
  
-This integrated uses web interfaces to obtain data from the local network.
+This integration uses the locally available http APIs to obtain data from the supported devices inside the local network.
 
 ## :computer: Installation
 
