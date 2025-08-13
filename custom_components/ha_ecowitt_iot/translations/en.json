@@ -142,6 +142,27 @@
             },
             "lightning_num": {
                 "name": "Thunder daily count"
+            },
+            "winddir10": {
+                "name": "10Min.Avg Wind Direction"
+            },
+            "apparent": {
+                "name": "Apparent"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Total rainfall"
+            },
+            "24hrainin": {
+                "name": "24 Hours rainfall"
+            },
+            "train_piezo": {
+                "name": "Total piezo rainfall"
+            },
+            "24hrain_piezo": {
+                "name": "24 Hours piezo rainfall"
             }
         }
     }

@@ -38,13 +38,24 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.api = API(
             self.config_entry.data[CONF_HOST], session=async_get_clientsession(hass)
         )
+        self._cached_data: dict = {}  # 添加缓存
+        self._last_successful_update = None
 
     async def _async_update_data(self) -> dict[str, str | float | int]:
         """Update data."""
         res = {}
         try:
             res = await self.api.request_loc_allinfo()
+            self._cached_data = res  # 缓存数据
+            self._last_successful_update = datetime.now()
         except (WittiotError, ClientConnectorError) as error:
-            raise UpdateFailed(error) from error
+            # 检查缓存是否过期（例如超过30分钟）
+            if (self._last_successful_update and 
+                (datetime.now() - self._last_successful_update).total_seconds() > 1800):
+                raise UpdateFailed(error) from error
+            # 使用缓存数据，但标记为"过时"
+            self._cached_data.setdefault("_stale", True)
+            return self._cached_data
+           # raise UpdateFailed(error) from error
         # _LOGGER.info("Get device data: %s", res)
         return res

@@ -1,4 +1,5 @@
 """Platform for sensor integration."""
+
 import dataclasses
 from typing import Final
 import logging
@@ -12,6 +13,7 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONCENTRATION_PARTS_PER_MILLION,
+    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONF_HOST,
     DEGREE,
     PERCENTAGE,
@@ -51,6 +53,13 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="feellike",
         translation_key="feellike",
+        native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="apparent",
+        translation_key="apparent",
         native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -100,8 +109,20 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRESSURE,
     ),
     SensorEntityDescription(
+        key="vpd",
+        translation_key="vpd",
+        native_unit_of_measurement=UnitOfPressure.INHG,
+        device_class=SensorDeviceClass.PRESSURE,
+    ),
+    SensorEntityDescription(
         key="winddir",
         translation_key="winddir",
+        icon="mdi:weather-windy",
+        native_unit_of_measurement=DEGREE,
+    ),
+    SensorEntityDescription(
+        key="winddir10",
+        translation_key="winddir10",
         icon="mdi:weather-windy",
         native_unit_of_measurement=DEGREE,
     ),
@@ -129,9 +150,8 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="uv",
         translation_key="uv",
-        native_unit_of_measurement="index",
-        device_class=SensorDeviceClass.ILLUMINANCE,
         state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:brightness-5",
     ),
     SensorEntityDescription(
         key="solarradiation",
@@ -183,6 +203,20 @@ SENSOR_DESCRIPTIONS = (
         state_class=SensorStateClass.TOTAL,
     ),
     SensorEntityDescription(
+        key="totalrainin",
+        translation_key="totalrainin",
+        device_class=SensorDeviceClass.PRECIPITATION,
+        native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
+        state_class=SensorStateClass.TOTAL,
+    ),
+    SensorEntityDescription(
+        key="24hrainin",
+        translation_key="24hrainin",
+        device_class=SensorDeviceClass.PRECIPITATION,
+        native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
+        state_class=SensorStateClass.TOTAL,
+    ),
+    SensorEntityDescription(
         key="rrain_piezo",
         translation_key="rrain_piezo",
         native_unit_of_measurement=UnitOfVolumetricFlux.INCHES_PER_HOUR,
@@ -225,6 +259,20 @@ SENSOR_DESCRIPTIONS = (
         state_class=SensorStateClass.TOTAL,
     ),
     SensorEntityDescription(
+        key="train_piezo",
+        translation_key="train_piezo",
+        device_class=SensorDeviceClass.PRECIPITATION,
+        native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
+        state_class=SensorStateClass.TOTAL,
+    ),
+    SensorEntityDescription(
+        key="24hrain_piezo",
+        translation_key="24hrain_piezo",
+        device_class=SensorDeviceClass.PRECIPITATION,
+        native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
+        state_class=SensorStateClass.TOTAL,
+    ),
+    SensorEntityDescription(
         key="co2in",
         translation_key="co2in",
         native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
@@ -254,6 +302,7 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="pm25_co2",
         translation_key="pm25_co2",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM25,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -272,6 +321,7 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="pm10_co2",
         translation_key="pm10_co2",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM10,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -292,6 +342,7 @@ SENSOR_DESCRIPTIONS = (
         translation_key="lightning",
         icon="mdi:lightning-bolt",
         native_unit_of_measurement=UnitOfLength.MILES,
+        device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -321,6 +372,7 @@ ECOWITT_SENSORS_MAPPING: Final = {
     ),
     WittiotDataTypes.PM25: SensorEntityDescription(
         key="PM25",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM25,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -336,6 +388,18 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.BATTERY: SensorEntityDescription(
         key="BATTERY",
         icon="mdi:battery",
+    ),
+    WittiotDataTypes.DISTANCE: SensorEntityDescription(
+        key="DISTANCE",
+        native_unit_of_measurement=UnitOfLength.FEET,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=2,
+        icon="mdi:arrow-expand-vertical",
+    ),
+    WittiotDataTypes.HEAT: SensorEntityDescription(
+        key="HEAT",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 }
 

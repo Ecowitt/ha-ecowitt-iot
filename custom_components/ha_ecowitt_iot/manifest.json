@@ -8,7 +8,7 @@
   "homekit": {},
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/Ecowitt/ha-ecowitt-iot/issues",
-  "requirements": ["wittiot==1.0.11"],
+  "requirements": ["wittiot==1.0.13"],
   "ssdp": [],
   "version": "1.0.0",
   "zeroconf": []
