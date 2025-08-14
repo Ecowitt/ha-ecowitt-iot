@@ -17,6 +17,7 @@ from homeassistant.const import (
     CONF_HOST,
     DEGREE,
     PERCENTAGE,
+    UnitOfElectricPotential,
     UnitOfIrradiance,
     UnitOfLength,
     UnitOfPrecipitationDepth,
@@ -355,6 +356,27 @@ SENSOR_DESCRIPTIONS = (
         translation_key="lightning_num",
         icon="mdi:lightning-bolt",
         state_class=SensorStateClass.TOTAL,
+    ),
+    SensorEntityDescription(
+        key="con_batt",
+        translation_key="con_batt",
+        icon="mdi:battery",
+    ),
+    SensorEntityDescription(
+        key="con_batt_volt",
+        translation_key="con_batt_volt",
+        icon="mdi:battery",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="con_ext_volt",
+        translation_key="con_ext_volt",
+        icon="mdi:battery",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 )
 

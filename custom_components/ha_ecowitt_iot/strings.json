@@ -163,6 +163,15 @@
       },
       "24hrain_piezo": {
         "name": "24 Hours piezo rainfall"
+      },
+      "con_batt": {
+        "name": "Console Battery"
+      },
+      "con_batt_volt": {
+        "name": "Console Battery Voltage"
+      },
+      "con_ext_volt": {
+        "name": "Console External Power Voltage"
       }
     }
   }
