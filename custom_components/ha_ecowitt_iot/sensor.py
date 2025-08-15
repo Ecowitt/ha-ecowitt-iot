@@ -167,6 +167,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfVolumetricFlux.INCHES_PER_HOUR,
         device_class=SensorDeviceClass.PRECIPITATION_INTENSITY,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="eventrainin",
@@ -174,6 +175,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="dailyrainin",
@@ -181,6 +183,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="weeklyrainin",
@@ -188,6 +191,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="monthlyrainin",
@@ -195,6 +199,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="yearlyrainin",
@@ -202,6 +207,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="totalrainin",
@@ -209,6 +215,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="24hrainin",
@@ -216,6 +223,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="rrain_piezo",
@@ -223,6 +231,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfVolumetricFlux.INCHES_PER_HOUR,
         device_class=SensorDeviceClass.PRECIPITATION_INTENSITY,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="erain_piezo",
@@ -230,6 +239,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="drain_piezo",
@@ -237,6 +247,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="wrain_piezo",
@@ -244,6 +255,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="mrain_piezo",
@@ -251,6 +263,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="yrain_piezo",
@@ -258,6 +271,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="train_piezo",
@@ -265,6 +279,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="24hrain_piezo",
@@ -272,6 +287,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="co2in",

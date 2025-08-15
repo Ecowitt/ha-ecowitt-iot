@@ -1,0 +1,202 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Gerät schon konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindungs Fehler",
+            "invalid_auth": "Ungültige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "IP Adresse Gerät"
+                },
+                "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
+                "title": "Gerät Konfiguration"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "tempinf": {
+                "name": "Innen Temperatur"
+            },
+            "humidityin": {
+                "name": "Innen Luftfeuchte"
+            },
+            "tempf": {
+                "name": "Aussen Temperatur"
+            },
+            "baromrelin": {
+                "name": "Luftdruck"
+            },
+            "baromabsin": {
+                "name": "Luftdruck abs."
+            },
+            "humidity": {
+                "name": "Aussen Luftfeuchte"
+            },
+            "winddir": {
+                "name": "Windrichtung"
+            },
+            "windspeedmph": {
+                "name": "Windgeschwindigkeit"
+            },
+            "windgustmph": {
+                "name": "Windböen"
+            },
+            "solarradiation": {
+                "name": "Solarstrahlung"
+            },
+            "uv": {
+                "name": "UV-Index"
+            },
+            "daywindmax": {
+                "name": "Wind max Tag"
+            },
+            "feellike": {
+                "name": "Gefühlte Temperatur"
+            },
+            "dewpoint": {
+                "name": "Taupunkt"
+            },
+            "rainratein": {
+                "name": "Regenrate"
+            },
+            "eventrainin": {
+                "name": "Regenturm"
+            },
+            "dailyrainin": {
+                "name": "Regen Tag"
+            },
+            "weeklyrainin": {
+                "name": "Regen Woche"
+            },
+            "monthlyrainin": {
+                "name": "Regen Monat"
+            },
+            "yearlyrainin": {
+                "name": "Regen Jahr"
+            },
+            "rrain_piezo": {
+                "name": "Regenrate Piezo"
+            },
+            "erain_piezo": {
+                "name": "Regensturm Piezo"
+            },
+            "drain_piezo": {
+                "name": "Regen Tag Piezo"
+            },
+            "wrain_piezo": {
+                "name": "Regen Woche Piezo"
+            },
+            "mrain_piezo": {
+                "name": "Regen Monat Piezo"
+            },
+            "yrain_piezo": {
+                "name": "Regen Jahr Piezo"
+            },
+            "co2in": {
+                "name": "CO2 Innen"
+            },
+            "co2in_24h": {
+                "name": "CO2 Innen 24H durchs."
+            },
+            "co2": {
+                "name": "CO2"
+            },
+            "co2_24h": {
+                "name": "CO2 24H durchs."
+            },
+            "pm25_co2": {
+                "name": "CO2 PM2.5"
+            },
+            "pm25_24h_co2": {
+                "name": "CO2 PM2.5 AQI"
+            },
+            "pm10_co2": {
+                "name": "CO2 PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "CO2 PM10 24H AQI"
+            },
+            "pm10_aqi_co2": {
+                "name": "CO2 PM10 AQI"
+            },
+            "pm25_aqi_co2": {
+                "name": "CO2 PM2.5 AQI"
+            },
+            "tf_co2": {
+                "name": "CO2 Temperatur"
+            },
+            "humi_co2": {
+                "name": "CO2 Luftfeuchte"
+            },
+            "lightning": {
+                "name": "Blitze letzte Entfernung"
+            },
+            "lightning_time": {
+                "name": "Blitze Datum"
+            },
+            "lightning_num": {
+                "name": "Blitze Anzahl"
+            },
+            "winddir10": {
+                "name": "10Min.Avg Windrichtung"
+            },
+            "apparent": {
+                "name": "Apparent"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Regen Gesamter"
+            },
+            "24hrainin": {
+                "name": "Regen 24 Stunden"
+            },
+            "train_piezo": {
+                "name": "Regen Gesamter Piezo"
+            },
+            "24hrain_piezo": {
+                "name": "Regen 24 Stunden Piezo"
+            },
+            "con_batt": {
+                "name": "Konsole Batterie"
+            },
+            "con_batt_volt": {
+                "name": "Konsole Batterie Voltage"
+            },
+            "con_ext_volt": {
+                "name": "Konsole Externe Stromspannung"
+            },
+            "srain_piezo": {
+                "name": "Regen Status"
+            },
+            "piezora_batt": {
+                "name": "Piezo Batterie"
+            },
+            "pm1_co2": {
+                "name": "CO2 PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "CO2 24H PM1 AQI"
+            },
+            "pm1_aqi_co2": {
+                "name": "CO2 PM1 AQI"
+            },
+            "pm4_co2": {
+                "name": "CO2 PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "CO2 24H PM4 AQI"
+            },
+            "pm4_aqi_co2": {
+                "name": "CO2 PM4 AQI"
+            }
+        }
+    }
+}
