@@ -1,4 +1,5 @@
 """The Ecowitt Official Integration."""
+
 from __future__ import annotations
 
 import logging
@@ -13,7 +14,7 @@ from .coordinator import EcowittDataUpdateCoordinator
 _LOGGER = logging.getLogger(__name__)
 
 
-PLATFORMS = [Platform.SENSOR]
+PLATFORMS = [Platform.SENSOR, Platform.BINARY_SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

@@ -369,6 +369,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="con_ext_volt",
@@ -376,6 +377,55 @@ SENSOR_DESCRIPTIONS = (
         icon="mdi:battery",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=2,
+    ),
+    SensorEntityDescription(
+        key="piezora_batt",
+        translation_key="piezora_batt",
+        icon="mdi:battery",
+    ),
+    SensorEntityDescription(
+        key="srain_piezo",
+        translation_key="srain_piezo",
+        icon="mdi:weather-rainy",
+    ),
+    SensorEntityDescription(
+        key="pm1_co2",
+        translation_key="pm1_co2",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM1,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm1_aqi_co2",
+        translation_key="pm1_aqi_co2",
+        device_class=SensorDeviceClass.AQI,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm1_24h_co2",
+        translation_key="pm1_24h_co2",
+        device_class=SensorDeviceClass.AQI,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm4_co2",
+        translation_key="pm4_co2",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM25,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm4_aqi_co2",
+        translation_key="pm4_aqi_co2",
+        device_class=SensorDeviceClass.AQI,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm4_24h_co2",
+        translation_key="pm4_24h_co2",
+        device_class=SensorDeviceClass.AQI,
         state_class=SensorStateClass.MEASUREMENT,
     ),
 )
@@ -440,20 +490,16 @@ async def async_setup_entry(
     subsensors: list[SubDevEcowittSensor] = []
     for key in coordinator.data:
         if key in MultiSensorInfo.SENSOR_INFO:
+            if MultiSensorInfo.SENSOR_INFO[key]["data_type"] == WittiotDataTypes.LEAK:
+                continue
             mapping = ECOWITT_SENSORS_MAPPING[
                 MultiSensorInfo.SENSOR_INFO[key]["data_type"]
             ]
             description = dataclasses.replace(
                 mapping,
                 key=key,
-                # sensor_type=MultiSensorInfo.SENSOR_INFO[key]["dev_type"],
                 name=MultiSensorInfo.SENSOR_INFO[key]["name"],
             )
-            # _LOGGER.info(
-            #     "dev_type: %s , key: %s",
-            #     MultiSensorInfo.SENSOR_INFO[key]["dev_type"],
-            #     key,
-            # )
             subsensors.append(
                 SubDevEcowittSensor(
                     coordinator,

@@ -172,6 +172,30 @@
       },
       "con_ext_volt": {
         "name": "Console External Power Voltage"
+      },
+      "srain_piezo": {
+        "name": "Rain Status"
+      },
+      "piezora_batt": {
+        "name": "Piezo Battery"
+      },
+      "pm1_co2": {
+        "name": "CO2 PM1"
+      },
+      "pm1_24h_co2": {
+        "name": "CO2 24H PM1 AQI"
+      },
+      "pm1_aqi_co2": {
+        "name": "CO2 PM1 AQI"
+      },
+      "pm4_co2": {
+        "name": "CO2 PM4"
+      },
+      "pm4_24h_co2": {
+        "name": "CO2 24H PM4 AQI"
+      },
+      "pm4_aqi_co2": {
+        "name": "CO2 PM4 AQI"
       }
     }
   }
