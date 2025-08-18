@@ -35,7 +35,7 @@ LEAK_DETECTION_SENSOR: Final = {
     ),
     WittiotDataTypes.BATTERY_BINARY: BinarySensorEntityDescription(
         key="BATTERY_BINARY",
-        icon="mdi:water-alert",
+        icon="mdi:battery",
         device_class=BinarySensorDeviceClass.BATTERY,
     ),
 }
@@ -58,12 +58,9 @@ async def async_setup_entry(
     # Subdevice Data
     binary_sensors: list[SubDevEcowittBinarySensor] = []
     for key in coordinator.data:
-        if (
-            key in MultiSensorInfo.SENSOR_INFO
-            and MultiSensorInfo.SENSOR_INFO[key]["data_type"] == WittiotDataTypes.LEAK
-            and MultiSensorInfo.SENSOR_INFO[key]["data_type"]
-            == WittiotDataTypes.BATTERY_BINARY
-        ):
+        if key in MultiSensorInfo.SENSOR_INFO and MultiSensorInfo.SENSOR_INFO[key][
+            "data_type"
+        ] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
             mapping = LEAK_DETECTION_SENSOR[
                 MultiSensorInfo.SENSOR_INFO[key]["data_type"]
             ]

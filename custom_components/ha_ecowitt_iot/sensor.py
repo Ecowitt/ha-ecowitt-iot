@@ -538,7 +538,9 @@ async def async_setup_entry(
     subsensors: list[SubDevEcowittSensor] = []
     for key in coordinator.data:
         if key in MultiSensorInfo.SENSOR_INFO:
-            if MultiSensorInfo.SENSOR_INFO[key]["data_type"] == WittiotDataTypes.LEAK:
+            if key in MultiSensorInfo.SENSOR_INFO and MultiSensorInfo.SENSOR_INFO[key][
+                "data_type"
+            ] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
                 continue
             mapping = ECOWITT_SENSORS_MAPPING[
                 MultiSensorInfo.SENSOR_INFO[key]["data_type"]
