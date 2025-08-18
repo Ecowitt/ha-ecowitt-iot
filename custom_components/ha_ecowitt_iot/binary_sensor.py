@@ -17,12 +17,26 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
 
+BINARYSENSOR_DESCRIPTIONS = (
+    BinarySensorEntityDescription(
+        key="srain_piezo",
+        translation_key="srain_piezo",
+        icon="mdi:weather-rainy",
+        device_class=BinarySensorDeviceClass.MOISTURE,  # 设备类别为湿度/漏水
+    ),
+)
+
 
 LEAK_DETECTION_SENSOR: Final = {
     WittiotDataTypes.LEAK: BinarySensorEntityDescription(
         key="LEAK",
         icon="mdi:water-alert",
         device_class=BinarySensorDeviceClass.MOISTURE,  # 设备类别为湿度/漏水
+    ),
+    WittiotDataTypes.BATTERY_BINARY: BinarySensorEntityDescription(
+        key="BATTERY_BINARY",
+        icon="mdi:water-alert",
+        device_class=BinarySensorDeviceClass.BATTERY,
     ),
 }
 
@@ -34,12 +48,21 @@ async def async_setup_entry(
     """设置二进制传感器平台."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
 
+    # 添加普通传感器
+    async_add_entities(
+        MainDevEcowittBinarySensor(coordinator, entry.unique_id, desc)
+        for desc in BINARYSENSOR_DESCRIPTIONS
+        if desc.key in coordinator.data
+    )
+
     # Subdevice Data
     binary_sensors: list[SubDevEcowittBinarySensor] = []
     for key in coordinator.data:
         if (
             key in MultiSensorInfo.SENSOR_INFO
             and MultiSensorInfo.SENSOR_INFO[key]["data_type"] == WittiotDataTypes.LEAK
+            and MultiSensorInfo.SENSOR_INFO[key]["data_type"]
+            == WittiotDataTypes.BATTERY_BINARY
         ):
             mapping = LEAK_DETECTION_SENSOR[
                 MultiSensorInfo.SENSOR_INFO[key]["data_type"]
@@ -58,6 +81,52 @@ async def async_setup_entry(
                 )
             )
     async_add_entities(binary_sensors)
+
+
+class MainDevEcowittBinarySensor(
+    CoordinatorEntity[EcowittDataUpdateCoordinator],  # 继承 CoordinatorEntity
+    BinarySensorEntity,  # 继承 BinarySensorEntity
+):
+    """Ecowitt 漏水检测二进制传感器."""
+
+    _attr_has_entity_name = True
+
+    def __init__(
+        self,
+        coordinator: EcowittDataUpdateCoordinator,
+        device_name: str,
+        description: BinarySensorEntityDescription,
+    ) -> None:
+        """初始化漏水检测传感器."""
+        super().__init__(coordinator)
+
+        # 设置设备信息
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, f"{device_name}")},
+            manufacturer="Ecowitt",
+            name=f"{device_name}",
+            model=coordinator.data["ver"],
+            configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
+        )
+
+        # 设置唯一ID和实体描述
+        self._attr_unique_id = f"{device_name}_{description.key}"
+        self.entity_description = description
+        self._sensor_key = description.key  # 存储用于数据访问的键
+
+    @property
+    def is_on(self) -> bool | None:
+        """返回二进制传感器状态 (True 表示检测到漏水)."""
+        # 从协调器获取当前数据
+        value = self.coordinator.data.get(self.entity_description.key)
+        if value is not None:
+            return value != "No rain"
+        return None  # 如果数据不可用返回None
+
+    @property
+    def available(self) -> bool:
+        """实体是否可用"""
+        return super().available and self._sensor_key in self.coordinator.data
 
 
 class SubDevEcowittBinarySensor(

@@ -173,9 +173,6 @@
             "con_ext_volt": {
                 "name": "Konsole Externe Stromspannung"
             },
-            "srain_piezo": {
-                "name": "Regen Status"
-            },
             "piezora_batt": {
                 "name": "Piezo Batterie"
             },
@@ -196,6 +193,23 @@
             },
             "pm4_aqi_co2": {
                 "name": "CO2 PM4 AQI"
+            },
+            "pm1_24h_co2_add": {
+                "name": "CO2 24H Avg PM1"
+            },
+            "pm4_24h_co2_add": {
+                "name": "CO2 24H Avg PM4"
+            },
+            "pm25_24h_co2_add": {
+                "name": "CO2 24H Avg PM2.5"
+            },
+            "pm10_24h_co2_add": {
+                "name": "CO2 24H Avg PM10"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Regen Status"
             }
         }
     }

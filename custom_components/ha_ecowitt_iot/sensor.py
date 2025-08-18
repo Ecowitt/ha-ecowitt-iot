@@ -355,6 +355,34 @@ SENSOR_DESCRIPTIONS = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
+        key="pm1_24h_co2_add",
+        translation_key="pm1_24h_co2_add",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM1,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm4_24h_co2_add",
+        translation_key="pm4_24h_co2_add",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM25,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm25_24h_co2_add",
+        translation_key="pm25_24h_co2_add",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM25,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="pm10_24h_co2_add",
+        translation_key="pm10_24h_co2_add",
+        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        device_class=SensorDeviceClass.PM10,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
         key="lightning",
         translation_key="lightning",
         icon="mdi:lightning-bolt",
@@ -401,11 +429,11 @@ SENSOR_DESCRIPTIONS = (
         translation_key="piezora_batt",
         icon="mdi:battery",
     ),
-    SensorEntityDescription(
-        key="srain_piezo",
-        translation_key="srain_piezo",
-        icon="mdi:weather-rainy",
-    ),
+    # SensorEntityDescription(
+    #     key="srain_piezo",
+    #     translation_key="srain_piezo",
+    #     icon="mdi:weather-rainy",
+    # ),
     SensorEntityDescription(
         key="pm1_co2",
         translation_key="pm1_co2",
@@ -488,6 +516,10 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.HEAT: SensorEntityDescription(
         key="HEAT",
         state_class=SensorStateClass.MEASUREMENT,
+    ),
+    WittiotDataTypes.BATTERY_BINARY: SensorEntityDescription(
+        key="BATTERY_BINARY",
+        icon="mdi:battery",
     ),
 }
 
