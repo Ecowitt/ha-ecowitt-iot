@@ -205,11 +205,53 @@
       },
       "pm10_24h_co2_add": {
         "name": "CO2 24H Avg PM10"
+      },
+      "iotbatt": {
+        "name": "Battery"
+      },
+      "signal": {
+        "name": "Signal"
+      },
+      "run_time": {
+        "name": "Run time"
+      },
+      "ver": {
+        "name": "Version"
+      },
+      "wfc02_position": {
+        "name": "Valve Opening Percentage"
+      },
+      "wfc02_flow_velocity": {
+        "name": "Flow velocity"
+      },
+      "velocity_total": {
+        "name": "Total"
+      },
+      "flow_velocity": {
+        "name": "Flow velocity"
+      },
+      "data_water_t": {
+        "name": "Temperature"
+      },
+      "data_ac_v": {
+        "name": "Voltage"
+      },
+      "elect_total": {
+        "name": "Energy"
+      },
+      "realtime_power": {
+        "name": "Power"
       }
     },
     "binary_sensor": {
       "srain_piezo": {
         "name": "Rain Status"
+      },
+      "rfnet_state": {
+        "name": "Is online"
+      },
+      "iot_running": {
+        "name": "Running"
       }
     }
   }

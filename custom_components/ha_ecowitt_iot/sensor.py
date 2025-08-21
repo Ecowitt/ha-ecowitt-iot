@@ -17,6 +17,12 @@ from homeassistant.const import (
     CONF_HOST,
     DEGREE,
     PERCENTAGE,
+    UnitOfTime,
+    UnitOfPower,
+    UnitOfEnergy,
+    UnitOfElectricPotential,
+    UnitOfVolume,
+    UnitOfVolumeFlowRate,
     UnitOfElectricPotential,
     UnitOfIrradiance,
     UnitOfLength,
@@ -30,7 +36,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-
+from homeassistant.helpers.entity import EntityCategory
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
 
@@ -167,7 +173,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfVolumetricFlux.INCHES_PER_HOUR,
         device_class=SensorDeviceClass.PRECIPITATION_INTENSITY,
         state_class=SensorStateClass.MEASUREMENT,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="eventrainin",
@@ -175,7 +181,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="dailyrainin",
@@ -183,7 +189,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="weeklyrainin",
@@ -191,7 +197,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="monthlyrainin",
@@ -199,7 +205,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="yearlyrainin",
@@ -207,7 +213,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="totalrainin",
@@ -215,7 +221,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="24hrainin",
@@ -223,7 +229,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="rrain_piezo",
@@ -231,7 +237,7 @@ SENSOR_DESCRIPTIONS = (
         native_unit_of_measurement=UnitOfVolumetricFlux.INCHES_PER_HOUR,
         device_class=SensorDeviceClass.PRECIPITATION_INTENSITY,
         state_class=SensorStateClass.MEASUREMENT,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="erain_piezo",
@@ -239,7 +245,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.MEASUREMENT,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="drain_piezo",
@@ -247,7 +253,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="wrain_piezo",
@@ -255,7 +261,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="mrain_piezo",
@@ -263,7 +269,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="yrain_piezo",
@@ -271,7 +277,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="train_piezo",
@@ -279,7 +285,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="24hrain_piezo",
@@ -287,7 +293,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
         state_class=SensorStateClass.TOTAL,
-        suggested_display_precision=1,
+        suggested_display_precision=2,
     ),
     SensorEntityDescription(
         key="co2in",
@@ -405,6 +411,7 @@ SENSOR_DESCRIPTIONS = (
         key="con_batt",
         translation_key="con_batt",
         icon="mdi:battery",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="con_batt_volt",
@@ -428,6 +435,7 @@ SENSOR_DESCRIPTIONS = (
         key="piezora_batt",
         translation_key="piezora_batt",
         icon="mdi:battery",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     # SensorEntityDescription(
     #     key="srain_piezo",
@@ -504,6 +512,7 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.BATTERY: SensorEntityDescription(
         key="BATTERY",
         icon="mdi:battery",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     WittiotDataTypes.DISTANCE: SensorEntityDescription(
         key="DISTANCE",
@@ -520,8 +529,107 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.BATTERY_BINARY: SensorEntityDescription(
         key="BATTERY_BINARY",
         icon="mdi:battery",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    WittiotDataTypes.SIGNAL: SensorEntityDescription(
+        key="SIGNAL",
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:signal",
+    ),
+    WittiotDataTypes.RSSI: SensorEntityDescription(
+        key="RSSI",
+        state_class=SensorStateClass.MEASUREMENT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:wifi",
     ),
 }
+# 定义 IoT 设备的传感器描述
+IOT_SENSOR_DESCRIPTIONS = (
+    SensorEntityDescription(
+        key="iotbatt",
+        translation_key="iotbatt",
+        icon="mdi:battery",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="signal",
+        translation_key="signal",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:signal",
+    ),
+    # SensorEntityDescription(
+    #     key="rfnet_state",
+    #     translation_key="rfnet_state",
+    #     entity_category=EntityCategory.DIAGNOSTIC,
+    # ),
+    # SensorEntityDescription(
+    #     key="iot_running",
+    #     translation_key="iot_running",
+    #     entity_category=EntityCategory.DIAGNOSTIC,
+    # ),
+    SensorEntityDescription(
+        key="run_time",
+        translation_key="run_time",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        device_class=SensorDeviceClass.DURATION,
+    ),
+    SensorEntityDescription(
+        key="ver",
+        translation_key="ver",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="wfc02_position",
+        translation_key="wfc02_position",
+        icon="mdi:valve",
+        native_unit_of_measurement=PERCENTAGE,
+    ),
+    SensorEntityDescription(
+        key="wfc02_flow_velocity",
+        translation_key="wfc02_flow_velocity",
+        native_unit_of_measurement=UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
+        device_class=SensorDeviceClass.VOLUME_FLOW_RATE,
+    ),
+    SensorEntityDescription(
+        key="velocity_total",
+        translation_key="velocity_total",
+        native_unit_of_measurement=UnitOfVolume.LITERS,
+        device_class=SensorDeviceClass.WATER,
+    ),
+    SensorEntityDescription(
+        key="flow_velocity",
+        translation_key="flow_velocity",
+        native_unit_of_measurement=UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
+        device_class=SensorDeviceClass.VOLUME_FLOW_RATE,
+    ),
+    SensorEntityDescription(
+        key="data_water_t",
+        translation_key="data_water_t",
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key="data_ac_v",
+        translation_key="data_ac_v",
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+    ),
+    SensorEntityDescription(
+        key="elect_total",
+        translation_key="elect_total",
+        native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
+        device_class=SensorDeviceClass.ENERGY,
+    ),
+    SensorEntityDescription(
+        key="realtime_power",
+        translation_key="realtime_power",
+        native_unit_of_measurement=UnitOfPower.WATT,
+        device_class=SensorDeviceClass.POWER,
+    ),
+)
 
 
 async def async_setup_entry(
@@ -559,6 +667,35 @@ async def async_setup_entry(
                 )
             )
     async_add_entities(subsensors)
+
+    if "iot_list" in coordinator.data:
+        iot_sensors: list[IotDeviceSensor] = []
+        desc_map = {desc.key: desc for desc in IOT_SENSOR_DESCRIPTIONS}
+        iot_data = coordinator.data["iot_list"]
+        commands = iot_data["command"]
+        for i, item in enumerate(commands):
+            nickname = item.get("nickname")
+            if nickname is None:
+                continue
+            for key in list(item):
+                if key in desc_map:
+                    desc = desc_map[key]
+                    device_desc = dataclasses.replace(
+                        desc,
+                        key=f"{nickname}_{desc.key}",
+                        # name=f"{device_info.get('name', f'设备 {device_id}')} {desc.name}",
+                    )
+                    # 添加到实体列表
+                    iot_sensors.append(
+                        IotDeviceSensor(
+                            coordinator=coordinator,
+                            device_id=nickname,
+                            description=device_desc,
+                            unique_id=entry.unique_id,
+                        )
+                    )
+                    # _LOGGER.info("%s : %s : %s", key, item[key], item["nickname"])
+        async_add_entities(iot_sensors)
 
 
 class MainDevEcowittSensor(
@@ -613,7 +750,7 @@ class SubDevEcowittSensor(
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
             manufacturer="Ecowitt",
-            name=f"{device_name}_{sensor_type}",
+            name=f"{sensor_type}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
             via_device=(DOMAIN, f"{device_name}"),
@@ -625,3 +762,49 @@ class SubDevEcowittSensor(
     def native_value(self) -> str | int | float | None:
         """Return the state."""
         return self.coordinator.data.get(self.entity_description.key)
+
+
+class IotDeviceSensor(CoordinatorEntity, SensorEntity):
+    """表示 IoT 设备的传感器实体"""
+
+    _attr_has_entity_name = True
+
+    def __init__(
+        self,
+        coordinator: EcowittDataUpdateCoordinator,
+        device_id: str,
+        description: SensorEntityDescription,
+        unique_id: str,
+    ) -> None:
+        """初始化 IoT 设备传感器"""
+        super().__init__(coordinator)
+        self.device_id = device_id
+        self.entity_description = description
+        self._attr_unique_id = f"{device_id}_{description.key}"
+
+        # 设置设备信息
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, f"{device_id}")},
+            name=f"{device_id}",
+            manufacturer="Ecowitt",
+            model=coordinator.data["ver"],
+            configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
+            via_device=(DOMAIN, unique_id),
+        )
+
+    @property
+    def native_value(self) -> str | int | float | None:
+        """获取传感器值"""
+        # # 从协调器获取设备数据
+        if "iot_list" in self.coordinator.data:
+            iot_data = self.coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            for i, item in enumerate(commands):
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                if nickname == self.device_id:
+                    key = self.entity_description.key.split("_", 1)[1]
+                    return item[key]
+
+        return None

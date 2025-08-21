@@ -9,6 +9,7 @@ from wittiot import MultiSensorInfo, WittiotDataTypes
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
+    EntityCategory,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -37,8 +38,24 @@ LEAK_DETECTION_SENSOR: Final = {
         key="BATTERY_BINARY",
         icon="mdi:battery",
         device_class=BinarySensorDeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 }
+
+IOT_BINARYSENSOR_DESCRIPTIONS = (
+    BinarySensorEntityDescription(
+        key="rfnet_state",
+        translation_key="rfnet_state",
+        device_class=BinarySensorDeviceClass.CONNECTIVITY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    BinarySensorEntityDescription(
+        key="iot_running",
+        translation_key="iot_running",
+        device_class=BinarySensorDeviceClass.RUNNING,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+)
 
 
 # 在设备设置函数中创建实体
@@ -78,6 +95,34 @@ async def async_setup_entry(
                 )
             )
     async_add_entities(binary_sensors)
+
+    if "iot_list" in coordinator.data:
+        iot_sensors: list[IotDeviceBinarySensor] = []
+        desc_map = {desc.key: desc for desc in IOT_BINARYSENSOR_DESCRIPTIONS}
+        iot_data = coordinator.data["iot_list"]
+        commands = iot_data["command"]
+        for i, item in enumerate(commands):
+            nickname = item.get("nickname")
+            if nickname is None:
+                continue
+            for key in list(item):
+                if key in desc_map:
+                    desc = desc_map[key]
+                    device_desc = dataclasses.replace(
+                        desc,
+                        key=f"{nickname}_{desc.key}",
+                        # name=f"{device_info.get('name', f'设备 {device_id}')} {desc.name}",
+                    )
+                    # 添加到实体列表
+                    iot_sensors.append(
+                        IotDeviceBinarySensor(
+                            coordinator=coordinator,
+                            device_id=nickname,
+                            description=device_desc,
+                            unique_id=entry.unique_id,
+                        )
+                    )
+        async_add_entities(iot_sensors)
 
 
 class MainDevEcowittBinarySensor(
@@ -148,7 +193,7 @@ class SubDevEcowittBinarySensor(
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
             manufacturer="Ecowitt",
-            name=f"{device_name}_{sensor_type}",
+            name=f"{sensor_type}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
             via_device=(DOMAIN, f"{device_name}"),
@@ -172,3 +217,49 @@ class SubDevEcowittBinarySensor(
     def available(self) -> bool:
         """实体是否可用"""
         return super().available and self._sensor_key in self.coordinator.data
+
+
+class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
+    """表示 IoT 设备的传感器实体"""
+
+    _attr_has_entity_name = True
+
+    def __init__(
+        self,
+        coordinator: EcowittDataUpdateCoordinator,
+        device_id: str,
+        description: BinarySensorEntityDescription,
+        unique_id: str,
+    ) -> None:
+        """初始化 IoT 设备传感器"""
+        super().__init__(coordinator)
+        self.device_id = device_id
+        self.entity_description = description
+        self._attr_unique_id = f"{device_id}_{description.key}"
+
+        # 设置设备信息
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, f"{device_id}")},
+            name=f"{device_id}",
+            manufacturer="Ecowitt",
+            model=coordinator.data["ver"],
+            configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
+            via_device=(DOMAIN, unique_id),
+        )
+
+    @property
+    def is_on(self) -> bool | None:
+        """返回二进制传感器状态 (True 表示检测到漏水)."""
+        """获取传感器值"""
+        # # 从协调器获取设备数据
+        if "iot_list" in self.coordinator.data:
+            iot_data = self.coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            for i, item in enumerate(commands):
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                if nickname == self.device_id:
+                    key = self.entity_description.key.split("_", 1)[1]
+                    return item[key]
+        return None  # 如果数据不可用返回None
