@@ -14,7 +14,7 @@ from .coordinator import EcowittDataUpdateCoordinator
 _LOGGER = logging.getLogger(__name__)
 
 
-PLATFORMS = [Platform.SENSOR, Platform.BINARY_SENSOR]
+PLATFORMS = [Platform.SENSOR, Platform.BINARY_SENSOR, Platform.SWITCH]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

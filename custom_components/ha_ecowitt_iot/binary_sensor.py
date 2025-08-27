@@ -261,5 +261,5 @@ class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
                     continue
                 if nickname == self.device_id:
                     key = self.entity_description.key.split("_", 1)[1]
-                    return item[key]
+                    return item.get(key, None)
         return None  # 如果数据不可用返回None

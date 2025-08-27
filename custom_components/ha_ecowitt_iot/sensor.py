@@ -607,7 +607,7 @@ IOT_SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="data_water_t",
         translation_key="data_water_t",
-        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -805,6 +805,5 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
                     continue
                 if nickname == self.device_id:
                     key = self.entity_description.key.split("_", 1)[1]
-                    return item[key]
-
+                    return item.get(key, None)
         return None
