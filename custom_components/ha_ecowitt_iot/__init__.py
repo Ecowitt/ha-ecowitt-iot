@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.const import CONF_HOST
-from .const import DOMAIN
+from .const import DOMAIN, CONF_VERSION
 from .coordinator import EcowittDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)

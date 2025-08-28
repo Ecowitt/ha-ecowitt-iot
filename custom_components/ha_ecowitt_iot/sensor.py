@@ -3,7 +3,7 @@
 import dataclasses
 from typing import Final
 import logging
-from wittiot import MultiSensorInfo, WittiotDataTypes
+from wittiot import MultiSensorInfo, WittiotDataTypes, SubSensorname
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -39,6 +39,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
+from homeassistant.helpers import device_registry as dr
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -632,10 +633,37 @@ IOT_SENSOR_DESCRIPTIONS = (
 )
 
 
+def async_remove_old_sub_device(self):
+    """删除旧的子设备"""
+
+    # 获取设备注册表
+    device_reg = dr.async_get(self)
+
+    prefixes = SubSensorname.prefixes
+    # 通过唯一标识符查找设备
+    # 注意：这里假设你用 unique_id 来匹配设备
+    device = None
+    deviceid = []
+    for dev in device_reg.devices.values():
+        if dev.identifiers:
+            # 遍历该设备的所有标识符
+            for identifier in dev.identifiers:
+                # 假设你的设备标识符元组格式为 (domain, unique_id)
+                if [prefix for prefix in prefixes if prefix in identifier[1]]:
+                    device = dev
+                    deviceid.append(device.id)
+
+    for oldsub in deviceid:
+        device_reg.async_remove_device(oldsub)
+        _LOGGER.debug("Old sub device %s removed successfully", oldsub)
+
+
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up sensor entities based on a config entry."""
+    async_remove_old_sub_device(hass)
+
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_entities(
         MainDevEcowittSensor(coordinator, entry.unique_id, desc)
@@ -747,13 +775,20 @@ class SubDevEcowittSensor(
     ) -> None:
         """Initialize."""
         super().__init__(coordinator)
+        # self._attr_device_info = DeviceInfo(
+        #     identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
+        #     manufacturer="Ecowitt",
+        #     name=f"{sensor_type}",
+        #     model=coordinator.data["ver"],
+        #     configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
+        #     via_device=(DOMAIN, f"{device_name}"),
+        # )
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
+            identifiers={(DOMAIN, f"{device_name}")},
             manufacturer="Ecowitt",
-            name=f"{sensor_type}",
+            name=f"{device_name}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
-            via_device=(DOMAIN, f"{device_name}"),
         )
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description

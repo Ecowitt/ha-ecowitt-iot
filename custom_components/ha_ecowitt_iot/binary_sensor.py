@@ -188,15 +188,12 @@ class SubDevEcowittBinarySensor(
     ) -> None:
         """初始化漏水检测传感器."""
         super().__init__(coordinator)
-
-        # 设置设备信息
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
+            identifiers={(DOMAIN, f"{device_name}")},
             manufacturer="Ecowitt",
-            name=f"{sensor_type}",
+            name=f"{device_name}",
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
-            via_device=(DOMAIN, f"{device_name}"),
         )
 
         # 设置唯一ID和实体描述
