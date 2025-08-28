@@ -32,7 +32,6 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 ## :bulb: Usage
 Ecowitt Official Integration:
 This integration uses the locally available HTTP APIs to obtain data from the supported devices inside the local network.
-
 Ecowitt Official Integration Compatibility Instructions:
 | Ecowitt Official Integration        |  IoT device    |Model|
 |:-----------:|:-----------:|:-----------|
@@ -42,7 +41,6 @@ Ecowitt Official Integration Compatibility Instructions:
 
 HA Default Integration: www.home-assistant.io/integrations/ecowitt/ 
 This integration uses the HTTP upload to a 3rd-party to obtain data from the supported devices.
-
 HA Default Integration Compatibility Instructions:
 | HA Default Integration   |  IoT device    |Model|
 |:-----------:|:-----------:|:-----------|
