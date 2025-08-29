@@ -649,9 +649,10 @@ def async_remove_old_sub_device(self):
             # 遍历该设备的所有标识符
             for identifier in dev.identifiers:
                 # 假设你的设备标识符元组格式为 (domain, unique_id)
-                if [prefix for prefix in prefixes if prefix in identifier[1]]:
-                    device = dev
-                    deviceid.append(device.id)
+                if isinstance(identifier[1], (str, list)):  # 确保可迭代
+                    if [prefix for prefix in prefixes if prefix in identifier[1]]:
+                        device = dev
+                        deviceid.append(device.id)
 
     for oldsub in deviceid:
         device_reg.async_remove_device(oldsub)
