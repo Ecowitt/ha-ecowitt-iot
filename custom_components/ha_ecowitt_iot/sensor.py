@@ -623,6 +623,7 @@ IOT_SENSOR_DESCRIPTIONS = (
         translation_key="elect_total",
         native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL,
     ),
     SensorEntityDescription(
         key="realtime_power",
@@ -645,14 +646,17 @@ def async_remove_old_sub_device(self):
     device = None
     deviceid = []
     for dev in device_reg.devices.values():
-        if dev.identifiers:
-            # 遍历该设备的所有标识符
-            for identifier in dev.identifiers:
-                # 假设你的设备标识符元组格式为 (domain, unique_id)
-                if isinstance(identifier[1], (str, list)):  # 确保可迭代
-                    if [prefix for prefix in prefixes if prefix in identifier[1]]:
-                        device = dev
-                        deviceid.append(device.id)
+        if not dev.identifiers:
+            continue  # 跳过没有标识符的设备
+        # 遍历该设备的所有标识符
+        for identifier in dev.identifiers:
+            if len(identifier) < 2:
+                continue  # 跳过格式不正确的标识符
+            # 假设你的设备标识符元组格式为 (domain, unique_id)
+            if isinstance(identifier[1], (str, list)):  # 确保可迭代
+                if [prefix for prefix in prefixes if prefix in identifier[1]]:
+                    device = dev
+                    deviceid.append(device.id)
 
     for oldsub in deviceid:
         device_reg.async_remove_device(oldsub)
