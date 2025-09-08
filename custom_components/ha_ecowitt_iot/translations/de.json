@@ -18,6 +18,17 @@
             }
         }
     },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Konfiguration",
+                "description": "Aktualisieren Sie die Einstellungen für Ihr Ecowitt-Gerät",
+                "data": {
+                    "host": "IP Adresse Gerät"
+                }
+            }
+        }
+    },
     "entity": {
         "sensor": {
             "tempinf": {
