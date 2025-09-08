@@ -33,7 +33,7 @@ This integration can be added to Home Assistant as a [custom HACS repository](ht
 Ecowitt Official Integration:
 This integration uses the locally available HTTP APIs to obtain data from the supported devices inside the local network.
 Ecowitt Official Integration Compatibility Instructions:
-| Ecowitt Official Integration        |  IoT device    |Model|
+| Ecowitt Official Integration        |  IoT device    |Gateway Model|
 |:-----------:|:-----------:|:-----------|
 | ×      | ×      |GW1000,WS6006,WN1900,WN1910,WS2320,WS2910,HP2550,HP3500,HP2560|
 | ✓      | ×      |GW1100|
@@ -42,7 +42,7 @@ Ecowitt Official Integration Compatibility Instructions:
 HA Default Integration: www.home-assistant.io/integrations/ecowitt/ 
 This integration uses the HTTP upload to a 3rd-party to obtain data from the supported devices.
 HA Default Integration Compatibility Instructions:
-| HA Default Integration   |  IoT device    |Model|
+| HA Default Integration   |  IoT device    |Gateway Model|
 |:-----------:|:-----------:|:-----------|
 | ×      | ×      |WS6006|
 | ✓      | ×      |GW1000,WN1900,WN1910,WS2320,WS2910,HP2550,HP3500,HP2560,GW1100,GW1200,GW2000,GW3000,WS6210,WN1700,WN1820,WN1821,WN1920,WN1980,WS3800,WS3820,WS3900,WS3910|
