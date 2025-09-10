@@ -91,18 +91,21 @@ SENSOR_DESCRIPTIONS = (
         translation_key="humidityin",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="humidity",
         translation_key="humidity",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="humi_co2",
         translation_key="humi_co2",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="baromrelin",
@@ -494,6 +497,7 @@ ECOWITT_SENSORS_MAPPING: Final = {
         key="HUMIDITY",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     WittiotDataTypes.PM25: SensorEntityDescription(
         key="PM25",
