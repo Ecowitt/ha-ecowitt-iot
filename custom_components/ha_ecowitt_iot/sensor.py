@@ -17,6 +17,7 @@ from homeassistant.const import (
     CONF_HOST,
     DEGREE,
     PERCENTAGE,
+    SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
     UnitOfTime,
     UnitOfPower,
     UnitOfEnergy,
@@ -545,6 +546,7 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.RSSI: SensorEntityDescription(
         key="RSSI",
         state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT, 
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:wifi",
     ),

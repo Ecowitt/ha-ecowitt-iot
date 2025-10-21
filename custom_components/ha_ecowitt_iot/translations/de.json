@@ -21,8 +21,8 @@
     "options": {
         "step": {
             "init": {
-                "title": "Konfiguration",
-                "description": "Aktualisieren Sie die Einstellungen für Ihr Ecowitt-Gerät",
+                "title": "Gerät Konfiguration",
+                "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "data": {
                     "host": "IP Adresse Gerät"
                 }
@@ -70,14 +70,53 @@
             "feellike": {
                 "name": "Gefühlte Temperatur"
             },
+            "apparent": {
+                "name": "Apparent Temperatur"
+            },
             "dewpoint": {
                 "name": "Taupunkt"
+            },
+            "lds_air_ch1": {
+                "name": "Höhenmesser 1 gesamt"
+            },
+            "lds_heat_ch1": {
+                "name": "Höhenmesser 1 Heizung"
+            },
+            "lds_dep_ch1": {
+                "name": "Höhenmesser 1"
+            },
+            "lds_air_ch2": {
+                "name": "Höhenmesser 2 gesamt"
+            },
+            "lds_heat_ch2": {
+                "name": "Höhenmesser 2 Heizung"
+            },
+            "lds_dep_ch2": {
+                "name": "Höhenmesser 2"
+            },
+            "lds_air_ch3": {
+                "name": "Höhenmesser 3 gesamt"
+            },
+            "lds_heat_ch3": {
+                "name": "Höhenmesser 3 Heizung"
+            },
+            "lds_dep_ch3": {
+                "name": "Höhenmesser 3"
+            },
+            "lds_air_ch4": {
+                "name": "Höhenmesser 4 gesamt"
+            },
+            "lds_heat_ch4": {
+                "name": "Höhenmesser 4 Heizung"
+            },
+            "lds_dep_ch4": {
+                "name": "Höhenmesser 4"
             },
             "rainratein": {
                 "name": "Regenrate"
             },
             "eventrainin": {
-                "name": "Regenturm"
+                "name": "Regensturm"
             },
             "dailyrainin": {
                 "name": "Regen Tag"
@@ -125,13 +164,13 @@
                 "name": "CO2 PM2.5"
             },
             "pm25_24h_co2": {
-                "name": "CO2 PM2.5 AQI"
+                "name": "CO2 PM2.5 AQI 24H"
             },
             "pm10_co2": {
                 "name": "CO2 PM10"
             },
             "pm10_24h_co2": {
-                "name": "CO2 PM10 24H AQI"
+                "name": "CO2 PM10 AQI 24H"
             },
             "pm10_aqi_co2": {
                 "name": "CO2 PM10 AQI"
@@ -155,43 +194,43 @@
                 "name": "Blitze Anzahl"
             },
             "winddir10": {
-                "name": "10Min.Avg Windrichtung"
-            },
-            "apparent": {
-                "name": "Apparent"
+                "name": "Windrichtung 10min durchs."
             },
             "vpd": {
-                "name": "VPD"
+                "name": "Dampfdruckdefizit"
             },
             "totalrainin": {
-                "name": "Regen Gesamter"
+                "name": "Regen Gesamt"
             },
             "24hrainin": {
-                "name": "Regen 24 Stunden"
+                "name": "Regen 24 Std"
             },
             "train_piezo": {
-                "name": "Regen Gesamter Piezo"
+                "name": "Regen Gesamt Piezo"
             },
             "24hrain_piezo": {
-                "name": "Regen 24 Stunden Piezo"
+                "name": "Regen 24 Std. Piezo"
             },
             "con_batt": {
                 "name": "Konsole Batterie"
             },
             "con_batt_volt": {
-                "name": "Konsole Batterie Voltage"
+                "name": "Konsole Batterie Spannung"
             },
             "con_ext_volt": {
-                "name": "Konsole Externe Stromspannung"
+                "name": "Konsole ext. Spannung"
+            },
+            "srain_piezo": {
+                "name": "Regen Status"
             },
             "piezora_batt": {
-                "name": "Piezo Batterie"
+                "name": "Batterie Piezo"
             },
             "pm1_co2": {
                 "name": "CO2 PM1"
             },
             "pm1_24h_co2": {
-                "name": "CO2 24H PM1 AQI"
+                "name": "CO2 PM1 AQI 24H"
             },
             "pm1_aqi_co2": {
                 "name": "CO2 PM1 AQI"
@@ -200,22 +239,22 @@
                 "name": "CO2 PM4"
             },
             "pm4_24h_co2": {
-                "name": "CO2 24H PM4 AQI"
+                "name": "CO2 PM4 AQI 24H"
             },
             "pm4_aqi_co2": {
                 "name": "CO2 PM4 AQI"
             },
             "pm1_24h_co2_add": {
-                "name": "CO2 24H Avg PM1"
+                "name": "CO2 Avg PM1 24H"
             },
             "pm4_24h_co2_add": {
-                "name": "CO2 24H Avg PM4"
+                "name": "CO2 Avg PM4 24H"
             },
             "pm25_24h_co2_add": {
-                "name": "CO2 24H Avg PM2.5"
+                "name": "CO2 Avg PM2.5 24H"
             },
             "pm10_24h_co2_add": {
-                "name": "CO2 24H Avg PM10"
+                "name": "CO2 Avg PM10 24H"
             },
             "iotbatt": {
                 "name": "Batterie"
@@ -224,7 +263,7 @@
                 "name": "Signal"
             },
             "run_time": {
-                "name": "Run time"
+                "name": "Laufzeit"
             },
             "ver": {
                 "name": "Versionen"
@@ -233,25 +272,25 @@
                 "name": "Öffnungsprozentsatz"
             },
             "wfc02_flow_velocity": {
-                "name": "Flow Geschwindigkeit"
+                "name": "Fluss Geschwindigkeit"
             },
             "velocity_total": {
                 "name": "Gesamt"
             },
             "flow_velocity": {
-                "name": "Flow Geschwindigkeit"
+                "name": "Fluss Geschwindigkeit"
             },
             "data_water_t": {
-                "name": "Temperature"
+                "name": "Wasser Temperatur"
             },
             "data_ac_v": {
-                "name": "Voltage"
+                "name": "Spannung"
             },
             "elect_total": {
                 "name": "Energie"
             },
             "realtime_power": {
-                "name": "Power"
+                "name": "Leistung"
             }
         },
         "binary_sensor": {

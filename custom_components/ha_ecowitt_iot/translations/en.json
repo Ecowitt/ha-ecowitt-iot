@@ -158,7 +158,7 @@
                 "name": "10Min.Avg Wind Direction"
             },
             "apparent": {
-                "name": "Apparent"
+                "name": "Apparent Temperatur"
             },
             "vpd": {
                 "name": "VPD"
