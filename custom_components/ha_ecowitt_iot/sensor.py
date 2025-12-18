@@ -113,12 +113,14 @@ SENSOR_DESCRIPTIONS = (
         translation_key="baromrelin",
         native_unit_of_measurement=UnitOfPressure.INHG,
         device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="baromabsin",
         translation_key="baromabsin",
         native_unit_of_measurement=UnitOfPressure.INHG,
         device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="vpd",
