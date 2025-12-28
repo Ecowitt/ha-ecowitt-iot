@@ -259,13 +259,13 @@
         },
         "binary_sensor": {
             "srain_piezo": {
-                "name": "Rain Status"
+                "name": "Capteur de pluie"
             },
             "rfnet_state": {
-                "name": "Is online"
+                "name": "Connection"
             },
             "iot_running": {
-                "name": "Running"
+                "name": "En cours"
             }
         }
     }
