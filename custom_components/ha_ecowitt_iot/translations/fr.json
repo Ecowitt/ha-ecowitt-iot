@@ -95,7 +95,7 @@
                 "name": "Piézo taux de précipitation"
             },
             "erain_piezo": {
-                "name": "Piézo Pluie actuelle"
+                "name": "Piézo pluie actuelle"
             },
             "drain_piezo": {
                 "name": "Piézo pluie (aujourd'hui)"
@@ -146,7 +146,7 @@
                 "name": "CO2 humidité"
             },
             "lightning": {
-                "name": "Distance dernier éclair"
+                "name": "Distance du dernier éclair"
             },
             "lightning_time": {
                 "name": "Dernier éclair"
@@ -227,7 +227,7 @@
                 "name": "Signal"
             },
             "run_time": {
-                "name": "Durée d'exécution"
+                "name": "Durée de fonctionnement"
             },
             "ver": {
                 "name": "Version"
@@ -248,7 +248,7 @@
                 "name": "Température"
             },
             "data_ac_v": {
-                "name": "Voltage"
+                "name": "Tension"
             },
             "elect_total": {
                 "name": "Énergie"
