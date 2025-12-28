@@ -1,0 +1,272 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est déjà configuré"
+        },
+        "error": {
+            "cannot_connect": "Erreur de connection",
+            "invalid_auth": "Authentification invalide",
+            "unknown": "Erreur inconnue"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Adresse IP de l'appareil"
+                },
+                "description": "Merci de saisir l'adresse IP de l'appareil afin de consulter ses données",
+                "title": "Configuration de l'appareil"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Configurer",
+                "description": "Mettre à jour les réglages de votre appareil Ecowitt",
+                "data": {
+                    "host": "Adresse IP de l'appareil"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "tempinf": {
+                "name": "Température intérieure"
+            },
+            "humidityin": {
+                "name": "Humidité intérieure"
+            },
+            "tempf": {
+                "name": "Température extérieure"
+            },
+            "baromrelin": {
+                "name": "Pression relative"
+            },
+            "baromabsin": {
+                "name": "Pression absolue"
+            },
+            "humidity": {
+                "name": "Humidité extérieure"
+            },
+            "winddir": {
+                "name": "Direction du vent"
+            },
+            "windspeedmph": {
+                "name": "Vitesse du vent"
+            },
+            "windgustmph": {
+                "name": "Vitesse des rafales"
+            },
+            "solarradiation": {
+                "name": "Irradiance solaire"
+            },
+            "uv": {
+                "name": "Index UV"
+            },
+            "daywindmax": {
+                "name": "Vitesse maximale du vent (aujourd'hui)"
+            },
+            "feellike": {
+                "name": "Température extérieure ressentie"
+            },
+            "dewpoint": {
+                "name": "Point de rosée"
+            },
+            "rainratein": {
+                "name": "Taux de précipitation"
+            },
+            "eventrainin": {
+                "name": "Pluie actuelle"
+            },
+            "dailyrainin": {
+                "name": "Pluie (aujourd'hui)"
+            },
+            "weeklyrainin": {
+                "name": "Pluie (cette semaine)"
+            },
+            "monthlyrainin": {
+                "name": "Pluie (ce mois)"
+            },
+            "yearlyrainin": {
+                "name": "Pluie (cette année)"
+            },
+            "rrain_piezo": {
+                "name": "Piézo taux de précipitation"
+            },
+            "erain_piezo": {
+                "name": "Piézo pluie actuelle"
+            },
+            "drain_piezo": {
+                "name": "Piézo pluie (aujourd'hui)"
+            },
+            "wrain_piezo": {
+                "name": "Piézo pluie (cette semaine)"
+            },
+            "mrain_piezo": {
+                "name": "Piézo pluie (ce mois)"
+            },
+            "yrain_piezo": {
+                "name": "Piézo pluie (cette année)"
+            },
+            "co2in": {
+                "name": "CO2 intérieur"
+            },
+            "co2in_24h": {
+                "name": "Moyenne CO2 intérieur (24 heures)"
+            },
+            "co2": {
+                "name": "CO2"
+            },
+            "co2_24h": {
+                "name": "Moyenne CO2 (24 heures)"
+            },
+            "pm25_co2": {
+                "name": "CO2 PM2.5"
+            },
+            "pm25_24h_co2": {
+                "name": "CO2 PM2.5 AQI (24 heures)"
+            },
+            "pm10_co2": {
+                "name": "CO2 PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "CO2 PM10 AQI (24 heures)"
+            },
+            "pm10_aqi_co2": {
+                "name": "CO2 PM10 AQI"
+            },
+            "pm25_aqi_co2": {
+                "name": "CO2 PM2.5 AQI"
+            },
+            "tf_co2": {
+                "name": "CO2 température"
+            },
+            "humi_co2": {
+                "name": "CO2 humidité"
+            },
+            "lightning": {
+                "name": "Distance du dernier éclair"
+            },
+            "lightning_time": {
+                "name": "Dernier éclair"
+            },
+            "lightning_num": {
+                "name": "Total journalier d'éclairs"
+            },
+            "winddir10": {
+                "name": "Direction moyenne du vent (10 dernières minutes)"
+            },
+            "apparent": {
+                "name": "Température apparente"
+            },
+            "vpd": {
+                "name": "Déficit de pression de vapeur"
+            },
+            "totalrainin": {
+                "name": "Pluie totale"
+            },
+            "24hrainin": {
+                "name": "Pluie (24 heures)"
+            },
+            "train_piezo": {
+                "name": "Piézo pluie totale"
+            },
+            "24hrain_piezo": {
+                "name": "Piézo pluie (24 heures)"
+            },
+            "con_batt": {
+                "name": "Batterie de la console"
+            },
+            "con_batt_volt": {
+                "name": "Tension de la console"
+            },
+            "con_ext_volt": {
+                "name": "Tension de l'alimentation externe de la console"
+            },
+            "srain_piezo": {
+                "name": "Statut de la pluie"
+            },
+            "piezora_batt": {
+                "name": "Batterie du piézo"
+            },
+            "pm1_co2": {
+                "name": "CO2 PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "CO2 PM1 AQI (24 heures)"
+            },
+            "pm1_aqi_co2": {
+                "name": "CO2 PM1 AQI"
+            },
+            "pm4_co2": {
+                "name": "CO2 PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "CO2 PM4 AQI (24 heures)"
+            },
+            "pm4_aqi_co2": {
+                "name": "CO2 PM4 AQI"
+            },
+            "pm1_24h_co2_add": {
+                "name": "Moyenne CO2 PM1 (24 heures)"
+            },
+            "pm4_24h_co2_add": {
+                "name": "Moyenne CO2 PM4 (24 heures)"
+            },
+            "pm25_24h_co2_add": {
+                "name": "Moyenne CO2 PM2.5 (24 heures)"
+            },
+            "pm10_24h_co2_add": {
+                "name": "Moyenne CO2 PM10 (24 heures)"
+            },
+            "iotbatt": {
+                "name": "Batterie"
+            },
+            "signal": {
+                "name": "Signal"
+            },
+            "run_time": {
+                "name": "Durée de fonctionnement"
+            },
+            "ver": {
+                "name": "Version"
+            },
+            "wfc02_position": {
+                "name": "Pourcentage d'ouverture de la valve"
+            },
+            "wfc02_flow_velocity": {
+                "name": "Vitesse d'écoulement"
+            },
+            "velocity_total": {
+                "name": "Total"
+            },
+            "flow_velocity": {
+                "name": "Vitesse d'écoulement"
+            },
+            "data_water_t": {
+                "name": "Température"
+            },
+            "data_ac_v": {
+                "name": "Tension"
+            },
+            "elect_total": {
+                "name": "Énergie"
+            },
+            "realtime_power": {
+                "name": "Puissance"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Capteur de pluie"
+            },
+            "rfnet_state": {
+                "name": "Connection"
+            },
+            "iot_running": {
+                "name": "En cours"
+            }
+        }
+    }
+}
