@@ -416,6 +416,9 @@ SENSOR_DESCRIPTIONS = (
         key="con_batt",
         translation_key="con_batt",
         icon="mdi:battery",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
@@ -440,6 +443,9 @@ SENSOR_DESCRIPTIONS = (
         key="piezora_batt",
         translation_key="piezora_batt",
         icon="mdi:battery",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     # SensorEntityDescription(
@@ -518,6 +524,9 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.BATTERY: SensorEntityDescription(
         key="BATTERY",
         icon="mdi:battery",
+        device_class=SensorDeviceClass.BATTERY,
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     WittiotDataTypes.DISTANCE: SensorEntityDescription(
@@ -546,7 +555,7 @@ ECOWITT_SENSORS_MAPPING: Final = {
     WittiotDataTypes.RSSI: SensorEntityDescription(
         key="RSSI",
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT, 
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:wifi",
     ),
@@ -765,8 +774,20 @@ class MainDevEcowittSensor(
 
     @property
     def native_value(self) -> str | int | float | None:
-        """Return the state."""
-        return self.coordinator.data.get(self.entity_description.key)
+        value = self.coordinator.data.get(self.entity_description.key)
+
+        # converting battery percentage string to integer
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and isinstance(value, str)
+            and value.endswith("%")
+        ):
+            try:
+                return int(value[:-1])
+            except ValueError:
+                return None
+
+        return value
 
 
 class SubDevEcowittSensor(
@@ -807,7 +828,20 @@ class SubDevEcowittSensor(
     @property
     def native_value(self) -> str | int | float | None:
         """Return the state."""
-        return self.coordinator.data.get(self.entity_description.key)
+        value = self.coordinator.data.get(self.entity_description.key)
+
+        # converting battery percentage string to integer
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and isinstance(value, str)
+            and value.endswith("%")
+        ):
+            try:
+                return int(value[:-1])
+            except ValueError:
+                return None
+
+        return value
 
 
 class IotDeviceSensor(CoordinatorEntity, SensorEntity):
