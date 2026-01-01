@@ -760,6 +760,14 @@ class MainDevEcowittSensor(
             model=coordinator.data["ver"],
             configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
         )
+
+        # adding mac address as connection info
+        mac = coordinator.data["mac"]
+        if mac:
+            self._attr_device_info["connections"] = {
+                (dr.CONNECTION_NETWORK_MAC, dr.format_mac(mac))
+            }
+
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
 
