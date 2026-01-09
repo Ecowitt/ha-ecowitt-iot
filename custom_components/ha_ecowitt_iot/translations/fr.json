@@ -1,30 +1,30 @@
 {
     "config": {
         "abort": {
-            "already_configured": "Device is already configured"
+            "already_configured": "L'appareil est déjà configuré"
         },
         "error": {
-            "cannot_connect": "Failed to connect",
-            "invalid_auth": "Invalid authentication",
-            "unknown": "Unexpected error"
+            "cannot_connect": "Erreur de connection",
+            "invalid_auth": "Authentification invalide",
+            "unknown": "Erreur inconnue"
         },
         "step": {
             "user": {
                 "data": {
-                    "host": "Device IP address"
+                    "host": "Adresse IP de l'appareil"
                 },
-                "description": "Please enter the IP address of the device to view the data",
-                "title": "Device configuration"
+                "description": "Merci de saisir l'adresse IP de l'appareil afin de consulter ses données",
+                "title": "Configuration de l'appareil"
             }
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Configure",
-                "description": "Update the settings for your Ecowitt device",
+                "title": "Configurer",
+                "description": "Mettre à jour les réglages de votre appareil Ecowitt",
                 "data": {
-                    "host": "Device IP address"
+                    "host": "Adresse IP de l'appareil"
                 }
             }
         }
@@ -38,106 +38,106 @@
                 "name": "WBGT"
             },
             "tempinf": {
-                "name": "Indoor temperature"
+                "name": "Température intérieure"
             },
             "humidityin": {
-                "name": "Indoor humidity"
+                "name": "Humidité intérieure"
             },
             "tempf": {
-                "name": "Outdoor temperature"
+                "name": "Température extérieure"
             },
             "baromrelin": {
-                "name": "Relative pressure"
+                "name": "Pression relative"
             },
             "baromabsin": {
-                "name": "Absolute pressure"
+                "name": "Pression absolue"
             },
             "humidity": {
-                "name": "Outdoor humidity"
+                "name": "Humidité extérieure"
             },
             "winddir": {
-                "name": "Wind direction"
+                "name": "Direction du vent"
             },
             "windspeedmph": {
-                "name": "Wind speed"
+                "name": "Vitesse du vent"
             },
             "windgustmph": {
-                "name": "Wind gust"
+                "name": "Vitesse des rafales"
             },
             "solarradiation": {
-                "name": "Solar irradiance"
+                "name": "Irradiance solaire"
             },
             "uv": {
-                "name": "UV-Index"
+                "name": "Index UV"
             },
             "daywindmax": {
-                "name": "Day wind max"
+                "name": "Vitesse maximale du vent (aujourd'hui)"
             },
             "feellike": {
-                "name": "Feel likes"
+                "name": "Température extérieure ressentie"
             },
             "dewpoint": {
-                "name": "Dew point"
+                "name": "Point de rosée"
             },
             "rainratein": {
-                "name": "Rain rate"
+                "name": "Taux de précipitation"
             },
             "eventrainin": {
-                "name": "Rain event"
+                "name": "Pluie actuelle"
             },
             "dailyrainin": {
-                "name": "Daily rainfall"
+                "name": "Pluie (aujourd'hui)"
             },
             "weeklyrainin": {
-                "name": "Weekly rainfall"
+                "name": "Pluie (cette semaine)"
             },
             "monthlyrainin": {
-                "name": "Monthly rainfall"
+                "name": "Pluie (ce mois)"
             },
             "yearlyrainin": {
-                "name": "Yearly rainfall"
+                "name": "Pluie (cette année)"
             },
             "rrain_piezo": {
-                "name": "Piezo rain rate"
+                "name": "Piézo taux de précipitation"
             },
             "erain_piezo": {
-                "name": "Piezo rain event"
+                "name": "Piézo pluie actuelle"
             },
             "drain_piezo": {
-                "name": "Daily piezo rainfall"
+                "name": "Piézo pluie (aujourd'hui)"
             },
             "wrain_piezo": {
-                "name": "Weekly piezo rainfall"
+                "name": "Piézo pluie (cette semaine)"
             },
             "mrain_piezo": {
-                "name": "Monthly piezo rainfall"
+                "name": "Piézo pluie (ce mois)"
             },
             "yrain_piezo": {
-                "name": "Yearly piezo rainfall"
+                "name": "Piézo pluie (cette année)"
             },
             "co2in": {
-                "name": "Indoor co2"
+                "name": "CO2 intérieur"
             },
             "co2in_24h": {
-                "name": "Indoor 24H avg co2"
+                "name": "Moyenne CO2 intérieur (24 heures)"
             },
             "co2": {
                 "name": "CO2"
             },
             "co2_24h": {
-                "name": "24H avg co2"
+                "name": "Moyenne CO2 (24 heures)"
             },
             "pm25_co2": {
                 "name": "CO2 PM2.5"
             },
             "pm25_24h_co2": {
-                "name": "CO2 24H PM2.5 AQI"
+                "name": "CO2 PM2.5 AQI (24 heures)"
             },
             "pm10_co2": {
                 "name": "CO2 PM10"
             },
             "pm10_24h_co2": {
-                "name": "CO2 24H PM10 AQI"
+                "name": "CO2 PM10 AQI (24 heures)"
             },
             "pm10_aqi_co2": {
                 "name": "CO2 PM10 AQI"
@@ -146,61 +146,61 @@
                 "name": "CO2 PM2.5 AQI"
             },
             "tf_co2": {
-                "name": "CO2 temperature"
+                "name": "CO2 température"
             },
             "humi_co2": {
-                "name": "CO2 humidity"
+                "name": "CO2 humidité"
             },
             "lightning": {
-                "name": "Thunder last distance"
+                "name": "Distance du dernier éclair"
             },
             "lightning_time": {
-                "name": "Thunder last timestamp"
+                "name": "Dernier éclair"
             },
             "lightning_num": {
-                "name": "Thunder daily count"
+                "name": "Total journalier d'éclairs"
             },
             "winddir10": {
-                "name": "10Min.Avg Wind Direction"
+                "name": "Direction moyenne du vent (10 dernières minutes)"
             },
             "apparent": {
-                "name": "Apparent Temperatur"
+                "name": "Température apparente"
             },
             "vpd": {
-                "name": "VPD"
+                "name": "Déficit de pression de vapeur"
             },
             "totalrainin": {
-                "name": "Total rainfall"
+                "name": "Pluie totale"
             },
             "24hrainin": {
-                "name": "24 Hours rainfall"
+                "name": "Pluie (24 heures)"
             },
             "train_piezo": {
-                "name": "Total piezo rainfall"
+                "name": "Piézo pluie totale"
             },
             "24hrain_piezo": {
-                "name": "24 Hours piezo rainfall"
+                "name": "Piézo pluie (24 heures)"
             },
             "con_batt": {
-                "name": "Console Battery"
+                "name": "Batterie de la console"
             },
             "con_batt_volt": {
-                "name": "Console Battery Voltage"
+                "name": "Tension de la console"
             },
             "con_ext_volt": {
-                "name": "Console External Power Voltage"
+                "name": "Tension de l'alimentation externe de la console"
             },
             "srain_piezo": {
-                "name": "Rain Status"
+                "name": "Statut de la pluie"
             },
             "piezora_batt": {
-                "name": "Piezo Battery"
+                "name": "Batterie du piézo"
             },
             "pm1_co2": {
                 "name": "CO2 PM1"
             },
             "pm1_24h_co2": {
-                "name": "CO2 24H PM1 AQI"
+                "name": "CO2 PM1 AQI (24 heures)"
             },
             "pm1_aqi_co2": {
                 "name": "CO2 PM1 AQI"
@@ -209,69 +209,69 @@
                 "name": "CO2 PM4"
             },
             "pm4_24h_co2": {
-                "name": "CO2 24H PM4 AQI"
+                "name": "CO2 PM4 AQI (24 heures)"
             },
             "pm4_aqi_co2": {
                 "name": "CO2 PM4 AQI"
             },
             "pm1_24h_co2_add": {
-                "name": "CO2 24H Avg PM1"
+                "name": "Moyenne CO2 PM1 (24 heures)"
             },
             "pm4_24h_co2_add": {
-                "name": "CO2 24H Avg PM4"
+                "name": "Moyenne CO2 PM4 (24 heures)"
             },
             "pm25_24h_co2_add": {
-                "name": "CO2 24H Avg PM2.5"
+                "name": "Moyenne CO2 PM2.5 (24 heures)"
             },
             "pm10_24h_co2_add": {
-                "name": "CO2 24H Avg PM10"
+                "name": "Moyenne CO2 PM10 (24 heures)"
             },
             "iotbatt": {
-                "name": "Battery"
+                "name": "Batterie"
             },
             "signal": {
                 "name": "Signal"
             },
             "run_time": {
-                "name": "Run time"
+                "name": "Durée de fonctionnement"
             },
             "ver": {
                 "name": "Version"
             },
             "wfc02_position": {
-                "name": "Valve Opening Percentage"
+                "name": "Pourcentage d'ouverture de la valve"
             },
             "wfc02_flow_velocity": {
-                "name": "Flow velocity"
+                "name": "Vitesse d'écoulement"
             },
             "velocity_total": {
                 "name": "Total"
             },
             "flow_velocity": {
-                "name": "Flow velocity"
+                "name": "Vitesse d'écoulement"
             },
             "data_water_t": {
-                "name": "Temperature"
+                "name": "Température"
             },
             "data_ac_v": {
-                "name": "Voltage"
+                "name": "Tension"
             },
             "elect_total": {
-                "name": "Energy"
+                "name": "Énergie"
             },
             "realtime_power": {
-                "name": "Power"
+                "name": "Puissance"
             }
         },
         "binary_sensor": {
             "srain_piezo": {
-                "name": "Rain Status"
+                "name": "Capteur de pluie"
             },
             "rfnet_state": {
-                "name": "Is online"
+                "name": "Connection"
             },
             "iot_running": {
-                "name": "Running"
+                "name": "En cours"
             }
         }
     }

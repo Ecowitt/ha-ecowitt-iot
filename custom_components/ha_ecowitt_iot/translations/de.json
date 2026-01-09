@@ -31,6 +31,12 @@
     },
     "entity": {
         "sensor": {
+            "bgt": {
+                "name": "BGT"
+            },
+            "wbgt": {
+                "name": "WBGT"
+            },
             "tempinf": {
                 "name": "Innen Temperatur"
             },
