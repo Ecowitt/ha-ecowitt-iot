@@ -59,3 +59,6 @@ To set up Ecowitt Official Integration, follow these steps:
 ![Step 2](./img/TF2.jpg)
 ![Step 3](./img/TF3-3.jpg)
 ![Step 4](./img/TF4.jpg)
+
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/Ecowitt/ha-ecowitt-iot.svg?variant=adaptive)](https://starchart.cc/Ecowitt/ha-ecowitt-iot)
