@@ -536,6 +536,11 @@ ECOWITT_SENSORS_MAPPING: Final = {
         icon="mdi:battery",
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
+    WittiotDataTypes.EC: SensorEntityDescription(
+        key="EC",
+        native_unit_of_measurement="µS/cm",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
     WittiotDataTypes.DISTANCE: SensorEntityDescription(
         key="DISTANCE",
         native_unit_of_measurement=UnitOfLength.FEET,
