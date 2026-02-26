@@ -60,5 +60,8 @@ To set up Ecowitt Official Integration, follow these steps:
 ![Step 3](./img/TF3-3.jpg)
 ![Step 4](./img/TF4.jpg)
 
+## Compatibility Instructions for all ecowitt network consoles
+![Compatibility Instructions for all ecowitt network consoles](https://oss.ecowitt.net/uploads/20260224/7d20e0c51af395cc66af81f2fa458115.png)
+
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/Ecowitt/ha-ecowitt-iot.svg?variant=adaptive)](https://starchart.cc/Ecowitt/ha-ecowitt-iot)
