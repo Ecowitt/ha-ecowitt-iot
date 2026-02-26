@@ -1,7 +1,7 @@
 """Platform for sensor integration."""
 
 import dataclasses
-from typing import Final
+from typing import Final, Any
 import logging
 from wittiot import MultiSensorInfo, WittiotDataTypes, SubSensorname
 from homeassistant.components.sensor import (
@@ -431,7 +431,9 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="con_batt",
         translation_key="con_batt",
-        icon="mdi:battery",
+        native_unit_of_measurement=PERCENTAGE,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
@@ -455,7 +457,9 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="piezora_batt",
         translation_key="piezora_batt",
-        icon="mdi:battery",
+        native_unit_of_measurement=PERCENTAGE,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     # SensorEntityDescription(
@@ -516,6 +520,12 @@ ECOWITT_SENSORS_MAPPING: Final = {
         device_class=SensorDeviceClass.HUMIDITY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    WittiotDataTypes.MOISTURE: SensorEntityDescription(
+        key="MOISTURE",
+        device_class=SensorDeviceClass.MOISTURE,
+        native_unit_of_measurement=PERCENTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
     WittiotDataTypes.PM25: SensorEntityDescription(
         key="PM25",
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
@@ -533,7 +543,9 @@ ECOWITT_SENSORS_MAPPING: Final = {
     ),
     WittiotDataTypes.BATTERY: SensorEntityDescription(
         key="BATTERY",
-        icon="mdi:battery",
+        native_unit_of_measurement=PERCENTAGE,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     WittiotDataTypes.EC: SensorEntityDescription(
@@ -577,7 +589,9 @@ IOT_SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key="iotbatt",
         translation_key="iotbatt",
-        icon="mdi:battery",
+        native_unit_of_measurement=PERCENTAGE,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
@@ -795,7 +809,43 @@ class MainDevEcowittSensor(
     @property
     def native_value(self) -> str | int | float | None:
         """Return the state."""
-        return self.coordinator.data.get(self.entity_description.key)
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return 100
+        return val
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return {"power_source": "DC"}
+        return None
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon to use in the frontend, if any."""
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY:
+            if val == "DC":
+                return "mdi:power-plug"
+            try:
+                # 支持 20, 40, 60, 80, 100 阶梯动态图标
+                level = int(val)
+                if level <= 10:
+                    return "mdi:battery-outline"
+                if level <= 30:
+                    return "mdi:battery-20"
+                if level <= 50:
+                    return "mdi:battery-40"
+                if level <= 70:
+                    return "mdi:battery-60"
+                if level <= 90:
+                    return "mdi:battery-80"
+                return "mdi:battery"
+            except (ValueError, TypeError):
+                pass
+        return super().icon
 
 
 class SubDevEcowittSensor(
@@ -836,7 +886,43 @@ class SubDevEcowittSensor(
     @property
     def native_value(self) -> str | int | float | None:
         """Return the state."""
-        return self.coordinator.data.get(self.entity_description.key)
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return 100
+        return val
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return {"power_source": "DC"}
+        return None
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon to use in the frontend, if any."""
+        val = self.coordinator.data.get(self.entity_description.key)
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY:
+            if val == "DC":
+                return "mdi:power-plug"
+            try:
+                # 支持 20, 40, 60, 80, 100 阶梯动态图标
+                level = int(val)
+                if level <= 10:
+                    return "mdi:battery-outline"
+                if level <= 30:
+                    return "mdi:battery-20"
+                if level <= 50:
+                    return "mdi:battery-40"
+                if level <= 70:
+                    return "mdi:battery-60"
+                if level <= 90:
+                    return "mdi:battery-80"
+                return "mdi:battery"
+            except (ValueError, TypeError):
+                pass
+        return super().icon
 
 
 class IotDeviceSensor(CoordinatorEntity, SensorEntity):
@@ -871,6 +957,7 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
     def native_value(self) -> str | int | float | None:
         """获取传感器值"""
         # # 从协调器获取设备数据
+        val = None
         if "iot_list" in self.coordinator.data:
             iot_data = self.coordinator.data["iot_list"]
             commands = iot_data["command"]
@@ -880,5 +967,66 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
                     continue
                 if nickname == self.device_id:
                     key = self.entity_description.key.split("_", 1)[1]
-                    return item.get(key, None)
+                    val = item.get(key, None)
+                    break
+        
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return 100
+        return val
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        val = None
+        if "iot_list" in self.coordinator.data:
+            iot_data = self.coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            for i, item in enumerate(commands):
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                if nickname == self.device_id:
+                    key = self.entity_description.key.split("_", 1)[1]
+                    val = item.get(key, None)
+                    break
+        
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+            return {"power_source": "DC"}
         return None
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon to use in the frontend, if any."""
+        val = None
+        if "iot_list" in self.coordinator.data:
+            iot_data = self.coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            for i, item in enumerate(commands):
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                if nickname == self.device_id:
+                    key = self.entity_description.key.split("_", 1)[1]
+                    val = item.get(key, None)
+                    break
+
+        if self.entity_description.device_class == SensorDeviceClass.BATTERY:
+            if val == "DC":
+                return "mdi:power-plug"
+            try:
+                # 支持 20, 40, 60, 80, 100 阶梯动态图标
+                level = int(val)
+                if level <= 10:
+                    return "mdi:battery-outline"
+                if level <= 30:
+                    return "mdi:battery-20"
+                if level <= 50:
+                    return "mdi:battery-40"
+                if level <= 70:
+                    return "mdi:battery-60"
+                if level <= 90:
+                    return "mdi:battery-80"
+                return "mdi:battery"
+            except (ValueError, TypeError):
+                pass
+        return super().icon
