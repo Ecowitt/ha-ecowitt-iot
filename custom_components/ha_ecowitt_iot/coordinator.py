@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import timedelta
 import logging
 from typing import Any
+import asyncio
 
 from aiohttp.client_exceptions import ClientConnectorError
 from wittiot import API
@@ -18,6 +19,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .const import DOMAIN
 
 SCAN_INTERVAL = timedelta(seconds=60)
+MAX_CONSECUTIVE_FAILURES = 3
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -38,13 +40,22 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.api = API(
             self.config_entry.data[CONF_HOST], session=async_get_clientsession(hass)
         )
+        self._consecutive_failures = 0
+        self._last_good_data: dict[str, Any] = {}
 
     async def _async_update_data(self) -> dict[str, str | float | int]:
         """Update data."""
-        res = {}
+        res: dict[str, Any] = {}
         try:
             res = await self.api.request_loc_allinfo()
-        except (WittiotError, ClientConnectorError) as error:
+        except (WittiotError, ClientConnectorError, asyncio.TimeoutError) as error:
+            self._consecutive_failures += 1
+            if self._consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                self._last_good_data = {}
+                raise UpdateFailed(error) from error
+            if self._last_good_data:
+                return self._last_good_data
             raise UpdateFailed(error) from error
-        # _LOGGER.info("Get device data: %s", res)
+        self._consecutive_failures = 0
+        self._last_good_data = res
         return res
