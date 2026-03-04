@@ -35,6 +35,7 @@ async def async_setup_entry(
 
     # 为每个设备创建开关实体
     switches = []
+    registered_switches: set[str] = set()
     if "iot_list" in coordinator.data:
         iot_data = coordinator.data["iot_list"]
         commands = iot_data["command"]
@@ -58,8 +59,42 @@ async def async_setup_entry(
                             unique_id=entry.unique_id,
                         )
                     )
+                    registered_switches.add(f"{item.get('nickname')}_{desc.key}")
     async_add_entities(switches)
-    return True
+    async def _process_new_switches() -> None:
+        new_entities: list[SwitchEntity] = []
+        if "iot_list" in coordinator.data:
+            iot_data = coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            desc_map = {desc.key: desc for desc in SWITCH_DESCRIPTIONS}
+            for i, item in enumerate(commands):
+                rfnet_state = item.get("rfnet_state")
+                if rfnet_state == 0:
+                    continue
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                for key in list(item):
+                    if key in desc_map:
+                        desc = desc_map[key]
+                        composed_key = f"{nickname}_{desc.key}"
+                        if composed_key not in registered_switches:
+                            device_desc = dataclasses.replace(
+                                desc,
+                                key=composed_key,
+                            )
+                            new_entities.append(
+                                EcowittSwitch(
+                                    coordinator=coordinator,
+                                    device_id=nickname,
+                                    description=device_desc,
+                                    unique_id=entry.unique_id,
+                                )
+                            )
+                            registered_switches.add(composed_key)
+        if new_entities:
+            async_add_entities(new_entities)
+    coordinator.async_add_listener(lambda: hass.async_create_task(_process_new_switches()))
 
 
 class EcowittSwitch(CoordinatorEntity, SwitchEntity):

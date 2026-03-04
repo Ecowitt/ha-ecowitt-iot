@@ -66,14 +66,19 @@ async def async_setup_entry(
     coordinator = hass.data[DOMAIN][entry.entry_id]
 
     # 添加普通传感器
+    registered_main: set[str] = set()
     async_add_entities(
         MainDevEcowittBinarySensor(coordinator, entry.unique_id, desc)
         for desc in BINARYSENSOR_DESCRIPTIONS
         if desc.key in coordinator.data
     )
+    for desc in BINARYSENSOR_DESCRIPTIONS:
+        if desc.key in coordinator.data:
+            registered_main.add(desc.key)
 
     # Subdevice Data
     binary_sensors: list[SubDevEcowittBinarySensor] = []
+    registered_sub: set[str] = set()
     for key in coordinator.data:
         if key in MultiSensorInfo.SENSOR_INFO and MultiSensorInfo.SENSOR_INFO[key][
             "data_type"
@@ -94,6 +99,7 @@ async def async_setup_entry(
                     description,
                 )
             )
+            registered_sub.add(key)
     async_add_entities(binary_sensors)
 
     if "iot_list" in coordinator.data:
@@ -101,6 +107,7 @@ async def async_setup_entry(
         desc_map = {desc.key: desc for desc in IOT_BINARYSENSOR_DESCRIPTIONS}
         iot_data = coordinator.data["iot_list"]
         commands = iot_data["command"]
+        registered_iot: set[str] = set()
         for i, item in enumerate(commands):
             nickname = item.get("nickname")
             if nickname is None:
@@ -122,7 +129,65 @@ async def async_setup_entry(
                             unique_id=entry.unique_id,
                         )
                     )
+                    registered_iot.add(f"{nickname}_{desc.key}")
         async_add_entities(iot_sensors)
+    else:
+        registered_iot = set()
+    async def _process_new_data() -> None:
+        new_entities: list[BinarySensorEntity] = []
+        for desc in BINARYSENSOR_DESCRIPTIONS:
+            if desc.key in coordinator.data and desc.key not in registered_main:
+                new_entities.append(MainDevEcowittBinarySensor(coordinator, entry.unique_id, desc))
+                registered_main.add(desc.key)
+        for key in coordinator.data:
+            if key in MultiSensorInfo.SENSOR_INFO:
+                info = MultiSensorInfo.SENSOR_INFO[key]
+                if info["data_type"] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
+                    if key not in registered_sub:
+                        mapping = LEAK_DETECTION_SENSOR[info["data_type"]]
+                        description = dataclasses.replace(
+                            mapping,
+                            key=key,
+                            name=info["name"],
+                        )
+                        new_entities.append(
+                            SubDevEcowittBinarySensor(
+                                coordinator,
+                                entry.unique_id,
+                                info["dev_type"],
+                                description,
+                            )
+                        )
+                        registered_sub.add(key)
+        if "iot_list" in coordinator.data:
+            desc_map = {desc.key: desc for desc in IOT_BINARYSENSOR_DESCRIPTIONS}
+            iot_data = coordinator.data["iot_list"]
+            commands = iot_data["command"]
+            for i, item in enumerate(commands):
+                nickname = item.get("nickname")
+                if nickname is None:
+                    continue
+                for key in list(item):
+                    if key in desc_map:
+                        desc = desc_map[key]
+                        composed_key = f"{nickname}_{desc.key}"
+                        if composed_key not in registered_iot:
+                            device_desc = dataclasses.replace(
+                                desc,
+                                key=composed_key,
+                            )
+                            new_entities.append(
+                                IotDeviceBinarySensor(
+                                    coordinator=coordinator,
+                                    device_id=nickname,
+                                    description=device_desc,
+                                    unique_id=entry.unique_id,
+                                )
+                            )
+                            registered_iot.add(composed_key)
+        if new_entities:
+            async_add_entities(new_entities)
+    coordinator.async_add_listener(lambda: hass.async_create_task(_process_new_data()))
 
 
 class MainDevEcowittBinarySensor(
