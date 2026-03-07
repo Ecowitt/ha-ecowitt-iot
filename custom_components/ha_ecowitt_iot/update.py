@@ -52,14 +52,6 @@ class EcowittFirmwareUpdateEntity(CoordinatorEntity[EcowittDataUpdateCoordinator
         return super().available and isinstance(firmware, dict) and firmware.get("check_supported", False)
 
     @property
-    def auto_update(self) -> bool:
-        """Return if the gateway auto update is enabled."""
-        firmware = self.coordinator.data.get("firmware_update", {})
-        raw = firmware.get("raw", {}) if isinstance(firmware, dict) else {}
-        device_info = raw.get("get_device_info", {}) if isinstance(raw, dict) else {}
-        return str(device_info.get("upgrade", "0")) == "1"
-
-    @property
     def installed_version(self) -> str | None:
         """Version currently installed on the device."""
         firmware = self.coordinator.data.get("firmware_update", {})
