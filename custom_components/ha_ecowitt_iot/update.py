@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from homeassistant.components.update import UpdateDeviceClass, UpdateEntity, UpdateEntityFeature
@@ -15,6 +16,16 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
+
+
+def _normalize_version(value: Any) -> str | None:
+    """Extract a numeric firmware version from the device payload."""
+    if value is None:
+        return None
+    match = re.search(r"([\d.]+)$", str(value).strip())
+    if not match:
+        return None
+    return match.group(1)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
@@ -56,11 +67,10 @@ class EcowittFirmwareUpdateEntity(CoordinatorEntity[EcowittDataUpdateCoordinator
         """Version currently installed on the device."""
         firmware = self.coordinator.data.get("firmware_update", {})
         if isinstance(firmware, dict):
-            installed = firmware.get("installed_version")
-            if isinstance(installed, str):
+            installed = _normalize_version(firmware.get("installed_version"))
+            if installed:
                 return installed
-        version = self.coordinator.data.get("ver")
-        return str(version) if version is not None else None
+        return _normalize_version(self.coordinator.data.get("ver"))
 
     @property
     def latest_version(self) -> str | None:
@@ -68,8 +78,8 @@ class EcowittFirmwareUpdateEntity(CoordinatorEntity[EcowittDataUpdateCoordinator
         firmware = self.coordinator.data.get("firmware_update", {})
         if not isinstance(firmware, dict):
             return None
-        latest = firmware.get("latest_version")
-        if isinstance(latest, str) and latest.strip():
+        latest = _normalize_version(firmware.get("latest_version"))
+        if latest:
             return latest
         return None
 
