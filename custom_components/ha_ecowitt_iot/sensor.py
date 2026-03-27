@@ -32,6 +32,7 @@ from homeassistant.const import (
     UnitOfSpeed,
     UnitOfTemperature,
     UnitOfVolumetricFlux,
+    UnitOfConductivity,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -550,7 +551,8 @@ ECOWITT_SENSORS_MAPPING: Final = {
     ),
     WittiotDataTypes.EC: SensorEntityDescription(
         key="EC",
-        native_unit_of_measurement="µS/cm",
+        device_class=SensorDeviceClass.CONDUCTIVITY,
+        native_unit_of_measurement=UnitOfConductivity.MICROSIEMENS_PER_CM,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     WittiotDataTypes.DISTANCE: SensorEntityDescription(
@@ -780,16 +782,22 @@ async def async_setup_entry(
         async_add_entities(iot_sensors)
     else:
         registered_iot = set()
+
     async def _process_new_data() -> None:
         new_entities: list[SensorEntity] = []
         for desc in SENSOR_DESCRIPTIONS:
             if desc.key in coordinator.data and desc.key not in registered_main:
-                new_entities.append(MainDevEcowittSensor(coordinator, entry.unique_id, desc))
+                new_entities.append(
+                    MainDevEcowittSensor(coordinator, entry.unique_id, desc)
+                )
                 registered_main.add(desc.key)
         for key in coordinator.data:
             if key in MultiSensorInfo.SENSOR_INFO:
                 info = MultiSensorInfo.SENSOR_INFO[key]
-                if info["data_type"] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
+                if info["data_type"] in (
+                    WittiotDataTypes.LEAK,
+                    WittiotDataTypes.BATTERY_BINARY,
+                ):
                     continue
                 if key not in registered_sub:
                     mapping = ECOWITT_SENSORS_MAPPING[info["data_type"]]
@@ -835,6 +843,7 @@ async def async_setup_entry(
                             registered_iot.add(composed_key)
         if new_entities:
             async_add_entities(new_entities)
+
     coordinator.async_add_listener(lambda: hass.async_create_task(_process_new_data()))
 
 
@@ -876,7 +885,10 @@ class MainDevEcowittSensor(
     def native_value(self) -> str | int | float | None:
         """Return the state."""
         val = self.coordinator.data.get(self.entity_description.key)
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return 100
         return val
 
@@ -884,7 +896,10 @@ class MainDevEcowittSensor(
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
         val = self.coordinator.data.get(self.entity_description.key)
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return {"power_source": "DC"}
         return None
 
@@ -953,7 +968,10 @@ class SubDevEcowittSensor(
     def native_value(self) -> str | int | float | None:
         """Return the state."""
         val = self.coordinator.data.get(self.entity_description.key)
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return 100
         return val
 
@@ -961,7 +979,10 @@ class SubDevEcowittSensor(
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
         val = self.coordinator.data.get(self.entity_description.key)
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return {"power_source": "DC"}
         return None
 
@@ -1035,8 +1056,11 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
                     key = self.entity_description.key.split("_", 1)[1]
                     val = item.get(key, None)
                     break
-        
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return 100
         return val
 
@@ -1055,8 +1079,11 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
                     key = self.entity_description.key.split("_", 1)[1]
                     val = item.get(key, None)
                     break
-        
-        if self.entity_description.device_class == SensorDeviceClass.BATTERY and val == "DC":
+
+        if (
+            self.entity_description.device_class == SensorDeviceClass.BATTERY
+            and val == "DC"
+        ):
             return {"power_source": "DC"}
         return None
 

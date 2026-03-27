@@ -13,6 +13,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 import homeassistant.helpers.device_registry as dr
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers import entity_registry as er
 
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
@@ -31,6 +32,21 @@ def _normalize_version(value: Any) -> str | None:
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up update entities from a config entry."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
+    registry = er.async_get(hass)
+    canonical_uid = f"{entry.entry_id}_firmware"
+    scoped_existing = [
+        e
+        for e in registry.entities.values()
+        if e.platform == DOMAIN
+        and e.domain == "update"
+        and getattr(e, "config_entry_id", entry.entry_id) == entry.entry_id
+    ]
+    if scoped_existing:
+        if not any(e.unique_id == canonical_uid for e in scoped_existing):
+            registry.async_update_entity(scoped_existing[0].entity_id, new_unique_id=canonical_uid)
+        for e in scoped_existing[1:]:
+            if e.unique_id != canonical_uid:
+                registry.async_remove(e.entity_id)
     async_add_entities([EcowittFirmwareUpdateEntity(coordinator, entry.unique_id)])
 
 
@@ -44,7 +60,7 @@ class EcowittFirmwareUpdateEntity(CoordinatorEntity[EcowittDataUpdateCoordinator
     def __init__(self, coordinator: EcowittDataUpdateCoordinator, device_name: str) -> None:
         """Initialize update entity."""
         super().__init__(coordinator)
-        self._attr_unique_id = f"{device_name}_firmware"
+        self._attr_unique_id = f"{coordinator.config_entry.entry_id}_firmware"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}")},
             manufacturer="Ecowitt",
