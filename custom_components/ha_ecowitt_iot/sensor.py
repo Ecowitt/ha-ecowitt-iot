@@ -1,6 +1,7 @@
 """Platform for sensor integration."""
 
 import dataclasses
+from datetime import datetime
 from typing import Final, Any
 import logging
 from wittiot import MultiSensorInfo, WittiotDataTypes, SubSensorname
@@ -856,6 +857,8 @@ class MainDevEcowittSensor(
     _attr_has_entity_name = True
     entity_description: SensorEntityDescription
 
+    _TIMESTAMP_FORMATS = ["%m/%d/%Y %H:%M:%S", "%Y-%m-%d %H:%M:%S"]
+
     def __init__(
         self,
         coordinator: EcowittDataUpdateCoordinator,
@@ -882,8 +885,17 @@ class MainDevEcowittSensor(
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
 
+    def _parse_timestamp(self, val: str) -> datetime | None:
+        """Parse a timestamp string in known formats."""
+        for fmt in self._TIMESTAMP_FORMATS:
+            try:
+                return datetime.strptime(val, fmt)
+            except ValueError:
+                continue
+        return None
+
     @property
-    def native_value(self) -> str | int | float | None:
+    def native_value(self) -> str | int | float | datetime | None:
         """Return the state."""
         val = self.coordinator.data.get(self.entity_description.key)
         if (
@@ -891,6 +903,11 @@ class MainDevEcowittSensor(
             and val == "DC"
         ):
             return 100
+        if (
+            self.entity_description.device_class == SensorDeviceClass.TIMESTAMP
+            and isinstance(val, str)
+        ):
+            return self._parse_timestamp(val)
         return val
 
     @property
@@ -938,6 +955,8 @@ class SubDevEcowittSensor(
     _attr_has_entity_name = True
     entity_description: SensorEntityDescription
 
+    _TIMESTAMP_FORMATS = ["%m/%d/%Y %H:%M:%S", "%Y-%m-%d %H:%M:%S"]
+
     def __init__(
         self,
         coordinator: EcowittDataUpdateCoordinator,
@@ -965,8 +984,17 @@ class SubDevEcowittSensor(
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
 
+    def _parse_timestamp(self, val: str) -> datetime | None:
+        """Parse a timestamp string in known formats."""
+        for fmt in self._TIMESTAMP_FORMATS:
+            try:
+                return datetime.strptime(val, fmt)
+            except ValueError:
+                continue
+        return None
+
     @property
-    def native_value(self) -> str | int | float | None:
+    def native_value(self) -> str | int | float | datetime | None:
         """Return the state."""
         val = self.coordinator.data.get(self.entity_description.key)
         if (
@@ -974,6 +1002,11 @@ class SubDevEcowittSensor(
             and val == "DC"
         ):
             return 100
+        if (
+            self.entity_description.device_class == SensorDeviceClass.TIMESTAMP
+            and isinstance(val, str)
+        ):
+            return self._parse_timestamp(val)
         return val
 
     @property
