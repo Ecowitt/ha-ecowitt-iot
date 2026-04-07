@@ -422,6 +422,7 @@ SENSOR_DESCRIPTIONS = (
         key="lightning_time",
         translation_key="lightning_time",
         icon="mdi:lightning-bolt",
+        device_class=SensorDeviceClass.TIMESTAMP,
     ),
     SensorEntityDescription(
         key="lightning_num",
