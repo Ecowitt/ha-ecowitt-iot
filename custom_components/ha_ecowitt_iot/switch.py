@@ -141,9 +141,9 @@ class EcowittSwitch(CoordinatorEntity, SwitchEntity):
                     # self._iot_is_on = item.get("iot_running")
 
     @property
-    def is_on(self) -> bool:
+    def is_on(self) -> bool | None:
         """从协调器获取设备数据."""
-        return self._get_actual_state()  # 如果数据不可用返回None
+        return self._get_actual_state()
 
     async def async_turn_on(self, **kwargs):
         """打开设备."""
@@ -153,20 +153,19 @@ class EcowittSwitch(CoordinatorEntity, SwitchEntity):
         """关闭设备."""
         await self._async_set_state(False)
 
-    def _get_actual_state(self) -> bool:
-        """从协调器获取实际设备状态."""
+    def _get_actual_state(self) -> bool | None:
+        """从协调器获取实际设备状态；找不到或掉线时返回 None 以显示为 unknown/unavailable."""
         if "iot_list" in self.coordinator.data:
             iot_data = self.coordinator.data["iot_list"]
             commands = iot_data["command"]
-            for i, item in enumerate(commands):
+            for item in commands:
                 nickname = item.get("nickname")
                 rfnet_state = item.get("rfnet_state")
                 if rfnet_state == 0:
                     continue
                 if nickname == self.device_id:
-                    # key = self.entity_description.key.split("_", 1)[1]
                     return bool(item.get("iot_running", 0))
-        return False  # 默认返回关状态
+        return None
 
     async def _async_set_state(self, state: bool):
         """设置设备状态（带待处理状态管理）"""
