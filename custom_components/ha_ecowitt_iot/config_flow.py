@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Any
+
 import voluptuous as vol
+from aiohttp.client_exceptions import ClientError
 from wittiot import API
 from wittiot.errors import WittiotError
 
@@ -16,6 +19,8 @@ from homeassistant.helpers import aiohttp_client
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
+_CONNECT_ERRORS = (WittiotError, ClientError, asyncio.TimeoutError)
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -33,16 +38,17 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 session=aiohttp_client.async_get_clientsession(self.hass),
             )
 
+            devices: dict[str, Any] | None = None
             try:
                 devices = await api.request_loc_info()
-            except WittiotError:
+            except _CONNECT_ERRORS:
                 errors["base"] = "cannot_connect"
-            _LOGGER.debug("New data received: %s", devices)
+            else:
+                _LOGGER.debug("New data received: %s", devices)
+                if not devices:
+                    errors["base"] = "no_devices"
 
-            if not devices:
-                errors["base"] = "no_devices"
-
-            if not errors:
+            if not errors and devices:
                 unique_id = devices["dev_name"]
                 await self.async_set_unique_id(unique_id)
                 self._abort_if_unique_id_configured()
@@ -58,15 +64,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return OptionsFlowHandler(config_entry)
+        return OptionsFlowHandler()
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options flow for Ecowitt integration."""
-
-    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
-        """Initialize options flow."""
-        # self.config_entry = config_entry
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
@@ -83,7 +85,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
 
             try:
                 devices = await api.request_loc_info()
-            except WittiotError:
+            except _CONNECT_ERRORS:
                 errors["base"] = "cannot_connect"
             else:
                 if not devices:
