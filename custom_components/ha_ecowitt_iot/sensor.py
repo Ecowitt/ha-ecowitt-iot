@@ -677,29 +677,22 @@ IOT_SENSOR_DESCRIPTIONS = (
 )
 
 
-def async_remove_old_sub_device(self):
+def async_remove_old_sub_device(hass: HomeAssistant) -> None:
     """删除旧的子设备"""
 
-    # 获取设备注册表
-    device_reg = dr.async_get(self)
+    device_reg = dr.async_get(hass)
 
     prefixes = SubSensorname.prefixes
-    # 通过唯一标识符查找设备
-    # 注意：这里假设你用 unique_id 来匹配设备
-    device = None
     deviceid = []
     for dev in device_reg.devices.values():
         if not dev.identifiers:
-            continue  # 跳过没有标识符的设备
-        # 遍历该设备的所有标识符
+            continue
         for identifier in dev.identifiers:
             if len(identifier) < 2:
-                continue  # 跳过格式不正确的标识符
-            # 假设你的设备标识符元组格式为 (domain, unique_id)
-            if isinstance(identifier[1], (str, list)):  # 确保可迭代
+                continue
+            if isinstance(identifier[1], (str, list)):
                 if [prefix for prefix in prefixes if prefix in identifier[1]]:
-                    device = dev
-                    deviceid.append(device.id)
+                    deviceid.append(dev.id)
 
     for oldsub in deviceid:
         device_reg.async_remove_device(oldsub)
