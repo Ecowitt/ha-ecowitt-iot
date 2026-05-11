@@ -12,7 +12,8 @@
     },
     "error": {
       "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
-      "no_devices": "You have connected to the device but have not received the returned data. Please check the device or restart the device."
+      "no_devices": "You have connected to the device but have not received the returned data. Please check the device or restart the device.",
+      "device_mismatch": "This IP address points to a different device. Please create a new integration for this device."
     },
     "abort": {
       "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"

@@ -19,6 +19,11 @@
         }
     },
     "options": {
+        "error": {
+            "cannot_connect": "Erreur de connection",
+            "no_devices": "Aucun appareil trouvé",
+            "device_mismatch": "Cette adresse IP pointe vers un appareil différent. Veuillez créer une nouvelle intégration pour cet appareil."
+        },
         "step": {
             "init": {
                 "title": "Configurer",

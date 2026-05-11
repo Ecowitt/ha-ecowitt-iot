@@ -17,7 +17,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN
+from .const import CONF_MAC, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -68,6 +68,13 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         except _TRANSIENT_ERRORS as error:
             return self._handle_fetch_failure(error)
 
+        if not self._verify_device_identity(res):
+            self._last_good_data = {}
+            raise UpdateFailed(
+                f"Device mismatch: IP {self.config_entry.data[CONF_HOST]} now points to a "
+                f"different device. Please update the integration configuration."
+            )
+
         res["firmware_update"] = await self._maybe_update_firmware_info()
 
         if self._outage_logged:
@@ -79,6 +86,34 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._consecutive_failures = 0
         self._last_good_data = res
         return res
+
+    def _verify_device_identity(self, data: dict[str, Any]) -> bool:
+        """Verify that the device matches the configured one by MAC address."""
+        expected_mac = self.config_entry.data.get(CONF_MAC, "")
+        if not expected_mac:
+            _LOGGER.debug(
+                "No MAC stored in config, updating with current device MAC: %s",
+                data.get("mac", ""),
+            )
+            new_data = {**self.config_entry.data, CONF_MAC: data.get("mac", "")}
+            self.hass.config_entries.async_update_entry(
+                self.config_entry, data=new_data
+            )
+            return True
+
+        actual_mac = data.get("mac", "")
+        if actual_mac != expected_mac:
+            _LOGGER.warning(
+                "Device identity mismatch at IP %s: expected MAC %s, got %s. "
+                "This IP may now point to a different device. "
+                "Please update the integration configuration.",
+                self.config_entry.data[CONF_HOST],
+                expected_mac,
+                actual_mac,
+            )
+            return False
+
+        return True
 
     def _handle_fetch_failure(self, error: Exception) -> dict[str, Any]:
         self._consecutive_failures += 1

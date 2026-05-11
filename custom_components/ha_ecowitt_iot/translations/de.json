@@ -19,6 +19,11 @@
         }
     },
     "options": {
+        "error": {
+            "cannot_connect": "Verbindungs Fehler",
+            "no_devices": "Keine Geräte gefunden",
+            "device_mismatch": "Diese IP-Adresse zeigt auf ein anderes Gerät. Bitte erstellen Sie eine neue Integration für dieses Gerät."
+        },
         "step": {
             "init": {
                 "title": "Gerät Konfiguration",

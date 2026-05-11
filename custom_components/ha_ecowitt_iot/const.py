@@ -2,3 +2,5 @@
 
 DOMAIN = "ha_ecowitt_iot"
 CONF_VERSION = 2
+
+CONF_MAC = "mac"

@@ -16,7 +16,7 @@ from homeassistant.const import CONF_HOST
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import aiohttp_client
 
-from .const import DOMAIN
+from .const import CONF_MAC, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -53,7 +53,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 await self.async_set_unique_id(unique_id)
                 self._abort_if_unique_id_configured()
 
-                return self.async_create_entry(title=unique_id, data=user_input)
+                try:
+                    all_info = await api.request_loc_allinfo()
+                    mac = all_info.get("mac", "")
+                except _CONNECT_ERRORS:
+                    mac = ""
+                
+                entry_data = {**user_input, CONF_MAC: mac}
+                return self.async_create_entry(title=unique_id, data=entry_data)
 
         return self.async_show_form(
             step_id="user",
@@ -77,7 +84,6 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         errors = {}
 
         if user_input is not None:
-            # 验证新的设置
             api = API(
                 user_input[CONF_HOST],
                 session=aiohttp_client.async_get_clientsession(self.hass),
@@ -91,20 +97,37 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                 if not devices:
                     errors["base"] = "no_devices"
                 else:
-                    # 更新配置条目
-                    new_data = {**self.config_entry.data, **user_input}
-                    self.hass.config_entries.async_update_entry(
-                        self.config_entry, data=new_data
-                    )
-
-                    # 如果需要，也可以更新唯一ID和标题
-                    unique_id = devices["dev_name"]
-                    if unique_id != self.config_entry.unique_id:
+                    try:
+                        all_info = await api.request_loc_allinfo()
+                        new_mac = all_info.get("mac", "")
+                    except _CONNECT_ERRORS:
+                        new_mac = ""
+                    
+                    expected_mac = self.config_entry.data.get(CONF_MAC, "")
+                    if expected_mac and new_mac and new_mac != expected_mac:
+                        _LOGGER.warning(
+                            "Refusing to update IP %s: device mismatch. "
+                            "Expected MAC %s, got %s. "
+                            "Please create a new integration for this device.",
+                            user_input[CONF_HOST],
+                            expected_mac,
+                            new_mac,
+                        )
+                        errors["base"] = "device_mismatch"
+                    else:
+                        if not expected_mac and new_mac:
+                            _LOGGER.info(
+                                "Updating config with MAC %s for device at %s",
+                                new_mac,
+                                user_input[CONF_HOST],
+                            )
+                        
+                        new_data = {**self.config_entry.data, **user_input, CONF_MAC: new_mac}
                         self.hass.config_entries.async_update_entry(
-                            self.config_entry, unique_id=unique_id, title=unique_id
+                            self.config_entry, data=new_data
                         )
 
-                    return self.async_create_entry(title="", data={})
+                        return self.async_create_entry(title="", data={})
 
         # 显示表单，预填当前值
         return self.async_show_form(

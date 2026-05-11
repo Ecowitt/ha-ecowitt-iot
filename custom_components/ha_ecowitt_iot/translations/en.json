@@ -19,6 +19,11 @@
         }
     },
     "options": {
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "no_devices": "No devices found",
+            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device."
+        },
         "step": {
             "init": {
                 "title": "Configure",
