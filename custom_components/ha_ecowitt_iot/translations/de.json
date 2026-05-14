@@ -34,6 +34,11 @@
             }
         }
     },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Geräteidentität stimmt nicht überein",
+        "mismatch_message": "IP `{host}` zeigt jetzt auf ein anderes Gerät.\n\n- Erwartete MAC: `{expected_mac}`\n- Tatsächliche MAC: `{actual_mac}`\n\nGehen Sie zu **Einstellungen → Geräte & Dienste → Ecowitt Official Integration**, um die IP-Adresse dieser Integration zu aktualisieren, oder erstellen Sie eine neue Integration für dieses Gerät.",
+        "upgrade_mismatch_message": "**Upgrade erkannt** — Geräteidentität stimmt nicht überein.\n\nDie IP `{host}` zeigt nicht mehr auf `{expected_name}`.\n\n- Aktuelle MAC: `{actual_mac}`\n\nGehen Sie zu **Einstellungen → Geräte & Dienste → Ecowitt Official Integration**, um die IP-Adresse dieser Integration zu aktualisieren, oder fügen Sie eine neue Integration für dieses Gerät hinzu."
+    },
     "entity": {
         "sensor": {
             "bgt": {

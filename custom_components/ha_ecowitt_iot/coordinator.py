@@ -16,6 +16,7 @@ from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.translation import async_get_translations
 
 from .const import CONF_MAC, DOMAIN
 
@@ -35,6 +36,12 @@ MAX_CONSECUTIVE_FAILURES = 3
 
 # Firmware metadata rarely changes; refresh at most once per hour.
 FIRMWARE_CHECK_INTERVAL_SECONDS = 3600
+
+# Device identity check return values.
+_IDENTITY_OK = "ok"
+_IDENTITY_MISMATCH = "mismatch"
+_IDENTITY_UPGRADE_REJECT = "upgrade_reject"
+_IDENTITY_UPGRADE_BIND = "upgrade_bind"
 
 
 class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
@@ -60,6 +67,8 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._firmware_update_info: dict[str, Any] | None = None
         self._last_firmware_check: float = 0.0
         self._outage_logged = False
+        self._mismatch_notified = False
+        self._upgrade_bound = False
 
     async def _async_update_data(self) -> dict[str, Any]:
         try:
@@ -68,7 +77,26 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         except _TRANSIENT_ERRORS as error:
             return self._handle_fetch_failure(error)
 
-        if not self._verify_device_identity(res):
+        identity = self._check_device_identity(res)
+        actual_mac = res.get("mac", "")
+
+        if identity == _IDENTITY_UPGRADE_BIND:
+            if not self._upgrade_bound:
+                self._upgrade_bound = True
+                self._auto_bind_mac(actual_mac)
+
+        elif identity in (_IDENTITY_MISMATCH, _IDENTITY_UPGRADE_REJECT):
+            if not self._mismatch_notified:
+                self._mismatch_notified = True
+                if identity == _IDENTITY_UPGRADE_REJECT:
+                    await self._send_mismatch_notification(
+                        expected_info=self.config_entry.unique_id,
+                        actual_info=actual_mac,
+                        is_upgrade=True,
+                    )
+                else:
+                    expected_mac = self.config_entry.data.get(CONF_MAC, "")
+                    await self._send_mismatch_notification(expected_mac, actual_mac)
             self._last_good_data = {}
             raise UpdateFailed(
                 f"Device mismatch: IP {self.config_entry.data[CONF_HOST]} now points to a "
@@ -83,25 +111,49 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 self.config_entry.data[CONF_HOST],
             )
             self._outage_logged = False
+
+        if self._mismatch_notified:
+            self._mismatch_notified = False
+            await self.hass.services.async_call(
+                "persistent_notification",
+                "dismiss",
+                service_data={
+                    "notification_id": f"ecowitt_mac_mismatch_{self.config_entry.entry_id}"
+                },
+                blocking=False,
+            )
+            _LOGGER.info(
+                "Ecowitt gateway %s identity re-verified",
+                self.config_entry.data[CONF_HOST],
+            )
         self._consecutive_failures = 0
         self._last_good_data = res
         return res
 
-    def _verify_device_identity(self, data: dict[str, Any]) -> bool:
-        """Verify that the device matches the configured one by MAC address."""
+    def _check_device_identity(self, data: dict[str, Any]) -> str:
+        """检查设备身份，纯校验无副作用，返回状态码."""
         expected_mac = self.config_entry.data.get(CONF_MAC, "")
-        if not expected_mac:
-            _LOGGER.debug(
-                "No MAC stored in config, updating with current device MAC: %s",
-                data.get("mac", ""),
-            )
-            new_data = {**self.config_entry.data, CONF_MAC: data.get("mac", "")}
-            self.hass.config_entries.async_update_entry(
-                self.config_entry, data=new_data
-            )
-            return True
-
         actual_mac = data.get("mac", "")
+
+        if not expected_mac:
+            if actual_mac and self.config_entry.unique_id:
+                if not self._mac_matches_unique_id(actual_mac, self.config_entry.unique_id):
+                    _LOGGER.warning(
+                        "Upgrade detected: device at IP %s does not match configured "
+                        "integration %s (MAC %s). Refusing to auto-bind.",
+                        self.config_entry.data[CONF_HOST],
+                        self.config_entry.unique_id,
+                        actual_mac,
+                    )
+                    return _IDENTITY_UPGRADE_REJECT
+                _LOGGER.info(
+                    "Upgrade: auto-binding MAC %s for device %s at IP %s",
+                    actual_mac,
+                    self.config_entry.unique_id,
+                    self.config_entry.data[CONF_HOST],
+                )
+            return _IDENTITY_UPGRADE_BIND
+
         if actual_mac != expected_mac:
             _LOGGER.warning(
                 "Device identity mismatch at IP %s: expected MAC %s, got %s. "
@@ -111,9 +163,72 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 expected_mac,
                 actual_mac,
             )
-            return False
+            return _IDENTITY_MISMATCH
 
-        return True
+        return _IDENTITY_OK
+
+    def _auto_bind_mac(self, mac: str) -> None:
+        """Automatically bind MAC address to config (upgrade path, called once)."""
+        new_data = {**self.config_entry.data, CONF_MAC: mac}
+        self.hass.config_entries.async_update_entry(
+            self.config_entry, data=new_data
+        )
+
+    @staticmethod
+    def _mac_matches_unique_id(mac: str, unique_id: str) -> bool:
+        """Check if MAC matches the device name (format: MODEL-WIFI{LAST4})."""
+        mac_suffix = mac.replace(":", "").replace("-", "").upper()[-4:]
+        return bool(mac_suffix) and mac_suffix in unique_id.upper()
+
+    async def _send_mismatch_notification(
+        self,
+        expected_info: str,
+        actual_info: str,
+        is_upgrade: bool = False,
+    ) -> None:
+        """Send a persistent notification about device identity mismatch."""
+        lang = self.hass.config.language or "en"
+        host = self.config_entry.data[CONF_HOST]
+        notification_id = f"ecowitt_mac_mismatch_{self.config_entry.entry_id}"
+
+        translations = await async_get_translations(
+            self.hass, lang, "component", DOMAIN, ["notifications"]
+        )
+
+        title_key = f"component.{DOMAIN}.notifications.mismatch_title"
+        title = translations.get(title_key, "Ecowitt – Device Identity Mismatch")
+
+        if is_upgrade:
+            message_key = f"component.{DOMAIN}.notifications.upgrade_mismatch_message"
+            message_template = translations.get(
+                message_key,
+                f"Upgrade detected: IP {host} does not match {expected_info}. "
+                f"Current MAC: {actual_info}.",
+            )
+            message = message_template.replace("{host}", host).replace(
+                "{expected_name}", expected_info
+            ).replace("{actual_mac}", actual_info)
+        else:
+            message_key = f"component.{DOMAIN}.notifications.mismatch_message"
+            message_template = translations.get(
+                message_key,
+                f"IP {host} points to a different device. "
+                f"Expected MAC: {expected_info}, got: {actual_info}.",
+            )
+            message = message_template.replace("{host}", host).replace(
+                "{expected_mac}", expected_info
+            ).replace("{actual_mac}", actual_info)
+
+        await self.hass.services.async_call(
+            "persistent_notification",
+            "create",
+            service_data={
+                "message": message,
+                "title": title,
+                "notification_id": notification_id,
+            },
+            blocking=False,
+        )
 
     def _handle_fetch_failure(self, error: Exception) -> dict[str, Any]:
         self._consecutive_failures += 1

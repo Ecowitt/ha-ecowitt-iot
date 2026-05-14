@@ -43,6 +43,7 @@ from homeassistant.helpers.entity import EntityCategory
 from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
 from homeassistant.helpers import device_registry as dr
+from homeassistant.util import dt as dt_util
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -882,7 +883,10 @@ class MainDevEcowittSensor(
         """Parse a timestamp string in known formats."""
         for fmt in self._TIMESTAMP_FORMATS:
             try:
-                return datetime.strptime(val, fmt)
+                naive_dt = datetime.strptime(val, fmt)
+                if naive_dt.year < 2000:
+                    return None
+                return dt_util.as_utc(naive_dt)
             except ValueError:
                 continue
         return None
@@ -981,7 +985,10 @@ class SubDevEcowittSensor(
         """Parse a timestamp string in known formats."""
         for fmt in self._TIMESTAMP_FORMATS:
             try:
-                return datetime.strptime(val, fmt)
+                naive_dt = datetime.strptime(val, fmt)
+                if naive_dt.year < 2000:
+                    return None
+                return dt_util.as_utc(naive_dt)
             except ValueError:
                 continue
         return None

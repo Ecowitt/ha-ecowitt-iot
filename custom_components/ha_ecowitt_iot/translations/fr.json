@@ -34,6 +34,11 @@
             }
         }
     },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Inadéquation de l'identité de l'appareil",
+        "mismatch_message": "L'adresse IP `{host}` pointe désormais vers un autre appareil.\n\n- MAC attendue : `{expected_mac}`\n- MAC réelle : `{actual_mac}`\n\nAllez dans **Paramètres → Appareils et services → Ecowitt Official Integration** pour mettre à jour l'adresse IP de cette intégration, ou créez une nouvelle intégration pour cet appareil.",
+        "upgrade_mismatch_message": "**Mise à niveau détectée** — incohérence d'identité de l'appareil.\n\nL'adresse IP `{host}` ne pointe plus vers `{expected_name}`.\n\n- MAC actuelle : `{actual_mac}`\n\nAllez dans **Paramètres → Appareils et services → Ecowitt Official Integration** pour mettre à jour l'adresse IP de cette intégration, ou ajoutez une nouvelle intégration pour cet appareil."
+    },
     "entity": {
         "sensor": {
             "bgt": {

@@ -34,6 +34,11 @@
             }
         }
     },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Device Identity Mismatch",
+        "mismatch_message": "IP `{host}` now points to a different device.\n\n- Expected MAC: `{expected_mac}`\n- Actual MAC: `{actual_mac}`\n\nGo to **Settings → Devices & Services → Ecowitt Official Integration** to update this integration's IP address, or create a new integration for this device.",
+        "upgrade_mismatch_message": "**Upgrade detected** — device identity mismatch.\n\nThe IP `{host}` no longer points to `{expected_name}`.\n\n- Current MAC: `{actual_mac}`\n\nGo to **Settings → Devices & Services → Ecowitt Official Integration** to update this integration's IP address, or add a new integration for this device."
+    },
     "entity": {
         "sensor": {
             "bgt": {
