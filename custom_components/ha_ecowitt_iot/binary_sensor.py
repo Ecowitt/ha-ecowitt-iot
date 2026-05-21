@@ -4,7 +4,7 @@ from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
 )
 import dataclasses
-from typing import Final
+from typing import Any, Final
 from wittiot import MultiSensorInfo, WittiotDataTypes
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -235,6 +235,14 @@ class MainDevEcowittBinarySensor(
         """实体是否可用"""
         return super().available and self._sensor_key in self.coordinator.data
 
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            return {"last_seen": last_seen}
+        return None
+
 
 class SubDevEcowittBinarySensor(
     CoordinatorEntity[EcowittDataUpdateCoordinator],  # 继承 CoordinatorEntity
@@ -279,6 +287,14 @@ class SubDevEcowittBinarySensor(
     def available(self) -> bool:
         """实体是否可用"""
         return super().available and self._sensor_key in self.coordinator.data
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            return {"last_seen": last_seen}
+        return None
 
 
 class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
@@ -325,3 +341,11 @@ class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
                     key = self.entity_description.key.split("_", 1)[1]
                     return item.get(key, None)
         return None  # 如果数据不可用返回None
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return entity specific state attributes."""
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            return {"last_seen": last_seen}
+        return None

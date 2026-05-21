@@ -910,13 +910,17 @@ class MainDevEcowittSensor(
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
+        attrs = {}
         val = self.coordinator.data.get(self.entity_description.key)
         if (
             self.entity_description.device_class == SensorDeviceClass.BATTERY
             and val == "DC"
         ):
-            return {"power_source": "DC"}
-        return None
+            attrs["power_source"] = "DC"
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            attrs["last_seen"] = last_seen
+        return attrs or None
 
     @property
     def icon(self) -> str | None:
@@ -1012,13 +1016,17 @@ class SubDevEcowittSensor(
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
+        attrs = {}
         val = self.coordinator.data.get(self.entity_description.key)
         if (
             self.entity_description.device_class == SensorDeviceClass.BATTERY
             and val == "DC"
         ):
-            return {"power_source": "DC"}
-        return None
+            attrs["power_source"] = "DC"
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            attrs["last_seen"] = last_seen
+        return attrs or None
 
     @property
     def icon(self) -> str | None:
@@ -1101,6 +1109,7 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
+        attrs = {}
         val = None
         if "iot_list" in self.coordinator.data:
             iot_data = self.coordinator.data["iot_list"]
@@ -1118,8 +1127,11 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
             self.entity_description.device_class == SensorDeviceClass.BATTERY
             and val == "DC"
         ):
-            return {"power_source": "DC"}
-        return None
+            attrs["power_source"] = "DC"
+        last_seen = self.coordinator.data.get("_last_seen")
+        if last_seen is not None:
+            attrs["last_seen"] = last_seen
+        return attrs or None
 
     @property
     def icon(self) -> str | None:

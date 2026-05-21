@@ -104,6 +104,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             )
 
         res["firmware_update"] = await self._maybe_update_firmware_info()
+        res["_last_seen"] = time.time()
 
         if self._outage_logged:
             _LOGGER.info(
