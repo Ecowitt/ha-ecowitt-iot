@@ -18,7 +18,8 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.helpers.translation import async_get_translations
 
-from .const import CONF_MAC, DOMAIN
+from .const import CONF_MAC, DOMAIN, CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -36,9 +37,6 @@ MAX_CONSECUTIVE_FAILURES = 3
 
 # Firmware metadata rarely changes; refresh at most once per hour.
 FIRMWARE_CHECK_INTERVAL_SECONDS = 3600
-
-# last_seen attribute update throttling to avoid recorder database bloat.
-LAST_SEEN_INTERVAL_SECONDS = 900
 
 # Device identity check return values.
 _IDENTITY_OK = "ok"
@@ -58,8 +56,9 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         config_entry: ConfigEntry,
     ) -> None:
         """Initialize."""
+        update_interval = config_entry.data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)
         super().__init__(
-            hass, _LOGGER, name=DOMAIN, update_interval=timedelta(seconds=10)
+            hass, _LOGGER, name=DOMAIN, update_interval=timedelta(seconds=update_interval)
         )
         self.config_entry = config_entry
         self.api = API(
@@ -72,8 +71,6 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._outage_logged = False
         self._mismatch_notified = False
         self._upgrade_bound = False
-        self._last_seen_value: float = 0.0
-        self._last_seen_ts: float = 0.0
 
     async def _async_update_data(self) -> dict[str, Any]:
         try:
@@ -109,11 +106,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             )
 
         res["firmware_update"] = await self._maybe_update_firmware_info()
-        now = time.time()
-        if now - self._last_seen_ts >= LAST_SEEN_INTERVAL_SECONDS:
-            self._last_seen_value = now
-            self._last_seen_ts = now
-        res["_last_seen"] = self._last_seen_value
+        res["_last_seen"] = time.time()
 
         if self._outage_logged:
             _LOGGER.info(

@@ -16,7 +16,7 @@ from homeassistant.const import CONF_HOST
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import aiohttp_client
 
-from .const import CONF_MAC, DOMAIN
+from .const import CONF_MAC, CONF_UPDATE_INTERVAL, CONF_UPDATE_LAST_SEEN, DOMAIN, DEFAULT_UPDATE_INTERVAL, DEFAULT_UPDATE_LAST_SEEN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,13 +58,23 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     mac = all_info.get("mac", "")
                 except _CONNECT_ERRORS:
                     mac = ""
-                
+
                 entry_data = {**user_input, CONF_MAC: mac}
                 return self.async_create_entry(title=unique_id, data=entry_data)
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({vol.Required(CONF_HOST): str}),
+            data_schema=vol.Schema(
+                {
+                    vol.Required(CONF_HOST): str,
+                    vol.Required(
+                        CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL
+                    ): vol.All(int, vol.Range(min=5)),
+                    vol.Required(
+                        CONF_UPDATE_LAST_SEEN, default=DEFAULT_UPDATE_LAST_SEEN
+                    ): bool,
+                }
+            ),
             errors=errors,
         )
 
@@ -102,7 +112,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         new_mac = all_info.get("mac", "")
                     except _CONNECT_ERRORS:
                         new_mac = ""
-                    
+
                     expected_mac = self.config_entry.data.get(CONF_MAC, "")
                     if expected_mac and new_mac and new_mac != expected_mac:
                         _LOGGER.warning(
@@ -121,22 +131,37 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                                 new_mac,
                                 user_input[CONF_HOST],
                             )
-                        
-                        new_data = {**self.config_entry.data, **user_input, CONF_MAC: new_mac}
+
+                        new_data = {
+                            **self.config_entry.data,
+                            **user_input,
+                            CONF_MAC: new_mac,
+                        }
                         self.hass.config_entries.async_update_entry(
                             self.config_entry, data=new_data
                         )
 
                         return self.async_create_entry(title="", data={})
 
-        # 显示表单，预填当前值
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
                 {
                     vol.Required(
                         CONF_HOST, default=self.config_entry.data.get(CONF_HOST)
-                    ): str
+                    ): str,
+                    vol.Required(
+                        CONF_UPDATE_INTERVAL,
+                        default=self.config_entry.data.get(
+                            CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
+                        ),
+                    ): vol.All(int, vol.Range(min=5)),
+                    vol.Required(
+                        CONF_UPDATE_LAST_SEEN,
+                        default=self.config_entry.data.get(
+                            CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN
+                        ),
+                    ): bool,
                 }
             ),
             errors=errors,
