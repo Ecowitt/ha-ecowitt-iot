@@ -37,6 +37,9 @@ MAX_CONSECUTIVE_FAILURES = 3
 # Firmware metadata rarely changes; refresh at most once per hour.
 FIRMWARE_CHECK_INTERVAL_SECONDS = 3600
 
+# last_seen attribute update throttling to avoid recorder database bloat.
+LAST_SEEN_INTERVAL_SECONDS = 900
+
 # Device identity check return values.
 _IDENTITY_OK = "ok"
 _IDENTITY_MISMATCH = "mismatch"
@@ -69,6 +72,8 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._outage_logged = False
         self._mismatch_notified = False
         self._upgrade_bound = False
+        self._last_seen_value: float = 0.0
+        self._last_seen_ts: float = 0.0
 
     async def _async_update_data(self) -> dict[str, Any]:
         try:
@@ -104,7 +109,11 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             )
 
         res["firmware_update"] = await self._maybe_update_firmware_info()
-        res["_last_seen"] = time.time()
+        now = time.time()
+        if now - self._last_seen_ts >= LAST_SEEN_INTERVAL_SECONDS:
+            self._last_seen_value = now
+            self._last_seen_ts = now
+        res["_last_seen"] = self._last_seen_value
 
         if self._outage_logged:
             _LOGGER.info(
