@@ -14,13 +14,11 @@
             "user": {
                 "data": {
                     "host": "IP Adresse Gerät",
-                    "update_interval": "Aktualisierungsintervall",
-                    "update_last_seen": "Letzte Aktivität verfolgen"
+                    "update_interval": "Aktualisierungsintervall"
                 },
                 "data_description": {
                     "host": "Die IP-Adresse des Gerätes.",
-                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
-                    "update_last_seen": "Wenn aktiviert, wird allen Sensorentitäten ein Attribut 'last_seen' hinzugefügt."
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5)."
                 },
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "title": "Gerät Konfiguration"
@@ -39,12 +37,10 @@
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "data": {
                     "host": "IP Adresse Gerät",
-                    "update_interval": "Aktualisierungsintervall",
-                    "update_last_seen": "Letzte Aktivität verfolgen"
+                    "update_interval": "Aktualisierungsintervall"
                 },
                 "data_description": {
-                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
-                    "update_last_seen": "Wenn aktiviert, wird allen Sensorentitäten ein Attribut 'last_seen' hinzugefügt."
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5)."
                 }
             }
         }

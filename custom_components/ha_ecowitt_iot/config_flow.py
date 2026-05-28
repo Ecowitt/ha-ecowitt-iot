@@ -16,7 +16,7 @@ from homeassistant.const import CONF_HOST
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import aiohttp_client
 
-from .const import CONF_MAC, CONF_UPDATE_INTERVAL, CONF_UPDATE_LAST_SEEN, DOMAIN, DEFAULT_UPDATE_INTERVAL, DEFAULT_UPDATE_LAST_SEEN
+from .const import CONF_MAC, CONF_UPDATE_INTERVAL, DOMAIN, DEFAULT_UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -70,9 +70,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(
                         CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL
                     ): vol.All(int, vol.Range(min=5)),
-                    vol.Required(
-                        CONF_UPDATE_LAST_SEEN, default=DEFAULT_UPDATE_LAST_SEEN
-                    ): bool,
                 }
             ),
             errors=errors,
@@ -156,12 +153,6 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                             CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
                         ),
                     ): vol.All(int, vol.Range(min=5)),
-                    vol.Required(
-                        CONF_UPDATE_LAST_SEEN,
-                        default=self.config_entry.data.get(
-                            CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN
-                        ),
-                    ): bool,
                 }
             ),
             errors=errors,
