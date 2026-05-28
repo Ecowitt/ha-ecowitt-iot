@@ -6,12 +6,21 @@
         "error": {
             "cannot_connect": "Failed to connect",
             "invalid_auth": "Invalid authentication",
-            "unknown": "Unexpected error"
+            "unknown": "Unexpected error",
+            "no_devices": "You have connected to the device but have not received the returned data. Please check the device or restart the device.",
+            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device."
         },
         "step": {
             "user": {
                 "data": {
-                    "host": "Device IP address"
+                    "host": "Device IP address",
+                    "update_interval": "Update interval",
+                    "update_last_seen": "Track last seen"
+                },
+                "data_description": {
+                    "host": "The IP address of the device.",
+                    "update_interval": "How often the device is polled for new data (in seconds, minimum 5).",
+                    "update_last_seen": "If enabled, a 'last_seen' attribute will be added to all sensor entities."
                 },
                 "description": "Please enter the IP address of the device to view the data",
                 "title": "Device configuration"
@@ -29,7 +38,13 @@
                 "title": "Configure",
                 "description": "Update the settings for your Ecowitt device",
                 "data": {
-                    "host": "Device IP address"
+                    "host": "Device IP address",
+                    "update_interval": "Update interval",
+                    "update_last_seen": "Track last seen"
+                },
+                "data_description": {
+                    "update_interval": "How often the device is polled for new data (in seconds, minimum 5).",
+                    "update_last_seen": "If enabled, a 'last_seen' attribute will be added to all sensor entities."
                 }
             }
         }
@@ -174,7 +189,7 @@
                 "name": "10Min.Avg Wind Direction"
             },
             "apparent": {
-                "name": "Apparent Temperatur"
+                "name": "Apparent Temperature"
             },
             "vpd": {
                 "name": "VPD"

@@ -11,11 +11,13 @@ from homeassistant.const import (
     CONF_HOST,
     EntityCategory,
 )
+
+
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import DOMAIN
+from .const import DOMAIN, CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN
 from .coordinator import EcowittDataUpdateCoordinator
 
 BINARYSENSOR_DESCRIPTIONS = (
@@ -238,9 +240,11 @@ class MainDevEcowittBinarySensor(
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            return {"last_seen": last_seen}
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                return {"last_seen": last_seen}
         return None
 
 
@@ -291,9 +295,11 @@ class SubDevEcowittBinarySensor(
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            return {"last_seen": last_seen}
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                return {"last_seen": last_seen}
         return None
 
 
@@ -345,7 +351,9 @@ class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            return {"last_seen": last_seen}
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                return {"last_seen": last_seen}
         return None

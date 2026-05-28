@@ -40,7 +40,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN
+from .const import DOMAIN, CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN
 from .coordinator import EcowittDataUpdateCoordinator
 from homeassistant.helpers import device_registry as dr
 from homeassistant.util import dt as dt_util
@@ -917,9 +917,11 @@ class MainDevEcowittSensor(
             and val == "DC"
         ):
             attrs["power_source"] = "DC"
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            attrs["last_seen"] = last_seen
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                attrs["last_seen"] = last_seen
         return attrs or None
 
     @property
@@ -1023,9 +1025,11 @@ class SubDevEcowittSensor(
             and val == "DC"
         ):
             attrs["power_source"] = "DC"
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            attrs["last_seen"] = last_seen
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                attrs["last_seen"] = last_seen
         return attrs or None
 
     @property
@@ -1128,9 +1132,11 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
             and val == "DC"
         ):
             attrs["power_source"] = "DC"
-        last_seen = self.coordinator.data.get("_last_seen")
-        if last_seen is not None:
-            attrs["last_seen"] = last_seen
+        update_last_seen = self.coordinator.config_entry.data.get(CONF_UPDATE_LAST_SEEN, DEFAULT_UPDATE_LAST_SEEN)
+        if update_last_seen:
+            last_seen = self.coordinator.data.get("_last_seen")
+            if last_seen is not None:
+                attrs["last_seen"] = last_seen
         return attrs or None
 
     @property

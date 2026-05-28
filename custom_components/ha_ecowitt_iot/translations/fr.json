@@ -6,12 +6,21 @@
         "error": {
             "cannot_connect": "Erreur de connection",
             "invalid_auth": "Authentification invalide",
-            "unknown": "Erreur inconnue"
+            "unknown": "Erreur inconnue",
+            "no_devices": "Vous êtes connecté à l'appareil mais n'avez reçu aucune donnée. Veuillez vérifier ou redémarrer l'appareil.",
+            "device_mismatch": "Cette adresse IP pointe vers un appareil différent. Veuillez créer une nouvelle intégration pour cet appareil."
         },
         "step": {
             "user": {
                 "data": {
-                    "host": "Adresse IP de l'appareil"
+                    "host": "Adresse IP de l'appareil",
+                    "update_interval": "Intervalle de mise à jour",
+                    "update_last_seen": "Suivre la dernière activité"
+                },
+                "data_description": {
+                    "host": "L'adresse IP de l'appareil.",
+                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5).",
+                    "update_last_seen": "Si activé, un attribut 'last_seen' sera ajouté à toutes les entités capteur."
                 },
                 "description": "Merci de saisir l'adresse IP de l'appareil afin de consulter ses données",
                 "title": "Configuration de l'appareil"
@@ -29,7 +38,13 @@
                 "title": "Configurer",
                 "description": "Mettre à jour les réglages de votre appareil Ecowitt",
                 "data": {
-                    "host": "Adresse IP de l'appareil"
+                    "host": "Adresse IP de l'appareil",
+                    "update_interval": "Intervalle de mise à jour",
+                    "update_last_seen": "Suivre la dernière activité"
+                },
+                "data_description": {
+                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5).",
+                    "update_last_seen": "Si activé, un attribut 'last_seen' sera ajouté à toutes les entités capteur."
                 }
             }
         }

@@ -6,12 +6,21 @@
         "error": {
             "cannot_connect": "Verbindungs Fehler",
             "invalid_auth": "Ungültige Authentifizierung",
-            "unknown": "Unerwarteter Fehler"
+            "unknown": "Unerwarteter Fehler",
+            "no_devices": "Verbindung zum Gerät hergestellt, aber keine Daten empfangen. Bitte überprüfen oder starten Sie das Gerät neu.",
+            "device_mismatch": "Diese IP-Adresse zeigt auf ein anderes Gerät. Bitte erstellen Sie eine neue Integration für dieses Gerät."
         },
         "step": {
             "user": {
                 "data": {
-                    "host": "IP Adresse Gerät"
+                    "host": "IP Adresse Gerät",
+                    "update_interval": "Aktualisierungsintervall",
+                    "update_last_seen": "Letzte Aktivität verfolgen"
+                },
+                "data_description": {
+                    "host": "Die IP-Adresse des Gerätes.",
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
+                    "update_last_seen": "Wenn aktiviert, wird allen Sensorentitäten ein Attribut 'last_seen' hinzugefügt."
                 },
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "title": "Gerät Konfiguration"
@@ -29,7 +38,13 @@
                 "title": "Gerät Konfiguration",
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "data": {
-                    "host": "IP Adresse Gerät"
+                    "host": "IP Adresse Gerät",
+                    "update_interval": "Aktualisierungsintervall",
+                    "update_last_seen": "Letzte Aktivität verfolgen"
+                },
+                "data_description": {
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
+                    "update_last_seen": "Wenn aktiviert, wird allen Sensorentitäten ein Attribut 'last_seen' hinzugefügt."
                 }
             }
         }
