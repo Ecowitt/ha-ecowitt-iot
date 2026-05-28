@@ -3,10 +3,12 @@
     "step": {
       "user": {
         "data": {
-          "host": "[%key:common::config_flow::data::host%]"
+          "host": "[%key:common::config_flow::data::host%]",
+          "update_interval": "Update interval"
         },
         "data_description": {
-          "host": "The IP address of the device."
+          "host": "The IP address of the device.",
+          "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."
         }
       }
     },
@@ -30,7 +32,11 @@
         "title": "Configure",
         "description": "Update the settings for your Ecowitt device",
         "data": {
-          "host": "Device IP address"
+          "host": "Device IP address",
+          "update_interval": "Update interval"
+        },
+        "data_description": {
+          "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."
         }
       }
     }

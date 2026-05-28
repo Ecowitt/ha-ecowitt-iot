@@ -11,7 +11,11 @@
         "step": {
             "user": {
                 "data": {
-                    "host": "Adresse IP de l'appareil"
+                    "host": "Adresse IP de l'appareil",
+                    "update_interval": "Intervalle de mise à jour"
+                },
+                "data_description": {
+                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5)."
                 },
                 "description": "Merci de saisir l'adresse IP de l'appareil afin de consulter ses données",
                 "title": "Configuration de l'appareil"
@@ -29,7 +33,11 @@
                 "title": "Configurer",
                 "description": "Mettre à jour les réglages de votre appareil Ecowitt",
                 "data": {
-                    "host": "Adresse IP de l'appareil"
+                    "host": "Adresse IP de l'appareil",
+                    "update_interval": "Intervalle de mise à jour"
+                },
+                "data_description": {
+                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5)."
                 }
             }
         }
