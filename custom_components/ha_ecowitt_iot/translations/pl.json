@@ -1,0 +1,288 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Urządzenie jest już skonfigurowane"
+        },
+        "error": {
+            "cannot_connect": "Nie udało się połączyć",
+            "invalid_auth": "Nieprawidłowe uwierzytelnienie",
+            "unknown": "Nieoczekiwany błąd"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Adres IP urządzenia"
+                },
+                "description": "Wprowadź adres IP urządzenia, aby wyświetlić dane",
+                "title": "Konfiguracja urządzenia"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Nie udało się połączyć",
+            "no_devices": "Nie znaleziono urządzeń",
+            "device_mismatch": "Ten adres IP wskazuje na inne urządzenie. Utwórz nową integrację dla tego urządzenia."
+        },
+        "step": {
+            "init": {
+                "title": "Konfiguruj",
+                "description": "Zaktualizuj ustawienia dla swojego urządzenia Ecowitt",
+                "data": {
+                    "host": "Adres IP urządzenia"
+                }
+            }
+        }
+    },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Niezgodność tożsamości urządzenia",
+        "mismatch_message": "Adres IP `{host}` wskazuje teraz na inne urządzenie.\n\n- Oczekiwany adres MAC: `{expected_mac}`\n- Aktualny adres MAC: `{actual_mac}`\n\nPrzejdź do **Ustawienia → Urządzenia i usługi → Oficjalna integracja Ecowitt**, aby zaktualizować adres IP tej integracji, lub utwórz nową integrację dla tego urządzenia.",
+        "upgrade_mismatch_message": "**Wykryto aktualizację** — niezgodność tożsamości urządzenia.\n\nAdres IP `{host}` nie wskazuje już na `{expected_name}`.\n\n- Aktualny adres MAC: `{actual_mac}`\n\nPrzejdź do **Ustawienia → Urządzenia i usługi → Oficjalna integracja Ecowitt**, aby zaktualizować adres IP tej integracji, lub dodaj nową integrację dla tego urządzenia."
+    },
+    "entity": {
+        "sensor": {
+            "bgt": {
+                "name": "BGT"
+            },
+            "wbgt": {
+                "name": "WBGT"
+            },
+            "tempinf": {
+                "name": "Temperatura wewnątrz"
+            },
+            "humidityin": {
+                "name": "Wilgotność wewnątrz"
+            },
+            "tempf": {
+                "name": "Temperatura na zewnątrz"
+            },
+            "baromrelin": {
+                "name": "Ciśnienie względne"
+            },
+            "baromabsin": {
+                "name": "Ciśnienie bezwzględne"
+            },
+            "humidity": {
+                "name": "Wilgotność na zewnątrz"
+            },
+            "winddir": {
+                "name": "Kierunek wiatru"
+            },
+            "windspeedmph": {
+                "name": "Prędkość wiatru"
+            },
+            "windgustmph": {
+                "name": "Poryw wiatru"
+            },
+            "solarradiation": {
+                "name": "Natężenie promieniowania słonecznego"
+            },
+            "uv": {
+                "name": "Indeks UV"
+            },
+            "daywindmax": {
+                "name": "Maksymalny wiatr w ciągu dnia"
+            },
+            "feellike": {
+                "name": "Temperatura odczuwalna"
+            },
+            "dewpoint": {
+                "name": "Punkt rosy"
+            },
+            "rainratein": {
+                "name": "Intensywność opadów"
+            },
+            "eventrainin": {
+                "name": "Zdarzenie opadowe"
+            },
+            "dailyrainin": {
+                "name": "Dzienne opady"
+            },
+            "weeklyrainin": {
+                "name": "Tygodniowe opady"
+            },
+            "monthlyrainin": {
+                "name": "Miesięczne opady"
+            },
+            "yearlyrainin": {
+                "name": "Roczne opady"
+            },
+            "rrain_piezo": {
+                "name": "Intensywność opadów piezo"
+            },
+            "erain_piezo": {
+                "name": "Zdarzenie opadowe piezo"
+            },
+            "drain_piezo": {
+                "name": "Dzienne opady piezo"
+            },
+            "wrain_piezo": {
+                "name": "Tygodniowe opady piezo"
+            },
+            "mrain_piezo": {
+                "name": "Miesięczne opady piezo"
+            },
+            "yrain_piezo": {
+                "name": "Roczne opady piezo"
+            },
+            "co2in": {
+                "name": "CO2 wewnątrz"
+            },
+            "co2in_24h": {
+                "name": "Średnie CO2 z 24h wewnątrz"
+            },
+            "co2": {
+                "name": "CO2"
+            },
+            "co2_24h": {
+                "name": "Średnie CO2 z 24h"
+            },
+            "pm25_co2": {
+                "name": "CO2 PM2.5"
+            },
+            "pm25_24h_co2": {
+                "name": "AQI PM2.5 CO2 z 24h"
+            },
+            "pm10_co2": {
+                "name": "CO2 PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "AQI PM10 CO2 z 24h"
+            },
+            "pm10_aqi_co2": {
+                "name": "AQI PM10 CO2"
+            },
+            "pm25_aqi_co2": {
+                "name": "AQI PM2.5 CO2"
+            },
+            "tf_co2": {
+                "name": "Temperatura CO2"
+            },
+            "humi_co2": {
+                "name": "Wilgotność CO2"
+            },
+            "lightning": {
+                "name": "Odległość ostatniego wyładowania"
+            },
+            "lightning_time": {
+                "name": "Czas ostatniego wyładowania"
+            },
+            "lightning_num": {
+                "name": "Dzienna liczba wyładowań"
+            },
+            "winddir10": {
+                "name": "Śr. kierunek wiatru z 10 min."
+            },
+            "apparent": {
+                "name": "Temperatura pozorna"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Całkowite opady"
+            },
+            "24hrainin": {
+                "name": "Opady z 24 godzin"
+            },
+            "train_piezo": {
+                "name": "Całkowite opady piezo"
+            },
+            "24hrain_piezo": {
+                "name": "Opady piezo z 24 godzin"
+            },
+            "con_batt": {
+                "name": "Bateria konsoli"
+            },
+            "con_batt_volt": {
+                "name": "Napięcie baterii konsoli"
+            },
+            "con_ext_volt": {
+                "name": "Napięcie zasilania zewnętrznego konsoli"
+            },
+            "srain_piezo": {
+                "name": "Status deszczu"
+            },
+            "piezora_batt": {
+                "name": "Bateria piezo"
+            },
+            "pm1_co2": {
+                "name": "CO2 PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "AQI PM1 CO2 z 24h"
+            },
+            "pm1_aqi_co2": {
+                "name": "AQI PM1 CO2"
+            },
+            "pm4_co2": {
+                "name": "CO2 PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "AQI PM4 CO2 z 24h"
+            },
+            "pm4_aqi_co2": {
+                "name": "AQI PM4 CO2"
+            },
+            "pm1_24h_co2_add": {
+                "name": "Śr. PM1 CO2 z 24h"
+            },
+            "pm4_24h_co2_add": {
+                "name": "Śr. PM4 CO2 z 24h"
+            },
+            "pm25_24h_co2_add": {
+                "name": "Śr. PM2.5 CO2 z 24h"
+            },
+            "pm10_24h_co2_add": {
+                "name": "Śr. PM10 CO2 z 24h"
+            },
+            "iotbatt": {
+                "name": "Bateria"
+            },
+            "signal": {
+                "name": "Sygnał"
+            },
+            "run_time": {
+                "name": "Czas pracy"
+            },
+            "ver": {
+                "name": "Wersja"
+            },
+            "wfc02_position": {
+                "name": "Procent otwarcia zaworu"
+            },
+            "wfc02_flow_velocity": {
+                "name": "Prędkość przepływu"
+            },
+            "velocity_total": {
+                "name": "Suma"
+            },
+            "flow_velocity": {
+                "name": "Prędkość przepływu"
+            },
+            "data_water_t": {
+                "name": "Temperatura"
+            },
+            "data_ac_v": {
+                "name": "Napięcie"
+            },
+            "elect_total": {
+                "name": "Energia"
+            },
+            "realtime_power": {
+                "name": "Moc"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Status deszczu"
+            },
+            "rfnet_state": {
+                "name": "Jest online"
+            },
+            "iot_running": {
+                "name": "Pracuje"
+            }
+        }
+    }
+}
