@@ -11,7 +11,11 @@
         "step": {
             "user": {
                 "data": {
-                    "host": "IP Adresse Gerät"
+                    "host": "IP Adresse Gerät",
+                    "update_interval": "Aktualisierungsintervall"
+                },
+                "data_description": {
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5)."
                 },
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "title": "Gerät Konfiguration"
@@ -29,7 +33,11 @@
                 "title": "Gerät Konfiguration",
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "data": {
-                    "host": "IP Adresse Gerät"
+                    "host": "IP Adresse Gerät",
+                    "update_interval": "Aktualisierungsintervall"
+                },
+                "data_description": {
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5)."
                 }
             }
         }
