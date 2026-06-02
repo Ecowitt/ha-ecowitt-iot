@@ -12,7 +12,7 @@
             "user": {
                 "data": {
                     "host": "Device IP address",
-                    "update_interval": "Update interval"
+                    "update_interval": "Update interval (seconds)"
                 },
                 "data_description": {
                     "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."
@@ -34,7 +34,7 @@
                 "description": "Update the settings for your Ecowitt device",
                 "data": {
                     "host": "Device IP address",
-                    "update_interval": "Update interval"
+                    "update_interval": "Update interval (seconds)"
                 },
                 "data_description": {
                     "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."

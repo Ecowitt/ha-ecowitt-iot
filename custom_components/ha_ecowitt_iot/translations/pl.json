@@ -11,7 +11,11 @@
         "step": {
             "user": {
                 "data": {
-                    "host": "Adres IP urządzenia"
+                    "host": "Adres IP urządzenia",
+                    "update_interval": "Interwał aktualizacji (sekundy)"
+                },
+                "data_description": {
+                    "update_interval": "Jak często urządzenie jest odpytywane o nowe dane (w sekundach, minimum 5)."
                 },
                 "description": "Wprowadź adres IP urządzenia, aby wyświetlić dane",
                 "title": "Konfiguracja urządzenia"
@@ -29,7 +33,11 @@
                 "title": "Konfiguruj",
                 "description": "Zaktualizuj ustawienia dla swojego urządzenia Ecowitt",
                 "data": {
-                    "host": "Adres IP urządzenia"
+                    "host": "Adres IP urządzenia",
+                    "update_interval": "Interwał aktualizacji (sekundy)"
+                },
+                "data_description": {
+                    "update_interval": "Jak często urządzenie jest odpytywane o nowe dane (w sekundach, minimum 5)."
                 }
             }
         }

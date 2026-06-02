@@ -12,7 +12,7 @@
             "user": {
                 "data": {
                     "host": "Adresse IP de l'appareil",
-                    "update_interval": "Intervalle de mise à jour"
+                    "update_interval": "Intervalle de mise à jour (secondes)"
                 },
                 "data_description": {
                     "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5)."
@@ -34,7 +34,7 @@
                 "description": "Mettre à jour les réglages de votre appareil Ecowitt",
                 "data": {
                     "host": "Adresse IP de l'appareil",
-                    "update_interval": "Intervalle de mise à jour"
+                    "update_interval": "Intervalle de mise à jour (secondes)"
                 },
                 "data_description": {
                     "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5)."

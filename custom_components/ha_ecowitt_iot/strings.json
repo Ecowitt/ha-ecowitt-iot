@@ -4,7 +4,7 @@
       "user": {
         "data": {
           "host": "[%key:common::config_flow::data::host%]",
-          "update_interval": "Update interval"
+          "update_interval": "Update interval (seconds)"
         },
         "data_description": {
           "host": "The IP address of the device.",
@@ -33,7 +33,7 @@
         "description": "Update the settings for your Ecowitt device",
         "data": {
           "host": "Device IP address",
-          "update_interval": "Update interval"
+          "update_interval": "Update interval (seconds)"
         },
         "data_description": {
           "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."
