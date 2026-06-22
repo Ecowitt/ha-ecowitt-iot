@@ -1,0 +1,296 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd"
+        },
+        "error": {
+            "cannot_connect": "Verbinding maken mislukt",
+            "invalid_auth": "Ongeldige authenticatie",
+            "unknown": "Onverwachte fout"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "IP-adres van apparaat",
+                    "update_interval": "Update interval (seconden)"
+                },
+                "data_description": {
+                    "update_interval": "Hoe vaak het apparaat wordt uitgelezen voor nieuwe gegevens (in seconden, minimaal 5)."
+                },
+                "description": "Voer het IP-adres van het apparaat in om de gegevens te bekijken",
+                "title": "Apparaatconfiguratie"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Verbinding maken mislukt",
+            "no_devices": "Geen apparaten gevonden",
+            "device_mismatch": "Dit IP-adres verwijst naar een ander apparaat. Maak een nieuwe integratie aan voor dit apparaat."
+        },
+        "step": {
+            "init": {
+                "title": "Configureren",
+                "description": "Werk de instellingen van uw Ecowitt apparaat bij",
+                "data": {
+                    "host": "IP-adres van apparaat",
+                    "update_interval": "Update interval (seconden)"
+                },
+                "data_description": {
+                    "update_interval": "Hoe vaak het apparaat wordt uitgelezen voor nieuwe gegevens (in seconden, minimaal 5)."
+                }
+            }
+        }
+    },
+    "notifications": {
+        "mismatch_title": "Ecowitt – apparaat indentiteit komt niet overeen",
+        "mismatch_message": "IP `{host}` verwijst naar een ander apparaat.\n\n- Verwacht MAC-adres: `{expected_mac}`\n- Werkelijk MAC-adres: `{actual_mac}`\n\nGa naar **Instellingen → Apparaten & diensten → Ecowitt Official Integration** om het IP-adres van de integratie bij te werken, of maak een nieuwe integratie aan voor dit apparaat.",
+        "upgrade_mismatch_message": "**Upgrade gedetecteerd** — apparaat indentiteit komt niet overeen.\n\nHet IP-adres `{host}` verwijst niet langer naar `{expected_name}`.\n\n- Huidig MAC-adres: `{actual_mac}`\n\nGa naar **Instellingen → Apparaten & diensten → Ecowitt Official Integration** om het IP-adres van de integratie bij te werken, of maak een nieuwe integratie aan voor dit apparaat."
+    },
+    "entity": {
+        "sensor": {
+            "bgt": {
+                "name": "BGT"
+            },
+            "wbgt": {
+                "name": "WBGT"
+            },
+            "tempinf": {
+                "name": "Temperatuur binnen"
+            },
+            "humidityin": {
+                "name": "Luchtvochtigheid binnen"
+            },
+            "tempf": {
+                "name": "Temperatuur buiten"
+            },
+            "baromrelin": {
+                "name": "Relatieve luchtdruk"
+            },
+            "baromabsin": {
+                "name": "Absolute luchtdruk"
+            },
+            "humidity": {
+                "name": "Luchtvochtigheid buiten"
+            },
+            "winddir": {
+                "name": "Windrichting"
+            },
+            "windspeedmph": {
+                "name": "Windsnelheid"
+            },
+            "windgustmph": {
+                "name": "Windvlaag"
+            },
+            "solarradiation": {
+                "name": "Zonnestraling"
+            },
+            "uv": {
+                "name": "UV-Index"
+            },
+            "daywindmax": {
+                "name": "Maximale wind vandaag"
+            },
+            "feellike": {
+                "name": "Gevoelstemperatuur"
+            },
+            "dewpoint": {
+                "name": "Dauwpunt"
+            },
+            "rainratein": {
+                "name": "Neerslagintensiteit"
+            },
+            "eventrainin": {
+                "name": "Huidige neerslag"
+            },
+            "dailyrainin": {
+                "name": "Dagelijkse neerslag"
+            },
+            "weeklyrainin": {
+                "name": "Wekelijkse neerslag"
+            },
+            "monthlyrainin": {
+                "name": "Maandelijkse neerslag"
+            },
+            "yearlyrainin": {
+                "name": "Jaarlijkse neerslag"
+            },
+            "rrain_piezo": {
+                "name": "Piezo neerslagintensiteit"
+            },
+            "erain_piezo": {
+                "name": "Huidige piezo neerslag"
+            },
+            "drain_piezo": {
+                "name": "Dagelijkse piezo neerslag"
+            },
+            "wrain_piezo": {
+                "name": "Wekelijkse piezo neerslag"
+            },
+            "mrain_piezo": {
+                "name": "Maandelijkse piezo neerslag"
+            },
+            "yrain_piezo": {
+                "name": "Jaarlijkse piezo neerslag"
+            },
+            "co2in": {
+                "name": "CO2 binnen"
+            },
+            "co2in_24h": {
+                "name": "CO2 binnen 24 uursgemiddelde"
+            },
+            "co2": {
+                "name": "CO2"
+            },
+            "co2_24h": {
+                "name": "CO2 24 uursgemiddelde"
+            },
+            "pm25_co2": {
+                "name": "CO2 PM2.5"
+            },
+            "pm25_24h_co2": {
+                "name": "CO2 24 uurs PM2.5 AQI"
+            },
+            "pm10_co2": {
+                "name": "CO2 PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "CO2 24 uurs PM10 AQI"
+            },
+            "pm10_aqi_co2": {
+                "name": "CO2 PM10 AQI"
+            },
+            "pm25_aqi_co2": {
+                "name": "CO2 PM2.5 AQI"
+            },
+            "tf_co2": {
+                "name": "CO2 temperatuur"
+            },
+            "humi_co2": {
+                "name": "CO2 luchtvochtigheid"
+            },
+            "lightning": {
+                "name": "Afstand laatste donderslag"
+            },
+            "lightning_time": {
+                "name": "Tijdstip laatste donderslag"
+            },
+            "lightning_num": {
+                "name": "Dagelijks aantal donderslagen"
+            },
+            "winddir10": {
+                "name": "10 min. gem. windrichting"
+            },
+            "apparent": {
+                "name": "Schijnbare temperatuur"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Totale neerslag"
+            },
+            "24hrainin": {
+                "name": "Neerslag afgelopen 24 uur"
+            },
+            "train_piezo": {
+                "name": "Totale piezo neerslag"
+            },
+            "24hrain_piezo": {
+                "name": "Piezo neerslag afgelopen 24 uur"
+            },
+            "con_batt": {
+                "name": "Consolebatterij"
+            },
+            "con_batt_volt": {
+                "name": "Spanning consolebatterij"
+            },
+            "con_ext_volt": {
+                "name": "Spanning externe voeding console"
+            },
+            "srain_piezo": {
+                "name": "Neerslagstatus"
+            },
+            "piezora_batt": {
+                "name": "Piezo batterij"
+            },
+            "pm1_co2": {
+                "name": "CO2 PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "CO2 24 uurs PM1 AQI"
+            },
+            "pm1_aqi_co2": {
+                "name": "CO2 PM1 AQI"
+            },
+            "pm4_co2": {
+                "name": "CO2 PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "CO2 24 uurs PM4 AQI"
+            },
+            "pm4_aqi_co2": {
+                "name": "CO2 PM4 AQI"
+            },
+            "pm1_24h_co2_add": {
+                "name": "CO2 24 uursgemiddelde PM1"
+            },
+            "pm4_24h_co2_add": {
+                "name": "CO2 24 uursgemiddelde PM4"
+            },
+            "pm25_24h_co2_add": {
+                "name": "CO2 24 uursgemiddelde PM2.5"
+            },
+            "pm10_24h_co2_add": {
+                "name": "CO2 24 uursgemiddelde PM10"
+            },
+            "iotbatt": {
+                "name": "Batterij"
+            },
+            "signal": {
+                "name": "Signaal"
+            },
+            "run_time": {
+                "name": "Bedrijfstijd"
+            },
+            "ver": {
+                "name": "Versie"
+            },
+            "wfc02_position": {
+                "name": "Klep openingspercentage"
+            },
+            "wfc02_flow_velocity": {
+                "name": "Stroomsnelheid"
+            },
+            "velocity_total": {
+                "name": "Totaal"
+            },
+            "flow_velocity": {
+                "name": "Stroomsnelheid"
+            },
+            "data_water_t": {
+                "name": "Temperatuur"
+            },
+            "data_ac_v": {
+                "name": "Spanning"
+            },
+            "elect_total": {
+                "name": "Energie"
+            },
+            "realtime_power": {
+                "name": "Vermogen"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Neerslagstatus"
+            },
+            "rfnet_state": {
+                "name": "Online"
+            },
+            "iot_running": {
+                "name": "Actief"
+            }
+        }
+    }
+}
