@@ -80,22 +80,22 @@ async def async_setup_entry(
     binary_sensors: list[SubDevEcowittBinarySensor] = []
     registered_sub: set[str] = set()
     for key in coordinator.data:
-        if key in MultiSensorInfo.SENSOR_INFO and MultiSensorInfo.SENSOR_INFO[key][
+        if key in coordinator.api.sensor_info and coordinator.api.sensor_info[key][
             "data_type"
         ] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
             mapping = LEAK_DETECTION_SENSOR[
-                MultiSensorInfo.SENSOR_INFO[key]["data_type"]
+                coordinator.api.sensor_info[key]["data_type"]
             ]
             description = dataclasses.replace(
                 mapping,
                 key=key,
-                name=MultiSensorInfo.SENSOR_INFO[key]["name"],
+                name=coordinator.api.sensor_info[key]["name"],
             )
             binary_sensors.append(
                 SubDevEcowittBinarySensor(
                     coordinator,
                     entry.unique_id,
-                    MultiSensorInfo.SENSOR_INFO[key]["dev_type"],
+                    coordinator.api.sensor_info[key]["dev_type"],
                     description,
                 )
             )
@@ -140,8 +140,8 @@ async def async_setup_entry(
                 new_entities.append(MainDevEcowittBinarySensor(coordinator, entry.unique_id, desc))
                 registered_main.add(desc.key)
         for key in coordinator.data:
-            if key in MultiSensorInfo.SENSOR_INFO:
-                info = MultiSensorInfo.SENSOR_INFO[key]
+            if key in coordinator.api.sensor_info:
+                info = coordinator.api.sensor_info[key]
                 if info["data_type"] in (WittiotDataTypes.LEAK, WittiotDataTypes.BATTERY_BINARY):
                     if key not in registered_sub:
                         mapping = LEAK_DETECTION_SENSOR[info["data_type"]]
