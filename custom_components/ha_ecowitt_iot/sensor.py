@@ -908,6 +908,11 @@ class MainDevEcowittSensor(
         return val
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self.entity_description.key in self.coordinator.data
+
+    @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
         attrs = {}
@@ -1014,6 +1019,11 @@ class SubDevEcowittSensor(
         return val
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self.entity_description.key in self.coordinator.data
+
+    @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
         attrs = {}
@@ -1105,6 +1115,17 @@ class IotDeviceSensor(CoordinatorEntity, SensorEntity):
         ):
             return 100
         return val
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        if "iot_list" not in self.coordinator.data:
+            return False
+        key = self.entity_description.key.split("_", 1)[1]
+        return super().available and any(
+            item.get("nickname") == self.device_id and key in item
+            for item in self.coordinator.data["iot_list"].get("command", [])
+        )
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:

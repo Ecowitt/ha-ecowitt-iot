@@ -40,6 +40,9 @@ FIRMWARE_CHECK_INTERVAL_SECONDS = 3600
 # last_seen attribute update throttling to avoid recorder database bloat.
 LAST_SEEN_INTERVAL_SECONDS = 900
 
+# Sub-device data older than this is considered stale/unavailable.
+STALE_SENSOR_SECONDS = 6 * 60 * 60
+
 # Device identity check return values.
 _IDENTITY_OK = "ok"
 _IDENTITY_MISMATCH = "mismatch"
@@ -115,6 +118,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             self._last_seen_value = now
             self._last_seen_ts = now
         res["_last_seen"] = self._last_seen_value
+        self._drop_stale_subdevice_data(res)
 
         if self._outage_logged:
             _LOGGER.info(
@@ -140,6 +144,53 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._consecutive_failures = 0
         self._last_good_data = res
         return res
+
+
+    def _drop_stale_subdevice_data(self, data: dict[str, Any]) -> None:
+        """Remove sub-device values when their last seen age is over six hours."""
+        sensor_info = getattr(self.api, "sensor_info", {})
+        stale_dev_types = {
+            info.get("dev_type")
+            for key, value in data.items()
+            if "last" in key.lower()
+            and "seen" in key.lower()
+            and self._last_seen_age_seconds(value) > STALE_SENSOR_SECONDS
+            and (info := sensor_info.get(key))
+            and info.get("dev_type")
+        }
+        if not stale_dev_types:
+            return
+
+        for key in list(data):
+            if (info := sensor_info.get(key)) and info.get("dev_type") in stale_dev_types:
+                data.pop(key, None)
+
+    @staticmethod
+    def _last_seen_age_seconds(value: Any) -> float:
+        """Convert Ecowitt last seen values such as '7 Hours' to seconds."""
+        if isinstance(value, (int, float)):
+            return float(value)
+        if not isinstance(value, str):
+            return 0.0
+
+        parts = value.strip().lower().split()
+        if len(parts) < 2:
+            return 0.0
+        try:
+            amount = float(parts[0])
+        except ValueError:
+            return 0.0
+
+        unit = parts[1]
+        if unit.startswith("sec"):
+            return amount
+        if unit.startswith("min"):
+            return amount * 60
+        if unit.startswith("hour"):
+            return amount * 60 * 60
+        if unit.startswith("day"):
+            return amount * 24 * 60 * 60
+        return 0.0
 
     def _check_device_identity(self, data: dict[str, Any]) -> str:
         """检查设备身份，纯校验无副作用，返回状态码."""
