@@ -152,16 +152,19 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             return False
 
         for last_seen_key, last_seen_info in sensor_info.items():
-            if (
-                last_seen_info.get("dev_type") == dev_type
-                and "last" in last_seen_key.lower()
-                and "seen" in last_seen_key.lower()
-            ):
+            same_subdevice = last_seen_info.get("dev_type") == dev_type
+            if same_subdevice and self._is_last_seen_key(last_seen_key):
                 return (
                     self._last_seen_age_seconds(self.data.get(last_seen_key))
                     > STALE_SENSOR_SECONDS
                 )
         return False
+
+    @staticmethod
+    def _is_last_seen_key(key: str) -> bool:
+        """Return if a wittiot sensor_info key is a sub-device last seen value."""
+        normalized_key = key.lower().replace("!", "_").replace(" ", "_")
+        return "last" in normalized_key and "seen" in normalized_key
 
     @staticmethod
     def _last_seen_age_seconds(value: Any) -> float:
