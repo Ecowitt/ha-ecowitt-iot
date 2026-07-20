@@ -118,7 +118,6 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             self._last_seen_value = now
             self._last_seen_ts = now
         res["_last_seen"] = self._last_seen_value
-        self._drop_stale_subdevice_data(res)
 
         if self._outage_logged:
             _LOGGER.info(
@@ -145,25 +144,24 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._last_good_data = res
         return res
 
-
-    def _drop_stale_subdevice_data(self, data: dict[str, Any]) -> None:
-        """Remove sub-device values when their last seen age is over six hours."""
+    def is_sensor_stale(self, key: str) -> bool:
+        """Return if a sensor belongs to a sub-device not seen for over six hours."""
         sensor_info = getattr(self.api, "sensor_info", {})
-        stale_dev_types = {
-            info.get("dev_type")
-            for key, value in data.items()
-            if "last" in key.lower()
-            and "seen" in key.lower()
-            and self._last_seen_age_seconds(value) > STALE_SENSOR_SECONDS
-            and (info := sensor_info.get(key))
-            and info.get("dev_type")
-        }
-        if not stale_dev_types:
-            return
+        info = sensor_info.get(key)
+        if not info or not (dev_type := info.get("dev_type")):
+            return False
 
-        for key in list(data):
-            if (info := sensor_info.get(key)) and info.get("dev_type") in stale_dev_types:
-                data.pop(key, None)
+        for last_seen_key, last_seen_info in sensor_info.items():
+            if (
+                last_seen_info.get("dev_type") == dev_type
+                and "last" in last_seen_key.lower()
+                and "seen" in last_seen_key.lower()
+            ):
+                return (
+                    self._last_seen_age_seconds(self.data.get(last_seen_key))
+                    > STALE_SENSOR_SECONDS
+                )
+        return False
 
     @staticmethod
     def _last_seen_age_seconds(value: Any) -> float:

@@ -233,7 +233,11 @@ class MainDevEcowittBinarySensor(
     @property
     def available(self) -> bool:
         """实体是否可用"""
-        return super().available and self._sensor_key in self.coordinator.data
+        return (
+            super().available
+            and self._sensor_key in self.coordinator.data
+            and not self.coordinator.is_sensor_stale(self._sensor_key)
+        )
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -286,7 +290,11 @@ class SubDevEcowittBinarySensor(
     @property
     def available(self) -> bool:
         """实体是否可用"""
-        return super().available and self._sensor_key in self.coordinator.data
+        return (
+            super().available
+            and self._sensor_key in self.coordinator.data
+            and not self.coordinator.is_sensor_stale(self._sensor_key)
+        )
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -341,17 +349,6 @@ class IotDeviceBinarySensor(CoordinatorEntity, BinarySensorEntity):
                     key = self.entity_description.key.split("_", 1)[1]
                     return item.get(key, None)
         return None  # 如果数据不可用返回None
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        if "iot_list" not in self.coordinator.data:
-            return False
-        key = self.entity_description.key.split("_", 1)[1]
-        return super().available and any(
-            item.get("nickname") == self.device_id and key in item
-            for item in self.coordinator.data["iot_list"].get("command", [])
-        )
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
