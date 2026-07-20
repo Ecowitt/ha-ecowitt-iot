@@ -148,19 +148,21 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         """Return if a sensor belongs to a sub-device not seen for over six hours."""
         # Home Assistant's last_updated is the entity state write time, not the
         # sub-device heartbeat. Use Ecowitt's own last seen value instead.
-        sensor_info = getattr(self.api, "sensor_info", {})
-        info = sensor_info.get(key)
-        if not info or not (dev_type := info.get("dev_type")):
+        dev_type = getattr(self.api, "sensor_info", {}).get(key, {}).get("dev_type")
+        if not dev_type:
             return False
 
-        for last_seen_key, last_seen_info in sensor_info.items():
-            same_subdevice = last_seen_info.get("dev_type") == dev_type
-            if same_subdevice and self._is_last_seen_key(last_seen_key):
-                return (
-                    self._last_seen_age_seconds(self.data.get(last_seen_key))
-                    > STALE_SENSOR_SECONDS
-                )
-        return False
+        last_seen = self._last_seen_by_dev_type().get(dev_type)
+        return self._last_seen_age_seconds(last_seen) > STALE_SENSOR_SECONDS
+
+    def _last_seen_by_dev_type(self) -> dict[str, Any]:
+        """Return Ecowitt last seen values indexed by sub-device type."""
+        sensor_info = getattr(self.api, "sensor_info", {})
+        return {
+            info["dev_type"]: self.data.get(key)
+            for key, info in sensor_info.items()
+            if info.get("dev_type") and self._is_last_seen_key(key)
+        }
 
     @staticmethod
     def _is_last_seen_key(key: str) -> bool:
