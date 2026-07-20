@@ -233,11 +233,7 @@ class MainDevEcowittBinarySensor(
     @property
     def available(self) -> bool:
         """实体是否可用"""
-        return (
-            super().available
-            and self._sensor_key in self.coordinator.data
-            and not self.coordinator.is_sensor_stale(self._sensor_key)
-        )
+        return super().available and self._sensor_key in self.coordinator.data
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -290,11 +286,7 @@ class SubDevEcowittBinarySensor(
     @property
     def available(self) -> bool:
         """实体是否可用"""
-        return (
-            super().available
-            and self._sensor_key in self.coordinator.data
-            and not self.coordinator.is_sensor_stale(self._sensor_key)
-        )
+        return super().available and self._sensor_key in self.coordinator.data
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:

@@ -910,11 +910,7 @@ class MainDevEcowittSensor(
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return (
-            super().available
-            and self.entity_description.key in self.coordinator.data
-            and not self.coordinator.is_sensor_stale(self.entity_description.key)
-        )
+        return super().available and self.entity_description.key in self.coordinator.data
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -1025,11 +1021,7 @@ class SubDevEcowittSensor(
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return (
-            super().available
-            and self.entity_description.key in self.coordinator.data
-            and not self.coordinator.is_sensor_stale(self.entity_description.key)
-        )
+        return super().available and self.entity_description.key in self.coordinator.data
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:

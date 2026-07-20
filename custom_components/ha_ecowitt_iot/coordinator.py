@@ -40,9 +40,6 @@ FIRMWARE_CHECK_INTERVAL_SECONDS = 3600
 # last_seen attribute update throttling to avoid recorder database bloat.
 LAST_SEEN_INTERVAL_SECONDS = 900
 
-# Sub-device data older than this is considered stale/unavailable.
-STALE_SENSOR_SECONDS = 6 * 60 * 60
-
 # Device identity check return values.
 _IDENTITY_OK = "ok"
 _IDENTITY_MISMATCH = "mismatch"
@@ -143,59 +140,6 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._consecutive_failures = 0
         self._last_good_data = res
         return res
-
-    def is_sensor_stale(self, key: str) -> bool:
-        """Return if a sensor belongs to a sub-device not seen for over six hours."""
-        # Home Assistant's last_updated is the entity state write time, not the
-        # sub-device heartbeat. Use Ecowitt's own last seen value instead.
-        dev_type = getattr(self.api, "sensor_info", {}).get(key, {}).get("dev_type")
-        if not dev_type:
-            return False
-
-        last_seen = self._last_seen_by_dev_type().get(dev_type)
-        return self._last_seen_age_seconds(last_seen) > STALE_SENSOR_SECONDS
-
-    def _last_seen_by_dev_type(self) -> dict[str, Any]:
-        """Return Ecowitt last seen values indexed by sub-device type."""
-        sensor_info = getattr(self.api, "sensor_info", {})
-        return {
-            info["dev_type"]: self.data.get(key)
-            for key, info in sensor_info.items()
-            if info.get("dev_type") and self._is_last_seen_key(key)
-        }
-
-    @staticmethod
-    def _is_last_seen_key(key: str) -> bool:
-        """Return if a wittiot sensor_info key is a sub-device last seen value."""
-        normalized_key = key.lower().replace("!", "_").replace(" ", "_")
-        return "last" in normalized_key and "seen" in normalized_key
-
-    @staticmethod
-    def _last_seen_age_seconds(value: Any) -> float:
-        """Convert Ecowitt last seen values such as '7 Hours' to seconds."""
-        if isinstance(value, (int, float)):
-            return float(value)
-        if not isinstance(value, str):
-            return 0.0
-
-        parts = value.strip().lower().split()
-        if len(parts) < 2:
-            return 0.0
-        try:
-            amount = float(parts[0])
-        except ValueError:
-            return 0.0
-
-        unit = parts[1]
-        if unit.startswith("sec"):
-            return amount
-        if unit.startswith("min"):
-            return amount * 60
-        if unit.startswith("hour"):
-            return amount * 60 * 60
-        if unit.startswith("day"):
-            return amount * 24 * 60 * 60
-        return 0.0
 
     def _check_device_identity(self, data: dict[str, Any]) -> str:
         """检查设备身份，纯校验无副作用，返回状态码."""
