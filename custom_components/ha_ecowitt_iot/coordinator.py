@@ -146,6 +146,8 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
     def is_sensor_stale(self, key: str) -> bool:
         """Return if a sensor belongs to a sub-device not seen for over six hours."""
+        # Home Assistant's last_updated is the entity state write time, not the
+        # sub-device heartbeat. Use Ecowitt's own last seen value instead.
         sensor_info = getattr(self.api, "sensor_info", {})
         info = sensor_info.get(key)
         if not info or not (dev_type := info.get("dev_type")):
