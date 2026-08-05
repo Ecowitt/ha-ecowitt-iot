@@ -279,6 +279,237 @@
             },
             "realtime_power": {
                 "name": "Puissance"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pm25_24h": {
+                "name": "Moyenne 24H PM2.5"
+            },
+            "pm25_aqi": {
+                "name": "IQA PM2.5"
+            },
+            "pm25_24h_aqi": {
+                "name": "IQA 24H PM2.5"
+            },
+            "pm25_batt": {
+                "name": "Batterie PM2.5"
+            },
+            "pm25_signal": {
+                "name": "Signal PM2.5"
+            },
+            "pm25_rssi": {
+                "name": "RSSI PM2.5"
+            },
+            "leak": {
+                "name": "Fuite"
+            },
+            "leak_batt": {
+                "name": "Batterie Fuite"
+            },
+            "leak_signal": {
+                "name": "Signal Fuite"
+            },
+            "leak_rssi": {
+                "name": "RSSI Fuite"
+            },
+            "tandh_temp": {
+                "name": "Temp. T&H"
+            },
+            "tandh_humidity": {
+                "name": "Humidité T&H"
+            },
+            "tandh_batt": {
+                "name": "Batterie T&H"
+            },
+            "tandh_signal": {
+                "name": "Signal T&H"
+            },
+            "tandh_rssi": {
+                "name": "RSSI T&H"
+            },
+            "soil": {
+                "name": "Sol"
+            },
+            "soil_batt": {
+                "name": "Batterie Sol"
+            },
+            "soil_signal": {
+                "name": "Signal Sol"
+            },
+            "soil_rssi": {
+                "name": "RSSI Sol"
+            },
+            "temp_only": {
+                "name": "Température"
+            },
+            "temp_batt": {
+                "name": "Batterie Temp."
+            },
+            "temp_signal": {
+                "name": "Signal Temp."
+            },
+            "temp_rssi": {
+                "name": "RSSI Temp."
+            },
+            "leaf": {
+                "name": "Feuille"
+            },
+            "leaf_batt": {
+                "name": "Batterie Feuille"
+            },
+            "leaf_signal": {
+                "name": "Signal Feuille"
+            },
+            "leaf_rssi": {
+                "name": "RSSI Feuille"
+            },
+            "lds_air": {
+                "name": "Air LDS"
+            },
+            "lds_depth": {
+                "name": "Profondeur LDS"
+            },
+            "lds_height": {
+                "name": "Hauteur LDS"
+            },
+            "lds_heat": {
+                "name": "Chauffage LDS"
+            },
+            "lds_batt": {
+                "name": "Batterie LDS"
+            },
+            "lds_signal": {
+                "name": "Signal LDS"
+            },
+            "lds_rssi": {
+                "name": "RSSI LDS"
+            },
+            "ec": {
+                "name": "EC"
+            },
+            "ec_temp": {
+                "name": "Temp. EC"
+            },
+            "ec_humidity": {
+                "name": "Humidité EC"
+            },
+            "wh85_signal": {
+                "name": "Signal Haptic 3-en-1"
+            },
+            "wh90_signal": {
+                "name": "Signal Haptic Array"
+            },
+            "wh69_signal": {
+                "name": "Signal Sensor Array"
+            },
+            "wh68_signal": {
+                "name": "Signal Anémomètre"
+            },
+            "wh40_signal": {
+                "name": "Signal Pluviomètre"
+            },
+            "wn20_signal": {
+                "name": "Signal Pluvio Mini"
+            },
+            "wn38_signal": {
+                "name": "Signal BGT"
+            },
+            "wh25_signal": {
+                "name": "Signal T&RH&P"
+            },
+            "wh26_signal": {
+                "name": "Signal T&RH Ext."
+            },
+            "wh80_signal": {
+                "name": "Signal Sonic Array"
+            },
+            "wh57_signal": {
+                "name": "Signal Foudre"
+            },
+            "wh45_signal": {
+                "name": "Signal AQI Combo"
+            },
+            "wb64_signal": {
+                "name": "Signal WB64"
+            },
+            "wh85_rssi": {
+                "name": "RSSI Haptic 3-en-1"
+            },
+            "wh90_rssi": {
+                "name": "RSSI Haptic Array"
+            },
+            "wh69_rssi": {
+                "name": "RSSI Sensor Array"
+            },
+            "wh68_rssi": {
+                "name": "RSSI Anémomètre"
+            },
+            "wh40_rssi": {
+                "name": "RSSI Pluviomètre"
+            },
+            "wn20_rssi": {
+                "name": "RSSI Pluvio Mini"
+            },
+            "wn38_rssi": {
+                "name": "RSSI BGT"
+            },
+            "wh25_rssi": {
+                "name": "RSSI T&RH&P"
+            },
+            "wh26_rssi": {
+                "name": "RSSI T&RH Ext."
+            },
+            "wh80_rssi": {
+                "name": "RSSI Sonic Array"
+            },
+            "wh57_rssi": {
+                "name": "RSSI Foudre"
+            },
+            "wh45_rssi": {
+                "name": "RSSI AQI Combo"
+            },
+            "wb64_rssi": {
+                "name": "RSSI WB64"
+            },
+            "wh85_batt": {
+                "name": "Batterie Haptic 3-en-1"
+            },
+            "wh90_batt": {
+                "name": "Batterie Haptic Array"
+            },
+            "wh69_batt": {
+                "name": "Batterie Sensor Array"
+            },
+            "wh68_batt": {
+                "name": "Batterie Anémomètre"
+            },
+            "wh40_batt": {
+                "name": "Batterie Pluviomètre"
+            },
+            "wn20_batt": {
+                "name": "Batterie Pluvio Mini"
+            },
+            "wn38_batt": {
+                "name": "Batterie BGT"
+            },
+            "wh25_batt": {
+                "name": "Batterie T&RH&P"
+            },
+            "wh26_batt": {
+                "name": "Batterie T&RH Ext."
+            },
+            "wh80_batt": {
+                "name": "Batterie Sonic Array"
+            },
+            "wh57_batt": {
+                "name": "Batterie Foudre"
+            },
+            "wh45_batt": {
+                "name": "Batterie AQI Combo"
+            },
+            "wb64_batt": {
+                "name": "Batterie WB64"
             }
         },
         "binary_sensor": {
@@ -290,6 +521,18 @@
             },
             "iot_running": {
                 "name": "En cours"
+            },
+            "leak": {
+                "name": "Fuite"
+            },
+            "leak_batt": {
+                "name": "Batterie Fuite"
+            },
+            "leak_signal": {
+                "name": "Signal Fuite"
+            },
+            "leak_rssi": {
+                "name": "RSSI Fuite"
             }
         }
     }

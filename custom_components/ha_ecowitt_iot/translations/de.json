@@ -100,47 +100,11 @@
             "dewpoint": {
                 "name": "Taupunkt"
             },
-            "lds_air_ch1": {
-                "name": "Höhenmesser 1 gesamt"
-            },
-            "lds_heat_ch1": {
-                "name": "Höhenmesser 1 Heizung"
-            },
-            "lds_dep_ch1": {
-                "name": "Höhenmesser 1"
-            },
-            "lds_air_ch2": {
-                "name": "Höhenmesser 2 gesamt"
-            },
-            "lds_heat_ch2": {
-                "name": "Höhenmesser 2 Heizung"
-            },
-            "lds_dep_ch2": {
-                "name": "Höhenmesser 2"
-            },
-            "lds_air_ch3": {
-                "name": "Höhenmesser 3 gesamt"
-            },
-            "lds_heat_ch3": {
-                "name": "Höhenmesser 3 Heizung"
-            },
-            "lds_dep_ch3": {
-                "name": "Höhenmesser 3"
-            },
-            "lds_air_ch4": {
-                "name": "Höhenmesser 4 gesamt"
-            },
-            "lds_heat_ch4": {
-                "name": "Höhenmesser 4 Heizung"
-            },
-            "lds_dep_ch4": {
-                "name": "Höhenmesser 4"
-            },
             "rainratein": {
                 "name": "Regenrate"
             },
             "eventrainin": {
-                "name": "Regensturm"
+                "name": "Regen Event"
             },
             "dailyrainin": {
                 "name": "Regen Tag"
@@ -158,7 +122,7 @@
                 "name": "Regenrate Piezo"
             },
             "erain_piezo": {
-                "name": "Regensturm Piezo"
+                "name": "Regen Event Piezo"
             },
             "drain_piezo": {
                 "name": "Regen Tag Piezo"
@@ -315,6 +279,237 @@
             },
             "realtime_power": {
                 "name": "Leistung"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pm25_24h": {
+                "name": "24H-Durchs. PM2.5"
+            },
+            "pm25_aqi": {
+                "name": "PM2.5-LQI"
+            },
+            "pm25_24h_aqi": {
+                "name": "PM2.5 24H-LQI"
+            },
+            "pm25_batt": {
+                "name": "PM2.5 Batterie"
+            },
+            "pm25_signal": {
+                "name": "PM2.5 Signal"
+            },
+            "pm25_rssi": {
+                "name": "PM2.5 RSSI"
+            },
+            "leak": {
+                "name": "Leckage"
+            },
+            "leak_batt": {
+                "name": "Leckage Batterie"
+            },
+            "leak_signal": {
+                "name": "Leckage Signal"
+            },
+            "leak_rssi": {
+                "name": "Leckage RSSI"
+            },
+            "tandh_temp": {
+                "name": "T&H Temperatur"
+            },
+            "tandh_humidity": {
+                "name": "T&H Luftfeuchte"
+            },
+            "tandh_batt": {
+                "name": "T&H Batterie"
+            },
+            "tandh_signal": {
+                "name": "T&H Signal"
+            },
+            "tandh_rssi": {
+                "name": "T&H RSSI"
+            },
+            "soil": {
+                "name": "Boden"
+            },
+            "soil_batt": {
+                "name": "Boden Batterie"
+            },
+            "soil_signal": {
+                "name": "Boden Signal"
+            },
+            "soil_rssi": {
+                "name": "Boden RSSI"
+            },
+            "temp_only": {
+                "name": "Temperatur"
+            },
+            "temp_batt": {
+                "name": "Temp. Batterie"
+            },
+            "temp_signal": {
+                "name": "Temp. Signal"
+            },
+            "temp_rssi": {
+                "name": "Temp. RSSI"
+            },
+            "leaf": {
+                "name": "Blatt"
+            },
+            "leaf_batt": {
+                "name": "Blatt Batterie"
+            },
+            "leaf_signal": {
+                "name": "Blatt Signal"
+            },
+            "leaf_rssi": {
+                "name": "Blatt RSSI"
+            },
+            "lds_air": {
+                "name": "LDS Luft"
+            },
+            "lds_depth": {
+                "name": "LDS Tiefe"
+            },
+            "lds_height": {
+                "name": "LDS Höhe"
+            },
+            "lds_heat": {
+                "name": "LDS Heizung"
+            },
+            "lds_batt": {
+                "name": "LDS Batterie"
+            },
+            "lds_signal": {
+                "name": "LDS Signal"
+            },
+            "lds_rssi": {
+                "name": "LDS RSSI"
+            },
+            "ec": {
+                "name": "EC"
+            },
+            "ec_temp": {
+                "name": "EC Temperatur"
+            },
+            "ec_humidity": {
+                "name": "EC Luftfeuchte"
+            },
+            "wh85_signal": {
+                "name": "Haptic 3-in-1 Signal"
+            },
+            "wh90_signal": {
+                "name": "Haptic Array Signal"
+            },
+            "wh69_signal": {
+                "name": "Sensor Array Signal"
+            },
+            "wh68_signal": {
+                "name": "Wind Sensor Signal"
+            },
+            "wh40_signal": {
+                "name": "Regen Sensor Signal"
+            },
+            "wn20_signal": {
+                "name": "Regenmesser Mini Signal"
+            },
+            "wn38_signal": {
+                "name": "BGT Sensor Signal"
+            },
+            "wh25_signal": {
+                "name": "T&RH&P Sensor Signal"
+            },
+            "wh26_signal": {
+                "name": "Außen T&RH Signal"
+            },
+            "wh80_signal": {
+                "name": "Sonic Array Signal"
+            },
+            "wh57_signal": {
+                "name": "Blitz Sensor Signal"
+            },
+            "wh45_signal": {
+                "name": "AQI Combo Signal"
+            },
+            "wb64_signal": {
+                "name": "WB64 Signal"
+            },
+            "wh85_rssi": {
+                "name": "Haptic 3-in-1 RSSI"
+            },
+            "wh90_rssi": {
+                "name": "Haptic Array RSSI"
+            },
+            "wh69_rssi": {
+                "name": "Sensor Array RSSI"
+            },
+            "wh68_rssi": {
+                "name": "Wind Sensor RSSI"
+            },
+            "wh40_rssi": {
+                "name": "Regen Sensor RSSI"
+            },
+            "wn20_rssi": {
+                "name": "Regenmesser Mini RSSI"
+            },
+            "wn38_rssi": {
+                "name": "BGT Sensor RSSI"
+            },
+            "wh25_rssi": {
+                "name": "T&RH&P Sensor RSSI"
+            },
+            "wh26_rssi": {
+                "name": "Außen T&RH RSSI"
+            },
+            "wh80_rssi": {
+                "name": "Sonic Array RSSI"
+            },
+            "wh57_rssi": {
+                "name": "Blitz Sensor RSSI"
+            },
+            "wh45_rssi": {
+                "name": "AQI Combo RSSI"
+            },
+            "wb64_rssi": {
+                "name": "WB64 RSSI"
+            },
+            "wh85_batt": {
+                "name": "Haptic 3-in-1 Batterie"
+            },
+            "wh90_batt": {
+                "name": "Haptic Array Batterie"
+            },
+            "wh69_batt": {
+                "name": "Sensor Array Batterie"
+            },
+            "wh68_batt": {
+                "name": "Wind Sensor Batterie"
+            },
+            "wh40_batt": {
+                "name": "Regen Sensor Batterie"
+            },
+            "wn20_batt": {
+                "name": "Regenmesser Mini Batt."
+            },
+            "wn38_batt": {
+                "name": "BGT Sensor Batterie"
+            },
+            "wh25_batt": {
+                "name": "T&RH&P Sensor Batterie"
+            },
+            "wh26_batt": {
+                "name": "Außen T&RH Batterie"
+            },
+            "wh80_batt": {
+                "name": "Sonic Array Batterie"
+            },
+            "wh57_batt": {
+                "name": "Blitz Sensor Batterie"
+            },
+            "wh45_batt": {
+                "name": "AQI Combo Batterie"
+            },
+            "wb64_batt": {
+                "name": "WB64 Batterie"
             }
         },
         "binary_sensor": {
@@ -326,6 +521,18 @@
             },
             "iot_running": {
                 "name": "Running"
+            },
+            "leak": {
+                "name": "Leckage"
+            },
+            "leak_batt": {
+                "name": "Leckage Batterie"
+            },
+            "leak_signal": {
+                "name": "Leckage Signal"
+            },
+            "leak_rssi": {
+                "name": "Leckage RSSI"
             }
         }
     }

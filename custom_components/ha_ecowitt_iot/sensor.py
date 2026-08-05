@@ -1,6 +1,7 @@
 """Platform for sensor integration."""
 
 import dataclasses
+import re
 from datetime import datetime
 from typing import Final, Any
 import logging
@@ -328,6 +329,7 @@ SENSOR_DESCRIPTIONS = (
     ),
     SensorEntityDescription(
         key="co2",
+        translation_key="co2",
         native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
         device_class=SensorDeviceClass.CO2,
         state_class=SensorStateClass.MEASUREMENT,
@@ -879,6 +881,21 @@ class MainDevEcowittSensor(
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
 
+        self._my_tk = getattr(description, "translation_key", None)
+
+    async def async_added_to_hass(self) -> None:
+        """实体添加到HA时加载翻译名称."""
+        await super().async_added_to_hass()
+        if not self._my_tk:
+            return
+        from homeassistant.helpers.translation import async_get_translations
+        lang = self.hass.config.language or "en"
+        translations = await async_get_translations(self.hass, lang, "entity", [DOMAIN])
+        key = f"component.{DOMAIN}.entity.sensor.{self._my_tk}.name"
+        name = translations.get(key)
+        if name:
+            self._attr_name = name
+
     def _parse_timestamp(self, val: str) -> datetime | None:
         """Parse a timestamp string in known formats."""
         for fmt in self._TIMESTAMP_FORMATS:
@@ -967,14 +984,6 @@ class SubDevEcowittSensor(
     ) -> None:
         """Initialize."""
         super().__init__(coordinator)
-        # self._attr_device_info = DeviceInfo(
-        #     identifiers={(DOMAIN, f"{device_name}_{sensor_type}")},
-        #     manufacturer="Ecowitt",
-        #     name=f"{sensor_type}",
-        #     model=coordinator.data["ver"],
-        #     configuration_url=f"http://{coordinator.config_entry.data[CONF_HOST]}",
-        #     via_device=(DOMAIN, f"{device_name}"),
-        # )
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{device_name}")},
             manufacturer="Ecowitt",
@@ -984,6 +993,35 @@ class SubDevEcowittSensor(
         )
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
+
+        # 子设备名称：设备自定义名称优先，否则用wittiot默认英文名
+        info = coordinator.api.sensor_info.get(description.key, {})
+        self._my_tk = info.get("translation_key", "")
+        self._my_ch = ""
+        if info.get("custom_name"):
+            self.entity_description = dataclasses.replace(
+                description,
+                name=info["name"],
+            )
+        else:
+            ch_match = re.match(
+                r"(.+)_ch(\d+)(?:_(batt|signal|rssi))?$", description.key
+            )
+            if ch_match:
+                self._my_ch = ch_match.group(2)
+
+    async def async_added_to_hass(self) -> None:
+        """子设备：加载翻译名称并拼接通道号."""
+        await super().async_added_to_hass()
+        if not self._my_tk:
+            return
+        from homeassistant.helpers.translation import async_get_translations
+        lang = self.hass.config.language or "en"
+        translations = await async_get_translations(self.hass, lang, "entity", [DOMAIN])
+        key = f"component.{DOMAIN}.entity.sensor.{self._my_tk}.name"
+        name = translations.get(key)
+        if name:
+            self._attr_name = f"{name} CH{self._my_ch}" if self._my_ch else name
 
     def _parse_timestamp(self, val: str) -> datetime | None:
         """Parse a timestamp string in known formats."""

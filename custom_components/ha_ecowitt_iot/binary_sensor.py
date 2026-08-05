@@ -220,6 +220,19 @@ class MainDevEcowittBinarySensor(
         self._attr_unique_id = f"{device_name}_{description.key}"
         self.entity_description = description
         self._sensor_key = description.key  # 存储用于数据访问的键
+        self._my_tk = getattr(description, "translation_key", None)
+
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        if not self._my_tk:
+            return
+        from homeassistant.helpers.translation import async_get_translations
+        lang = self.hass.config.language or "en"
+        translations = await async_get_translations(self.hass, lang, "entity", [DOMAIN])
+        key = f"component.{DOMAIN}.entity.binary_sensor.{self._my_tk}.name"
+        name = translations.get(key)
+        if name:
+            self._attr_name = name
 
     @property
     def is_on(self) -> bool | None:

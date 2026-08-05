@@ -279,6 +279,237 @@
             },
             "realtime_power": {
                 "name": "Vermogen"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pm25_24h": {
+                "name": "24H Gem. PM2.5"
+            },
+            "pm25_aqi": {
+                "name": "PM2.5 LKI"
+            },
+            "pm25_24h_aqi": {
+                "name": "PM2.5 24H LKI"
+            },
+            "pm25_batt": {
+                "name": "PM2.5 Batterij"
+            },
+            "pm25_signal": {
+                "name": "PM2.5 Signaal"
+            },
+            "pm25_rssi": {
+                "name": "PM2.5 RSSI"
+            },
+            "leak": {
+                "name": "Lekkage"
+            },
+            "leak_batt": {
+                "name": "Lekkage Batterij"
+            },
+            "leak_signal": {
+                "name": "Lekkage Signaal"
+            },
+            "leak_rssi": {
+                "name": "Lekkage RSSI"
+            },
+            "tandh_temp": {
+                "name": "T&H Temp"
+            },
+            "tandh_humidity": {
+                "name": "T&H Vochtigheid"
+            },
+            "tandh_batt": {
+                "name": "T&H Batterij"
+            },
+            "tandh_signal": {
+                "name": "T&H Signaal"
+            },
+            "tandh_rssi": {
+                "name": "T&H RSSI"
+            },
+            "soil": {
+                "name": "Bodem"
+            },
+            "soil_batt": {
+                "name": "Bodem Batterij"
+            },
+            "soil_signal": {
+                "name": "Bodem Signaal"
+            },
+            "soil_rssi": {
+                "name": "Bodem RSSI"
+            },
+            "temp_only": {
+                "name": "Temperatuur"
+            },
+            "temp_batt": {
+                "name": "Temp. Batterij"
+            },
+            "temp_signal": {
+                "name": "Temp. Signaal"
+            },
+            "temp_rssi": {
+                "name": "Temp. RSSI"
+            },
+            "leaf": {
+                "name": "Blad"
+            },
+            "leaf_batt": {
+                "name": "Blad Batterij"
+            },
+            "leaf_signal": {
+                "name": "Blad Signaal"
+            },
+            "leaf_rssi": {
+                "name": "Blad RSSI"
+            },
+            "lds_air": {
+                "name": "LDS Lucht"
+            },
+            "lds_depth": {
+                "name": "LDS Diepte"
+            },
+            "lds_height": {
+                "name": "LDS Hoogte"
+            },
+            "lds_heat": {
+                "name": "LDS Verwarmer"
+            },
+            "lds_batt": {
+                "name": "LDS Batterij"
+            },
+            "lds_signal": {
+                "name": "LDS Signaal"
+            },
+            "lds_rssi": {
+                "name": "LDS RSSI"
+            },
+            "ec": {
+                "name": "EC"
+            },
+            "ec_temp": {
+                "name": "EC Temp"
+            },
+            "ec_humidity": {
+                "name": "EC Vochtigheid"
+            },
+            "wh85_signal": {
+                "name": "Haptic 3-in-1 Signaal"
+            },
+            "wh90_signal": {
+                "name": "Haptic Array Signaal"
+            },
+            "wh69_signal": {
+                "name": "Sensor Array Signaal"
+            },
+            "wh68_signal": {
+                "name": "Wind Sensor Signaal"
+            },
+            "wh40_signal": {
+                "name": "Regen Sensor Signaal"
+            },
+            "wn20_signal": {
+                "name": "Regenmeter Mini Signaal"
+            },
+            "wn38_signal": {
+                "name": "BGT Sensor Signaal"
+            },
+            "wh25_signal": {
+                "name": "T&RH&P Sensor Signaal"
+            },
+            "wh26_signal": {
+                "name": "Buiten T&RH Signaal"
+            },
+            "wh80_signal": {
+                "name": "Sonic Array Signaal"
+            },
+            "wh57_signal": {
+                "name": "Bliksem Sensor Signaal"
+            },
+            "wh45_signal": {
+                "name": "AQI Combo Signaal"
+            },
+            "wb64_signal": {
+                "name": "WB64 Signaal"
+            },
+            "wh85_rssi": {
+                "name": "Haptic 3-in-1 RSSI"
+            },
+            "wh90_rssi": {
+                "name": "Haptic Array RSSI"
+            },
+            "wh69_rssi": {
+                "name": "Sensor Array RSSI"
+            },
+            "wh68_rssi": {
+                "name": "Wind Sensor RSSI"
+            },
+            "wh40_rssi": {
+                "name": "Regen Sensor RSSI"
+            },
+            "wn20_rssi": {
+                "name": "Regenmeter Mini RSSI"
+            },
+            "wn38_rssi": {
+                "name": "BGT Sensor RSSI"
+            },
+            "wh25_rssi": {
+                "name": "T&RH&P Sensor RSSI"
+            },
+            "wh26_rssi": {
+                "name": "Buiten T&RH RSSI"
+            },
+            "wh80_rssi": {
+                "name": "Sonic Array RSSI"
+            },
+            "wh57_rssi": {
+                "name": "Bliksem Sensor RSSI"
+            },
+            "wh45_rssi": {
+                "name": "AQI Combo RSSI"
+            },
+            "wb64_rssi": {
+                "name": "WB64 RSSI"
+            },
+            "wh85_batt": {
+                "name": "Haptic 3-in-1 Batterij"
+            },
+            "wh90_batt": {
+                "name": "Haptic Array Batterij"
+            },
+            "wh69_batt": {
+                "name": "Sensor Array Batterij"
+            },
+            "wh68_batt": {
+                "name": "Wind Sensor Batterij"
+            },
+            "wh40_batt": {
+                "name": "Regen Sensor Batterij"
+            },
+            "wn20_batt": {
+                "name": "Regenmeter Mini Batt."
+            },
+            "wn38_batt": {
+                "name": "BGT Sensor Batterij"
+            },
+            "wh25_batt": {
+                "name": "T&RH&P Sensor Batt."
+            },
+            "wh26_batt": {
+                "name": "Buiten T&RH Batterij"
+            },
+            "wh80_batt": {
+                "name": "Sonic Array Batterij"
+            },
+            "wh57_batt": {
+                "name": "Bliksem Sensor Batt."
+            },
+            "wh45_batt": {
+                "name": "AQI Combo Batterij"
+            },
+            "wb64_batt": {
+                "name": "WB64 Batterij"
             }
         },
         "binary_sensor": {
@@ -290,6 +521,18 @@
             },
             "iot_running": {
                 "name": "Actief"
+            },
+            "leak": {
+                "name": "Lekkage"
+            },
+            "leak_batt": {
+                "name": "Lekkage Batterij"
+            },
+            "leak_signal": {
+                "name": "Lekkage Signaal"
+            },
+            "leak_rssi": {
+                "name": "Lekkage RSSI"
             }
         }
     }
