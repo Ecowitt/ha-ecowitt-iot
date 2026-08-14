@@ -1,0 +1,296 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enhed er allerede konfigureret"
+        },
+        "error": {
+            "cannot_connect": "Forbindelses fejl",
+            "invalid_auth": "Ugyldig autentifikation",
+            "unknown": "Uventet fejl"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Enhed IP adresse",
+                    "update_interval": "Opdaterings interval (sekunder)"
+                },
+                "data_description": {
+                    "update_interval": "Hvor ofte enheden forespørges om nye data (i sekunder, minimum 5)."
+                },
+                "description": "Indtast enhedens IP-adresse for at vise data",
+                "title": "Enhed indstillinger"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Forbindelses fejl",
+            "no_devices": "Der er ingen enheder",
+            "device_mismatch": "Denne IP-adresse peger på en anden enhed. Opret venligst en ny integration til denne enhed."
+        },
+        "step": {
+            "init": {
+                "title": "Indstillinger",
+                "description": "Opdater indstillinger for din Ecowitt enhed",
+                "data": {
+                    "host": "Enhed IP adresse",
+                    "update_interval": "Opdaterings interval (sekunder)"
+                },
+                "data_description": {
+                    "update_interval": "Hvor ofte enheden forespørges om nye data (i sekunder, minimum 5)."
+                }
+            }
+        }
+    },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Enhedsidentitet stemmer ikke overens",
+        "mismatch_message": "IP-adressen `{host}` peger nu på en anden enhed.\n\nForventet MAC-adresse: `{expected_mac}`\nFaktisk MAC-adresse: `{actual_mac}`\n\nGå til Indstillinger → Enheder og tjenester → Ecowitt Official Integration for at opdatere integrationens IP-adresse, eller opret en ny integration til denne enhed.",
+        "upgrade_mismatch_message": "Opgradering registreret — enhedsidentiteten stemmer ikke overens.\n\nIP-adressen {host} peger ikke længere på {expected_name}.\n\nAktuel MAC-adresse: {actual_mac}\n\nGå til Indstillinger → Enheder og tjenester → Ecowitt Official Integration for at opdatere integrationens IP-adresse, eller tilføj en ny integration til denne enhed."
+    },
+    "entity": {
+        "sensor": {
+            "bgt": {
+                "name": "BGT"
+            },
+            "wbgt": {
+                "name": "WBGT"
+            },
+            "tempinf": {
+                "name": "Indendørs temperatur"
+            },
+            "humidityin": {
+                "name": "Indendørs fugtighed"
+            },
+            "tempf": {
+                "name": "Udendørs temperatur"
+            },
+            "baromrelin": {
+                "name": "Relativt tryk"
+            },
+            "baromabsin": {
+                "name": "Absolut tryk"
+            },
+            "humidity": {
+                "name": "Udendørs fugtighed"
+            },
+            "winddir": {
+                "name": "Vind retning"
+            },
+            "windspeedmph": {
+                "name": "Vind hastighed"
+            },
+            "windgustmph": {
+                "name": "Vind stød"
+            },
+            "solarradiation": {
+                "name": "Solindstråling"
+            },
+            "uv": {
+                "name": "UV indeks"
+            },
+            "daywindmax": {
+                "name": "Dagens vind max"
+            },
+            "feellike": {
+                "name": "Føles som"
+            },
+            "dewpoint": {
+                "name": "Dug punkt"
+            },
+            "rainratein": {
+                "name": "Nedbørsintensitet"
+            },
+            "eventrainin": {
+                "name": "Regnhændelse"
+            },
+            "dailyrainin": {
+                "name": "Daglig nedbør"
+            },
+            "weeklyrainin": {
+                "name": "Ugentlig nedbør"
+            },
+            "monthlyrainin": {
+                "name": "Månedlig nedbør"
+            },
+            "yearlyrainin": {
+                "name": "Årlig nedbør"
+            },
+            "rrain_piezo": {
+                "name": "Regnintensitet (piezo)"
+            },
+            "erain_piezo": {
+                "name": "Regnhændelse (piezo)"
+            },
+            "drain_piezo": {
+                "name": "Daglig nedbør (piezo)"
+            },
+            "wrain_piezo": {
+                "name": "Ugentlig nedbør (piezo)"
+            },
+            "mrain_piezo": {
+                "name": "Månedlig nedbør (piezo)"
+            },
+            "yrain_piezo": {
+                "name": "Årlig nedbør (piezo)"
+            },
+            "co2in": {
+                "name": "Indendørs CO₂"
+            },
+            "co2in_24h": {
+                "name": "Indendørs 24t gennemsnit CO₂"
+            },
+            "co2": {
+                "name": "CO₂"
+            },
+            "co2_24h": {
+                "name": "24t gennemsnit CO₂"
+            },
+            "pm25_co2": {
+                "name": "CO₂ PM2,5"
+            },
+            "pm25_24h_co2": {
+                "name": "CO₂ 24t PM2,5 AQI"
+            },
+            "pm10_co2": {
+                "name": "CO₂ PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "CO₂ 24H PM10 AQI"
+            },
+            "pm10_aqi_co2": {
+                "name": "CO₂ PM10 AQI"
+            },
+            "pm25_aqi_co2": {
+                "name": "CO₂ PM2,5 AQI"
+            },
+            "tf_co2": {
+                "name": "CO₂ temperatur"
+            },
+            "humi_co2": {
+                "name": "CO₂ fugtighed"
+            },
+            "lightning": {
+                "name": "Seneste lynafstand"
+            },
+            "lightning_time": {
+                "name": "Tidspunkt for seneste lynnedslag"
+            },
+            "lightning_num": {
+                "name": "Dagligt antal lynnedslag"
+            },
+            "winddir10": {
+                "name": "Gennemsnitlig vindretning (10 min)"
+            },
+            "apparent": {
+                "name": "Følt temperatur"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Total nedbør"
+            },
+            "24hrainin": {
+                "name": "24t nedbør"
+            },
+            "train_piezo": {
+                "name": "Total piezo nedbør"
+            },
+            "24hrain_piezo": {
+                "name": "24t piezo nedbør"
+            },
+            "con_batt": {
+                "name": "Konsol batteri"
+            },
+            "con_batt_volt": {
+                "name": "Konsol batteri spændning"
+            },
+            "con_ext_volt": {
+                "name": "Konsol ekstern spændning"
+            },
+            "srain_piezo": {
+                "name": "Regn status"
+            },
+            "piezora_batt": {
+                "name": "Piezo batteri"
+            },
+            "pm1_co2": {
+                "name": "CO₂ PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "CO₂ 24t PM1 AQI"
+            },
+            "pm1_aqi_co2": {
+                "name": "CO₂ PM1 AQI"
+            },
+            "pm4_co2": {
+                "name": "CO₂ PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "CO₂ 24t gennemsnit PM4 AQI"
+            },
+            "pm4_aqi_co2": {
+                "name": "CO₂ PM4 AQI"
+            },
+            "pm1_24h_co2_add": {
+                "name": "CO₂ 24t gennemsnit PM1"
+            },
+            "pm4_24h_co2_add": {
+                "name": "CO₂ 24t gennemsnit PM4"
+            },
+            "pm25_24h_co2_add": {
+                "name": "CO₂ 24t gennemsnit PM2,5"
+            },
+            "pm10_24h_co2_add": {
+                "name": "CO₂ 24t gennemsnit PM10"
+            },
+            "iotbatt": {
+                "name": "Batteri"
+            },
+            "signal": {
+                "name": "Signal"
+            },
+            "run_time": {
+                "name": "Oppe tid"
+            },
+            "ver": {
+                "name": "Version"
+            },
+            "wfc02_position": {
+                "name": "Ventil åbnings grad"
+            },
+            "wfc02_flow_velocity": {
+                "name": "Flow hastighed"
+            },
+            "velocity_total": {
+                "name": "Total"
+            },
+            "flow_velocity": {
+                "name": "Flow hastighed"
+            },
+            "data_water_t": {
+                "name": "Temperatur"
+            },
+            "data_ac_v": {
+                "name": "Strøm"
+            },
+            "elect_total": {
+                "name": "Energi"
+            },
+            "realtime_power": {
+                "name": "Strøm"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Regn status"
+            },
+            "rfnet_state": {
+                "name": "er online"
+            },
+            "iot_running": {
+                "name": "Kørende"
+            }
+        }
+    }
+}

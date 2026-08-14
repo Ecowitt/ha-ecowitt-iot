@@ -925,6 +925,11 @@ class MainDevEcowittSensor(
         return val
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self.entity_description.key in self.coordinator.data
+
+    @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return entity specific state attributes."""
         attrs = {}
@@ -1050,6 +1055,11 @@ class SubDevEcowittSensor(
         ):
             return self._parse_timestamp(val)
         return val
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self.entity_description.key in self.coordinator.data
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
