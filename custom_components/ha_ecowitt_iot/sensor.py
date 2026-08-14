@@ -14,8 +14,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONCENTRATION_PARTS_PER_MILLION,
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONF_HOST,
     DEGREE,
     PERCENTAGE,
@@ -36,6 +34,20 @@ from homeassistant.const import (
     UnitOfVolumetricFlux,
     UnitOfConductivity,
 )
+
+# Issue #79: HA Core 2026.8 弃用 CONCENTRATION_* 常量（2027.8 移除），
+# 新版改用 UnitOfRatio/UnitOfDensity。两者字符串值相同（"ppm"/"µg/m³"），
+# 不影响实体单位。此处提供兼容 shim：新版 HA 用新枚举，旧版回退旧常量。
+try:
+    from homeassistant.const import UnitOfDensity, UnitOfRatio
+
+    CONCENTRATION_PARTS_PER_MILLION = UnitOfRatio.PARTS_PER_MILLION
+    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER = UnitOfDensity.MICROGRAMS_PER_CUBIC_METER
+except ImportError:  # HA < 2026.8，旧常量仍可用
+    from homeassistant.const import (
+        CONCENTRATION_PARTS_PER_MILLION,
+        CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback

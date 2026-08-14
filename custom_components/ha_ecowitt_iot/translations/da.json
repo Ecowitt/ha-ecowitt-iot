@@ -279,6 +279,237 @@
             },
             "realtime_power": {
                 "name": "Strøm"
+            },
+            "pm25": {
+                "name": "PM2,5"
+            },
+            "pm25_24h": {
+                "name": "PM2,5 24-timers gennemsnit"
+            },
+            "pm25_aqi": {
+                "name": "PM2,5 AQI"
+            },
+            "pm25_24h_aqi": {
+                "name": "PM2,5 24-timers AQI"
+            },
+            "pm25_batt": {
+                "name": "PM2,5 batteri"
+            },
+            "pm25_signal": {
+                "name": "PM2,5 signal"
+            },
+            "pm25_rssi": {
+                "name": "PM2,5 RSSI"
+            },
+            "leak": {
+                "name": "Vandlækage"
+            },
+            "leak_batt": {
+                "name": "Vandlækage batteri"
+            },
+            "leak_signal": {
+                "name": "Vandlækage signal"
+            },
+            "leak_rssi": {
+                "name": "Vandlækage RSSI"
+            },
+            "tandh_temp": {
+                "name": "T&H temperatur"
+            },
+            "tandh_humidity": {
+                "name": "T&H fugtighed"
+            },
+            "tandh_batt": {
+                "name": "T&H batteri"
+            },
+            "tandh_signal": {
+                "name": "T&H signal"
+            },
+            "tandh_rssi": {
+                "name": "T&H RSSI"
+            },
+            "soil": {
+                "name": "Jord"
+            },
+            "soil_batt": {
+                "name": "Jord batteri"
+            },
+            "soil_signal": {
+                "name": "Jord signal"
+            },
+            "soil_rssi": {
+                "name": "Jord RSSI"
+            },
+            "temp_only": {
+                "name": "Temperatur"
+            },
+            "temp_batt": {
+                "name": "Temperatur batteri"
+            },
+            "temp_signal": {
+                "name": "Temperatur signal"
+            },
+            "temp_rssi": {
+                "name": "Temperatur RSSI"
+            },
+            "leaf": {
+                "name": "Blad"
+            },
+            "leaf_batt": {
+                "name": "Blad batteri"
+            },
+            "leaf_signal": {
+                "name": "Blad signal"
+            },
+            "leaf_rssi": {
+                "name": "Blad RSSI"
+            },
+            "lds_air": {
+                "name": "LDS luft"
+            },
+            "lds_depth": {
+                "name": "LDS dybde"
+            },
+            "lds_height": {
+                "name": "LDS højde"
+            },
+            "lds_heat": {
+                "name": "LDS varmelegeme"
+            },
+            "lds_batt": {
+                "name": "LDS batteri"
+            },
+            "lds_signal": {
+                "name": "LDS signal"
+            },
+            "lds_rssi": {
+                "name": "LDS RSSI"
+            },
+            "ec": {
+                "name": "EC"
+            },
+            "ec_temp": {
+                "name": "EC temperatur"
+            },
+            "ec_humidity": {
+                "name": "EC fugtighed"
+            },
+            "wh85_signal": {
+                "name": "Haptisk 3-i-1 signal"
+            },
+            "wh90_signal": {
+                "name": "Haptisk array signal"
+            },
+            "wh69_signal": {
+                "name": "Sensor array signal"
+            },
+            "wh68_signal": {
+                "name": "Vindsensor signal"
+            },
+            "wh40_signal": {
+                "name": "Regnsensor signal"
+            },
+            "wn20_signal": {
+                "name": "Regnmåler mini signal"
+            },
+            "wn38_signal": {
+                "name": "BGT-sensor signal"
+            },
+            "wh25_signal": {
+                "name": "T&RH&P sensor signal"
+            },
+            "wh26_signal": {
+                "name": "Udendørs T&RH signal"
+            },
+            "wh80_signal": {
+                "name": "Sonic array signal"
+            },
+            "wh57_signal": {
+                "name": "Lynsensor signal"
+            },
+            "wh45_signal": {
+                "name": "AQI kombi signal"
+            },
+            "wb64_signal": {
+                "name": "WB64 signal"
+            },
+            "wh85_rssi": {
+                "name": "Haptisk 3-i-1 RSSI"
+            },
+            "wh90_rssi": {
+                "name": "Haptisk array RSSI"
+            },
+            "wh69_rssi": {
+                "name": "Sensor array RSSI"
+            },
+            "wh68_rssi": {
+                "name": "Vindsensor RSSI"
+            },
+            "wh40_rssi": {
+                "name": "Regnsensor RSSI"
+            },
+            "wn20_rssi": {
+                "name": "Regnmåler mini RSSI"
+            },
+            "wn38_rssi": {
+                "name": "BGT-sensor RSSI"
+            },
+            "wh25_rssi": {
+                "name": "T&RH&P sensor RSSI"
+            },
+            "wh26_rssi": {
+                "name": "Udendørs T&RH RSSI"
+            },
+            "wh80_rssi": {
+                "name": "Sonic array RSSI"
+            },
+            "wh57_rssi": {
+                "name": "Lynsensor RSSI"
+            },
+            "wh45_rssi": {
+                "name": "AQI kombi RSSI"
+            },
+            "wb64_rssi": {
+                "name": "WB64 RSSI"
+            },
+            "wh85_batt": {
+                "name": "Haptisk 3-i-1 batteri"
+            },
+            "wh90_batt": {
+                "name": "Haptisk array batteri"
+            },
+            "wh69_batt": {
+                "name": "Sensor array batteri"
+            },
+            "wh68_batt": {
+                "name": "Vindsensor batteri"
+            },
+            "wh40_batt": {
+                "name": "Regnsensor batteri"
+            },
+            "wn20_batt": {
+                "name": "Regnmåler mini batteri"
+            },
+            "wn38_batt": {
+                "name": "BGT-sensor batteri"
+            },
+            "wh25_batt": {
+                "name": "T&RH&P sensor batteri"
+            },
+            "wh26_batt": {
+                "name": "Udendørs T&RH batteri"
+            },
+            "wh80_batt": {
+                "name": "Sonic array batteri"
+            },
+            "wh57_batt": {
+                "name": "Lynsensor batteri"
+            },
+            "wh45_batt": {
+                "name": "AQI kombi batteri"
+            },
+            "wb64_batt": {
+                "name": "WB64 batteri"
             }
         },
         "binary_sensor": {
@@ -290,6 +521,18 @@
             },
             "iot_running": {
                 "name": "Kørende"
+            },
+            "leak": {
+                "name": "Vandlækage"
+            },
+            "leak_batt": {
+                "name": "Vandlækage batteri"
+            },
+            "leak_signal": {
+                "name": "Vandlækage signal"
+            },
+            "leak_rssi": {
+                "name": "Vandlækage RSSI"
             }
         }
     }
