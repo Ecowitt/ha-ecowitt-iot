@@ -1,0 +1,539 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo è già configurato"
+        },
+        "error": {
+            "cannot_connect": "Connessione non riuscita",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Indirizzo IP del dispositivo",
+                    "update_interval": "Intervallo di aggiornamento (secondi)"
+                },
+                "data_description": {
+                    "update_interval": "Frequenza con cui il dispositivo viene interrogato per nuovi dati (in secondi, minimo 5)."
+                },
+                "description": "Inserisci l'indirizzo IP del dispositivo per visualizzare i dati",
+                "title": "Configurazione del dispositivo"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Connessione non riuscita",
+            "no_devices": "Nessun dispositivo trovato",
+            "device_mismatch": "Questo indirizzo IP corrisponde a un dispositivo diverso. Crea una nuova integrazione per questo dispositivo."
+        },
+        "step": {
+            "init": {
+                "title": "Configura",
+                "description": "Aggiorna le impostazioni del tuo dispositivo Ecowitt",
+                "data": {
+                    "host": "Indirizzo IP del dispositivo",
+                    "update_interval": "Intervallo di aggiornamento (secondi)"
+                },
+                "data_description": {
+                    "update_interval": "Frequenza con cui il dispositivo viene interrogato per nuovi dati (in secondi, minimo 5)."
+                }
+            }
+        }
+    },
+    "notifications": {
+        "mismatch_title": "Ecowitt – Identità del dispositivo non corrispondente",
+        "mismatch_message": "L'IP `{host}` ora corrisponde a un dispositivo diverso.\n\n- MAC atteso: `{expected_mac}`\n- MAC rilevato: `{actual_mac}`\n\nVai su **Impostazioni → Dispositivi e servizi → Ecowitt Official Integration** per aggiornare l'indirizzo IP di questa integrazione, oppure crea una nuova integrazione per questo dispositivo.",
+        "upgrade_mismatch_message": "**Aggiornamento rilevato** — identità del dispositivo non corrispondente.\n\nL'IP `{host}` non corrisponde più a `{expected_name}`.\n\n- MAC attuale: `{actual_mac}`\n\nVai su **Impostazioni → Dispositivi e servizi → Ecowitt Official Integration** per aggiornare l'indirizzo IP di questa integrazione, oppure aggiungi una nuova integrazione per questo dispositivo."
+    },
+    "entity": {
+        "sensor": {
+            "bgt": {
+                "name": "BGT"
+            },
+            "wbgt": {
+                "name": "WBGT"
+            },
+            "tempinf": {
+                "name": "Temperatura interna"
+            },
+            "humidityin": {
+                "name": "Umidità interna"
+            },
+            "tempf": {
+                "name": "Temperatura esterna"
+            },
+            "baromrelin": {
+                "name": "Pressione relativa"
+            },
+            "baromabsin": {
+                "name": "Pressione assoluta"
+            },
+            "humidity": {
+                "name": "Umidità esterna"
+            },
+            "winddir": {
+                "name": "Direzione del vento"
+            },
+            "windspeedmph": {
+                "name": "Velocità del vento"
+            },
+            "windgustmph": {
+                "name": "Raffica di vento"
+            },
+            "solarradiation": {
+                "name": "Irraggiamento solare"
+            },
+            "uv": {
+                "name": "Indice UV"
+            },
+            "daywindmax": {
+                "name": "Vento massimo giornaliero"
+            },
+            "feellike": {
+                "name": "Temperatura percepita"
+            },
+            "dewpoint": {
+                "name": "Punto di rugiada"
+            },
+            "rainratein": {
+                "name": "Intensità di pioggia"
+            },
+            "eventrainin": {
+                "name": "Evento di pioggia"
+            },
+            "dailyrainin": {
+                "name": "Pioggia giornaliera"
+            },
+            "weeklyrainin": {
+                "name": "Pioggia settimanale"
+            },
+            "monthlyrainin": {
+                "name": "Pioggia mensile"
+            },
+            "yearlyrainin": {
+                "name": "Pioggia annuale"
+            },
+            "rrain_piezo": {
+                "name": "Intensità di pioggia piezo"
+            },
+            "erain_piezo": {
+                "name": "Evento di pioggia piezo"
+            },
+            "drain_piezo": {
+                "name": "Pioggia piezo giornaliera"
+            },
+            "wrain_piezo": {
+                "name": "Pioggia piezo settimanale"
+            },
+            "mrain_piezo": {
+                "name": "Pioggia piezo mensile"
+            },
+            "yrain_piezo": {
+                "name": "Pioggia piezo annuale"
+            },
+            "co2in": {
+                "name": "CO2 interna"
+            },
+            "co2in_24h": {
+                "name": "CO2 interna media 24h"
+            },
+            "co2": {
+                "name": "CO2"
+            },
+            "co2_24h": {
+                "name": "CO2 media 24h"
+            },
+            "pm25_co2": {
+                "name": "CO2 PM2.5"
+            },
+            "pm25_24h_co2": {
+                "name": "CO2 PM2.5 AQI 24h"
+            },
+            "pm10_co2": {
+                "name": "CO2 PM10"
+            },
+            "pm10_24h_co2": {
+                "name": "CO2 PM10 AQI 24h"
+            },
+            "pm10_aqi_co2": {
+                "name": "CO2 PM10 AQI"
+            },
+            "pm25_aqi_co2": {
+                "name": "CO2 PM2.5 AQI"
+            },
+            "tf_co2": {
+                "name": "Temperatura CO2"
+            },
+            "humi_co2": {
+                "name": "Umidità CO2"
+            },
+            "lightning": {
+                "name": "Ultimo fulmine: distanza"
+            },
+            "lightning_time": {
+                "name": "Ultimo fulmine: orario"
+            },
+            "lightning_num": {
+                "name": "Fulmini: conteggio giornaliero"
+            },
+            "winddir10": {
+                "name": "Direzione del vento media 10 min"
+            },
+            "apparent": {
+                "name": "Temperatura apparente"
+            },
+            "vpd": {
+                "name": "VPD"
+            },
+            "totalrainin": {
+                "name": "Pioggia totale"
+            },
+            "24hrainin": {
+                "name": "Pioggia nelle 24 ore"
+            },
+            "train_piezo": {
+                "name": "Pioggia piezo totale"
+            },
+            "24hrain_piezo": {
+                "name": "Pioggia piezo nelle 24 ore"
+            },
+            "con_batt": {
+                "name": "Batteria console"
+            },
+            "con_batt_volt": {
+                "name": "Tensione batteria console"
+            },
+            "con_ext_volt": {
+                "name": "Tensione alimentazione esterna console"
+            },
+            "srain_piezo": {
+                "name": "Stato pioggia"
+            },
+            "piezora_batt": {
+                "name": "Batteria piezo"
+            },
+            "pm1_co2": {
+                "name": "CO2 PM1"
+            },
+            "pm1_24h_co2": {
+                "name": "CO2 PM1 AQI 24h"
+            },
+            "pm1_aqi_co2": {
+                "name": "CO2 PM1 AQI"
+            },
+            "pm4_co2": {
+                "name": "CO2 PM4"
+            },
+            "pm4_24h_co2": {
+                "name": "CO2 PM4 AQI 24h"
+            },
+            "pm4_aqi_co2": {
+                "name": "CO2 PM4 AQI"
+            },
+            "pm1_24h_co2_add": {
+                "name": "CO2 PM1 media 24h"
+            },
+            "pm4_24h_co2_add": {
+                "name": "CO2 PM4 media 24h"
+            },
+            "pm25_24h_co2_add": {
+                "name": "CO2 PM2.5 media 24h"
+            },
+            "pm10_24h_co2_add": {
+                "name": "CO2 PM10 media 24h"
+            },
+            "iotbatt": {
+                "name": "Batteria"
+            },
+            "signal": {
+                "name": "Segnale"
+            },
+            "run_time": {
+                "name": "Tempo di attività"
+            },
+            "ver": {
+                "name": "Versione"
+            },
+            "wfc02_position": {
+                "name": "Percentuale di apertura valvola"
+            },
+            "wfc02_flow_velocity": {
+                "name": "Portata"
+            },
+            "velocity_total": {
+                "name": "Totale"
+            },
+            "flow_velocity": {
+                "name": "Portata"
+            },
+            "data_water_t": {
+                "name": "Temperatura"
+            },
+            "data_ac_v": {
+                "name": "Tensione"
+            },
+            "elect_total": {
+                "name": "Energia"
+            },
+            "realtime_power": {
+                "name": "Potenza"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pm25_24h": {
+                "name": "PM2.5 media 24h"
+            },
+            "pm25_aqi": {
+                "name": "PM2.5 AQI"
+            },
+            "pm25_24h_aqi": {
+                "name": "PM2.5 AQI 24h"
+            },
+            "pm25_batt": {
+                "name": "PM2.5: batteria"
+            },
+            "pm25_signal": {
+                "name": "PM2.5: segnale"
+            },
+            "pm25_rssi": {
+                "name": "PM2.5: RSSI"
+            },
+            "leak": {
+                "name": "Perdita"
+            },
+            "leak_batt": {
+                "name": "Perdita: batteria"
+            },
+            "leak_signal": {
+                "name": "Perdita: segnale"
+            },
+            "leak_rssi": {
+                "name": "Perdita: RSSI"
+            },
+            "tandh_temp": {
+                "name": "Temp T&H"
+            },
+            "tandh_humidity": {
+                "name": "Umidità T&H"
+            },
+            "tandh_batt": {
+                "name": "T&H: batteria"
+            },
+            "tandh_signal": {
+                "name": "T&H: segnale"
+            },
+            "tandh_rssi": {
+                "name": "T&H: RSSI"
+            },
+            "soil": {
+                "name": "Suolo"
+            },
+            "soil_batt": {
+                "name": "Suolo: batteria"
+            },
+            "soil_signal": {
+                "name": "Suolo: segnale"
+            },
+            "soil_rssi": {
+                "name": "Suolo: RSSI"
+            },
+            "temp_only": {
+                "name": "Temp"
+            },
+            "temp_batt": {
+                "name": "Temp: batteria"
+            },
+            "temp_signal": {
+                "name": "Temp: segnale"
+            },
+            "temp_rssi": {
+                "name": "Temp: RSSI"
+            },
+            "leaf": {
+                "name": "Foglia"
+            },
+            "leaf_batt": {
+                "name": "Foglia: batteria"
+            },
+            "leaf_signal": {
+                "name": "Foglia: segnale"
+            },
+            "leaf_rssi": {
+                "name": "Foglia: RSSI"
+            },
+            "lds_air": {
+                "name": "LDS aria"
+            },
+            "lds_depth": {
+                "name": "LDS profondità"
+            },
+            "lds_height": {
+                "name": "LDS altezza"
+            },
+            "lds_heat": {
+                "name": "LDS riscaldatore"
+            },
+            "lds_batt": {
+                "name": "LDS: batteria"
+            },
+            "lds_signal": {
+                "name": "LDS: segnale"
+            },
+            "lds_rssi": {
+                "name": "LDS: RSSI"
+            },
+            "ec": {
+                "name": "EC"
+            },
+            "ec_temp": {
+                "name": "Temp EC"
+            },
+            "ec_humidity": {
+                "name": "Umidità EC"
+            },
+            "wh85_signal": {
+                "name": "Sensore haptic 3-in-1: segnale"
+            },
+            "wh90_signal": {
+                "name": "Array haptic: segnale"
+            },
+            "wh69_signal": {
+                "name": "Array sensori: segnale"
+            },
+            "wh68_signal": {
+                "name": "Sensore vento: segnale"
+            },
+            "wh40_signal": {
+                "name": "Sensore pioggia: segnale"
+            },
+            "wn20_signal": {
+                "name": "Pluviometro mini: segnale"
+            },
+            "wn38_signal": {
+                "name": "Sensore BGT: segnale"
+            },
+            "wh25_signal": {
+                "name": "Sensore T&RH&P: segnale"
+            },
+            "wh26_signal": {
+                "name": "T&RH esterno: segnale"
+            },
+            "wh80_signal": {
+                "name": "Array sonico: segnale"
+            },
+            "wh57_signal": {
+                "name": "Sensore fulmini: segnale"
+            },
+            "wh45_signal": {
+                "name": "Combo AQI: segnale"
+            },
+            "wb64_signal": {
+                "name": "WB64: segnale"
+            },
+            "wh85_rssi": {
+                "name": "Sensore haptic 3-in-1: RSSI"
+            },
+            "wh90_rssi": {
+                "name": "Array haptic: RSSI"
+            },
+            "wh69_rssi": {
+                "name": "Array sensori: RSSI"
+            },
+            "wh68_rssi": {
+                "name": "Sensore vento: RSSI"
+            },
+            "wh40_rssi": {
+                "name": "Sensore pioggia: RSSI"
+            },
+            "wn20_rssi": {
+                "name": "Pluviometro mini: RSSI"
+            },
+            "wn38_rssi": {
+                "name": "Sensore BGT: RSSI"
+            },
+            "wh25_rssi": {
+                "name": "Sensore T&RH&P: RSSI"
+            },
+            "wh26_rssi": {
+                "name": "T&RH esterno: RSSI"
+            },
+            "wh80_rssi": {
+                "name": "Array sonico: RSSI"
+            },
+            "wh57_rssi": {
+                "name": "Sensore fulmini: RSSI"
+            },
+            "wh45_rssi": {
+                "name": "Combo AQI: RSSI"
+            },
+            "wb64_rssi": {
+                "name": "WB64: RSSI"
+            },
+            "wh85_batt": {
+                "name": "Sensore haptic 3-in-1: batteria"
+            },
+            "wh90_batt": {
+                "name": "Array haptic: batteria"
+            },
+            "wh69_batt": {
+                "name": "Array sensori: batteria"
+            },
+            "wh68_batt": {
+                "name": "Sensore vento: batteria"
+            },
+            "wh40_batt": {
+                "name": "Sensore pioggia: batteria"
+            },
+            "wn20_batt": {
+                "name": "Pluviometro mini: batteria"
+            },
+            "wn38_batt": {
+                "name": "Sensore BGT: batteria"
+            },
+            "wh25_batt": {
+                "name": "Sensore T&RH&P: batteria"
+            },
+            "wh26_batt": {
+                "name": "T&RH esterno: batteria"
+            },
+            "wh80_batt": {
+                "name": "Array sonico: batteria"
+            },
+            "wh57_batt": {
+                "name": "Sensore fulmini: batteria"
+            },
+            "wh45_batt": {
+                "name": "Combo AQI: batteria"
+            },
+            "wb64_batt": {
+                "name": "WB64: batteria"
+            }
+        },
+        "binary_sensor": {
+            "srain_piezo": {
+                "name": "Stato pioggia"
+            },
+            "rfnet_state": {
+                "name": "Online"
+            },
+            "iot_running": {
+                "name": "In esecuzione"
+            },
+            "leak": {
+                "name": "Perdita"
+            },
+            "leak_batt": {
+                "name": "Perdita: batteria"
+            },
+            "leak_signal": {
+                "name": "Perdita: segnale"
+            },
+            "leak_rssi": {
+                "name": "Perdita: RSSI"
+            }
+        }
+    }
+}
