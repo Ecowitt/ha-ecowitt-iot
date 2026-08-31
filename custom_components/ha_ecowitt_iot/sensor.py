@@ -142,14 +142,14 @@ SENSOR_DESCRIPTIONS = (
         key="baromrelin",
         translation_key="baromrelin",
         native_unit_of_measurement=UnitOfPressure.INHG,
-        device_class=SensorDeviceClass.PRESSURE,
+        device_class=SensorDeviceClass.ATMOSPHERIC_PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="baromabsin",
         translation_key="baromabsin",
         native_unit_of_measurement=UnitOfPressure.INHG,
-        device_class=SensorDeviceClass.PRESSURE,
+        device_class=SensorDeviceClass.ATMOSPHERIC_PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -157,18 +157,21 @@ SENSOR_DESCRIPTIONS = (
         translation_key="vpd",
         native_unit_of_measurement=UnitOfPressure.INHG,
         device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="winddir",
         translation_key="winddir",
-        icon="mdi:weather-windy",
         native_unit_of_measurement=DEGREE,
+        device_class=SensorDeviceClass.WIND_DIRECTION,
+        state_class=SensorStateClass.MEASUREMENT_ANGLE,
     ),
     SensorEntityDescription(
         key="winddir10",
         translation_key="winddir10",
-        icon="mdi:weather-windy",
         native_unit_of_measurement=DEGREE,
+        device_class=SensorDeviceClass.WIND_DIRECTION,
+        state_class=SensorStateClass.MEASUREMENT_ANGLE,
     ),
     SensorEntityDescription(
         key="windspeedmph",
@@ -176,6 +179,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.WIND_SPEED,
         native_unit_of_measurement=UnitOfSpeed.MILES_PER_HOUR,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="windgustmph",
@@ -183,6 +187,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.WIND_SPEED,
         native_unit_of_measurement=UnitOfSpeed.MILES_PER_HOUR,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="daywindmax",
@@ -190,6 +195,7 @@ SENSOR_DESCRIPTIONS = (
         device_class=SensorDeviceClass.WIND_SPEED,
         native_unit_of_measurement=UnitOfSpeed.MILES_PER_HOUR,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     SensorEntityDescription(
         key="uv",
@@ -265,7 +271,7 @@ SENSOR_DESCRIPTIONS = (
         translation_key="24hrainin",
         device_class=SensorDeviceClass.PRECIPITATION,
         native_unit_of_measurement=UnitOfPrecipitationDepth.INCHES,
-        state_class=SensorStateClass.TOTAL_INCREASING,
+        state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=2,
     ),
     SensorEntityDescription(
@@ -409,7 +415,7 @@ SENSOR_DESCRIPTIONS = (
         key="pm4_24h_co2_add",
         translation_key="pm4_24h_co2_add",
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-        device_class=SensorDeviceClass.PM25,
+        device_class=SensorDeviceClass.PM4,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -508,7 +514,7 @@ SENSOR_DESCRIPTIONS = (
         key="pm4_co2",
         translation_key="pm4_co2",
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-        device_class=SensorDeviceClass.PM25,
+        device_class=SensorDeviceClass.PM4,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -599,8 +605,8 @@ ECOWITT_SENSORS_MAPPING: Final = {
         key="RSSI",
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         entity_category=EntityCategory.DIAGNOSTIC,
-        icon="mdi:wifi",
     ),
     # WQT01 水质检测仪参数（数据由 wittiot 库展开为 wqt01_* 扁平键）
     WittiotDataTypes.TOC: SensorEntityDescription(
@@ -693,18 +699,21 @@ IOT_SENSOR_DESCRIPTIONS = (
         translation_key="wfc02_flow_velocity",
         native_unit_of_measurement=UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
         device_class=SensorDeviceClass.VOLUME_FLOW_RATE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="velocity_total",
         translation_key="velocity_total",
         native_unit_of_measurement=UnitOfVolume.LITERS,
         device_class=SensorDeviceClass.WATER,
+        state_class=SensorStateClass.TOTAL_INCREASING,
     ),
     SensorEntityDescription(
         key="flow_velocity",
         translation_key="flow_velocity",
         native_unit_of_measurement=UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
         device_class=SensorDeviceClass.VOLUME_FLOW_RATE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="data_water_t",
@@ -718,6 +727,7 @@ IOT_SENSOR_DESCRIPTIONS = (
         translation_key="data_ac_v",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="elect_total",
@@ -731,6 +741,7 @@ IOT_SENSOR_DESCRIPTIONS = (
         translation_key="realtime_power",
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 )
 
