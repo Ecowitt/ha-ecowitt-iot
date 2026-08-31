@@ -431,7 +431,7 @@
                 "name": "AQI kombi signal"
             },
             "wb64_signal": {
-                "name": "WB64 signal"
+                "name": "WN64 signal"
             },
             "wh85_rssi": {
                 "name": "Haptisk 3-i-1 RSSI"
@@ -470,7 +470,7 @@
                 "name": "AQI kombi RSSI"
             },
             "wb64_rssi": {
-                "name": "WB64 RSSI"
+                "name": "WN64 RSSI"
             },
             "wh85_batt": {
                 "name": "Haptisk 3-i-1 batteri"
@@ -509,7 +509,7 @@
                 "name": "AQI kombi batteri"
             },
             "wb64_batt": {
-                "name": "WB64 batteri"
+                "name": "WN64 batteri"
             }
         },
         "binary_sensor": {

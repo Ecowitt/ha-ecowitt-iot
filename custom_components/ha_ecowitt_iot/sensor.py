@@ -602,6 +602,47 @@ ECOWITT_SENSORS_MAPPING: Final = {
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:wifi",
     ),
+    # WQT01 水质检测仪参数（数据由 wittiot 库展开为 wqt01_* 扁平键）
+    WittiotDataTypes.TOC: SensorEntityDescription(
+        key="TOC",
+        native_unit_of_measurement="mg/L",
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
+        icon="mdi:flask-outline",
+    ),
+    WittiotDataTypes.TURB: SensorEntityDescription(
+        key="TURB",
+        native_unit_of_measurement="NTU",
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
+        icon="mdi:waves",
+    ),
+    WittiotDataTypes.COD: SensorEntityDescription(
+        key="COD",
+        native_unit_of_measurement="mg/L",
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
+        icon="mdi:flask-outline",
+    ),
+    WittiotDataTypes.TDS: SensorEntityDescription(
+        key="TDS",
+        native_unit_of_measurement="mg/L",
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        icon="mdi:beaker-outline",
+    ),
+    WittiotDataTypes.CO2: SensorEntityDescription(
+        key="CO2",
+        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+        device_class=SensorDeviceClass.CO2,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        icon="mdi:molecule-co2",
+    ),
+    WittiotDataTypes.STATUS: SensorEntityDescription(
+        key="STATUS",
+        icon="mdi:alert-circle-outline",
+    ),
 }
 # 定义 IoT 设备的传感器描述
 IOT_SENSOR_DESCRIPTIONS = (

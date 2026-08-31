@@ -431,7 +431,7 @@
                 "name": "AQI Combo Signaal"
             },
             "wb64_signal": {
-                "name": "WB64 Signaal"
+                "name": "WN64 Signaal"
             },
             "wh85_rssi": {
                 "name": "Haptic 3-in-1 RSSI"
@@ -470,7 +470,7 @@
                 "name": "AQI Combo RSSI"
             },
             "wb64_rssi": {
-                "name": "WB64 RSSI"
+                "name": "WN64 RSSI"
             },
             "wh85_batt": {
                 "name": "Haptic 3-in-1 Batterij"
@@ -509,7 +509,7 @@
                 "name": "AQI Combo Batterij"
             },
             "wb64_batt": {
-                "name": "WB64 Batterij"
+                "name": "WN64 Batterij"
             }
         },
         "binary_sensor": {
