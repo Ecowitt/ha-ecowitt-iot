@@ -34,10 +34,12 @@
                 "description": "Werk de instellingen van uw Ecowitt apparaat bij",
                 "data": {
                     "host": "IP-adres van apparaat",
-                    "update_interval": "Update interval (seconden)"
+                    "update_interval": "Update interval (seconden)",
+                    "firmware_check": "Online naar firmware-updates zoeken"
                 },
                 "data_description": {
-                    "update_interval": "Hoe vaak het apparaat wordt uitgelezen voor nieuwe gegevens (in seconden, minimaal 5)."
+                    "update_interval": "Hoe vaak het apparaat wordt uitgelezen voor nieuwe gegevens (in seconden, minimaal 5).",
+                    "firmware_check": "Laat de gateway eenmaal per uur de updateserver van Ecowitt om nieuwe firmware vragen. Schakel dit uit als de gateway tijdens de controle niet meer reageert; de geïnstalleerde versie blijft zichtbaar."
                 }
             }
         }

@@ -34,10 +34,12 @@
                 "description": "Bitte geben Sie die IP-Adresse des Gerätes an zum Darstellen der Daten",
                 "data": {
                     "host": "IP Adresse Gerät",
-                    "update_interval": "Aktualisierungsintervall (Sekunden)"
+                    "update_interval": "Aktualisierungsintervall (Sekunden)",
+                    "firmware_check": "Online nach Firmware-Updates suchen"
                 },
                 "data_description": {
-                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5)."
+                    "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
+                    "firmware_check": "Lässt das Gateway einmal pro Stunde beim Ecowitt-Update-Server nach neuer Firmware fragen. Deaktivieren, wenn das Gateway während der Prüfung nicht mehr reagiert; die installierte Version wird weiterhin angezeigt."
                 }
             }
         }
