@@ -4,17 +4,48 @@ from __future__ import annotations
 
 import logging
 
+import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
-from homeassistant.const import CONF_HOST
-from .const import DOMAIN, CONF_VERSION
+from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers.service import async_register_admin_service
+
+from .const import DOMAIN
 from .coordinator import EcowittDataUpdateCoordinator
+from .recovery import DATA_RECOVERY, async_get_recovery
 
 _LOGGER = logging.getLogger(__name__)
 
 
-PLATFORMS = [Platform.SENSOR, Platform.BINARY_SENSOR, Platform.SWITCH, Platform.UPDATE]
+PLATFORMS = [
+    Platform.SENSOR,
+    Platform.BINARY_SENSOR,
+    Platform.SWITCH,
+    Platform.UPDATE,
+    Platform.BUTTON,
+]
+
+
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Register recovery independently of successful config entry setup."""
+
+    async def restart_gateway(call: ServiceCall) -> None:
+        entry = hass.config_entries.async_get_entry(call.data["config_entry_id"])
+        if entry is None or entry.domain != DOMAIN or entry.disabled_by is not None:
+            raise ServiceValidationError(
+                "Select an enabled Ecowitt integration instance"
+            )
+        await async_get_recovery(hass, entry).async_restart()
+
+    async_register_admin_service(
+        hass,
+        DOMAIN,
+        "restart_gateway",
+        restart_gateway,
+        schema=vol.Schema({vol.Required("config_entry_id"): str}),
+    )
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -50,3 +81,10 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Reload config entry when configuration changes."""
     await hass.config_entries.async_reload(entry.entry_id)
+
+
+async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Remove persistent recovery data when an integration instance is deleted."""
+    recovery = async_get_recovery(hass, entry)
+    await recovery.async_remove()
+    hass.data.get(DATA_RECOVERY, {}).pop(entry.entry_id, None)

@@ -6,6 +6,7 @@ CONF_VERSION = 2
 CONF_MAC = "mac"
 CONF_UPDATE_INTERVAL = "update_interval"
 DEFAULT_UPDATE_INTERVAL = 10
+CONF_AUTO_RESTART = "auto_restart"
 
 # 传感器身份映射持久化键（存于 config_entry.data）
 # 映射形式：{ "Soilmoisture_ch1": "0xDFE4", ... }

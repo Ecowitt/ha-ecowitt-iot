@@ -1,0 +1,29 @@
+name: Recovery tests
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements_test.txt
+      - run: python -m pip install -r requirements_test.txt
+      - run: python -m pytest -q
+      - name: Lint recovery code and tests
+        run: >-
+          ruff check --isolated --select E4,E7,E9,F,I
+          custom_components/ha_ecowitt_iot/tcp.py
+          custom_components/ha_ecowitt_iot/recovery.py
+          custom_components/ha_ecowitt_iot/button.py
+          tests

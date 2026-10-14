@@ -8,15 +8,20 @@ from typing import Any
 
 import voluptuous as vol
 from aiohttp.client_exceptions import ClientError
-from wittiot import API
-from wittiot.errors import WittiotError
-
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import aiohttp_client
+from wittiot import API
+from wittiot.errors import WittiotError
 
-from .const import CONF_MAC, CONF_UPDATE_INTERVAL, DOMAIN, DEFAULT_UPDATE_INTERVAL
+from .const import (
+    CONF_AUTO_RESTART,
+    CONF_MAC,
+    CONF_UPDATE_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -89,6 +94,48 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         errors = {}
 
         if user_input is not None:
+            if user_input[CONF_HOST] == self.config_entry.data[CONF_HOST]:
+                # Recovery must be configurable while the HTTP service is down.
+                # An unchanged address does not require learning a new identity.
+                if user_input.get(
+                    CONF_AUTO_RESTART, False
+                ) and not self.config_entry.data.get(CONF_MAC):
+                    errors["base"] = "missing_mac"
+                else:
+                    self.hass.config_entries.async_update_entry(
+                        self.config_entry,
+                        data={**self.config_entry.data, **user_input},
+                    )
+                    return self.async_create_entry(title="", data={})
+            else:
+                return await self._async_update_host(user_input)
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_HOST, default=self.config_entry.data.get(CONF_HOST)
+                    ): str,
+                    vol.Required(
+                        CONF_UPDATE_INTERVAL,
+                        default=self.config_entry.data.get(
+                            CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
+                        ),
+                    ): vol.All(int, vol.Range(min=5)),
+                    vol.Optional(
+                        CONF_AUTO_RESTART,
+                        default=self.config_entry.data.get(CONF_AUTO_RESTART, False),
+                    ): bool,
+                }
+            ),
+            errors=errors,
+        )
+
+    async def _async_update_host(self, user_input: dict[str, Any]) -> FlowResult:
+        """Keep HTTP identity validation when changing the gateway address."""
+        errors = {}
+        if user_input is not None:
             api = API(
                 user_input[CONF_HOST],
                 session=aiohttp_client.async_get_clientsession(self.hass),
@@ -127,28 +174,21 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                                 user_input[CONF_HOST],
                             )
                         
-                        new_data = {**self.config_entry.data, **user_input, CONF_MAC: new_mac}
+                        if user_input.get(CONF_AUTO_RESTART, False) and not (new_mac or expected_mac):
+                            result = await self.async_step_init()
+                            result["errors"] = {"base": "missing_mac"}
+                            return result
+                        new_data = {
+                            **self.config_entry.data,
+                            **user_input,
+                            CONF_MAC: new_mac or expected_mac,
+                        }
                         self.hass.config_entries.async_update_entry(
                             self.config_entry, data=new_data
                         )
 
                         return self.async_create_entry(title="", data={})
 
-        # 显示表单，预填当前值
-        return self.async_show_form(
-            step_id="init",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(
-                        CONF_HOST, default=self.config_entry.data.get(CONF_HOST)
-                    ): str,
-                    vol.Required(
-                        CONF_UPDATE_INTERVAL,
-                        default=self.config_entry.data.get(
-                            CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
-                        ),
-                    ): vol.All(int, vol.Range(min=5)),
-                }
-            ),
-            errors=errors,
-        )
+        result = await self.async_step_init()
+        result["errors"] = errors
+        return result

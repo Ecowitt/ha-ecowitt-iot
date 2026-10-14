@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Failed to connect",
             "no_devices": "No devices found",
-            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device."
+            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device.",
+      "missing_mac": "Connect successfully once to record the gateway MAC address before enabling automatic restart."
         },
         "step": {
             "init": {
@@ -34,10 +35,12 @@
                 "description": "Update the settings for your Ecowitt device",
                 "data": {
                     "host": "Device IP address",
-                    "update_interval": "Update interval (seconds)"
+                    "update_interval": "Update interval (seconds)",
+          "auto_restart": "Automatically restart an unresponsive gateway"
                 },
                 "data_description": {
-                    "update_interval": "How often the device is polled for new data (in seconds, minimum 5)."
+                    "update_interval": "How often the device is polled for new data (in seconds, minimum 5).",
+          "auto_restart": "After three failed HTTP polls, use the TCP API to restart the gateway. Requires a recorded MAC address; at most one attempt every 30 minutes. Disabled by default."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "sensor_changed_message": "Device `{devname}` (`{host}`): sensor `{channel}` changed its ID from `{old_id}` to `{new_id}`. This may indicate a channel reorder or sensor replacement. Please verify your setup."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Restart gateway"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"
