@@ -8,24 +8,24 @@ from datetime import timedelta
 from typing import Any
 
 from aiohttp.client_exceptions import ClientError
-from wittiot import API
-from wittiot.errors import WittiotError
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.helpers.translation import async_get_translations
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from wittiot import API
+from wittiot.errors import WittiotError
 
 from .const import (
     CONF_MAC,
     CONF_SENSOR_ID_MAP,
-    DOMAIN,
     CONF_UPDATE_INTERVAL,
     DEFAULT_UPDATE_INTERVAL,
+    DOMAIN,
     SENSOR_ID_INVALID_VALUES,
 )
+from .recovery import async_get_recovery
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -70,6 +70,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             hass, _LOGGER, name=DOMAIN, update_interval=timedelta(seconds=update_interval)
         )
         self.config_entry = config_entry
+        self.recovery = async_get_recovery(hass, config_entry)
         self.api = API(
             self.config_entry.data[CONF_HOST], session=async_get_clientsession(hass)
         )
@@ -95,6 +96,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             async with asyncio.timeout(REQUEST_TIMEOUT_SECONDS):
                 res: dict[str, Any] = await self.api.request_loc_allinfo()
         except _TRANSIENT_ERRORS as error:
+            await self.recovery.async_poll_failed()
             return self._handle_fetch_failure(error)
 
         identity = self._check_device_identity(res)
@@ -152,6 +154,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 self.config_entry.data[CONF_HOST],
             )
         self._consecutive_failures = 0
+        self.recovery.reset_failures()
         self._last_good_data = res
         # 检测传感器身份变化（通道重排/更换），持久化映射并标记受影响的实体
         await self._check_sensor_identity(res)

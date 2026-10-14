@@ -63,5 +63,57 @@ To set up Ecowitt Official Integration, follow these steps:
 ## Compatibility Instructions for all ecowitt network consoles
 ![Compatibility Instructions for all ecowitt network consoles](https://oss.ecowitt.net/uploads/20260224/7d20e0c51af395cc66af81f2fa458115.png)
 
+## Restarting an unresponsive gateway
+
+A gateway can keep receiving sensors and uploading weather data while its HTTP
+server stops responding. In that situation both the web UI and this integration's
+HTTP polling fail, but the separate TCP API may still work.
+
+Once the integration has recorded the gateway's full MAC address, its device page
+provides a **Restart gateway** button. This button remains available during HTTP
+outages. It restarts the gateway, not Home Assistant.
+
+If the integration cannot finish loading because HTTP is already unavailable,
+use **Developer tools → Actions → Ecowitt Official Integration: Restart gateway**
+and select the existing integration instance. This action requires administrator
+access when called by a user. For an automation or script:
+
+```yaml
+action: ha_ecowitt_iot.restart_gateway
+data:
+  config_entry_id: YOUR_ECOWITT_CONFIG_ENTRY_ID
+```
+
+To enable unattended recovery, go to the integration's **Configure** options and
+enable **Automatically restart an unresponsive gateway**. This is disabled by
+default. It attempts a restart after three consecutive failed HTTP polls,
+including failed setup retries. Successful polls reset the counter. Changing
+recovery settings with the existing IP address does not require HTTP access.
+
+Every restart first reads and checks the full MAC address through TCP port
+**45000**. A missing identity, MAC mismatch, unreachable TCP API, or invalid API
+response prevents a restart. All restart paths share a **30-minute cooldown**,
+persisted across integration reloads and Home Assistant restarts. The cooldown is
+recorded before sending the command, so a lost reply cannot cause a reboot loop.
+HTTP polling is retried after the gateway has had ten seconds to boot; sensor
+availability returns only after a successful HTTP poll.
+
+This recovery path was verified with a GW3010 identifying itself as
+`GW3000B_V1.2.4`. Other devices must implement the same
+[Ecowitt TCP API MAC and reboot commands](https://oss.ecowitt.net/uploads/20260112/TCP%20API%20Interface%20Communication%20Protocol%20V1.7.0.pdf).
+It cannot recover a powered-off gateway or one whose TCP API is also unresponsive.
+A restart briefly interrupts sensor reception and uploads, and may reset volatile
+weather counters maintained by the gateway. No firmware update or factory reset
+is performed.
+
+### Development checks
+
+Use Python 3.14 in a virtual environment:
+
+```sh
+python -m pip install -r requirements_test.txt
+python -m pytest -q
+```
+
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/Ecowitt/ha-ecowitt-iot.svg?variant=adaptive)](https://starchart.cc/Ecowitt/ha-ecowitt-iot)
