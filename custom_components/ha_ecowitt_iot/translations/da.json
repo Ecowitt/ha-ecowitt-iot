@@ -34,10 +34,12 @@
                 "description": "Opdater indstillinger for din Ecowitt enhed",
                 "data": {
                     "host": "Enhed IP adresse",
-                    "update_interval": "Opdaterings interval (sekunder)"
+                    "update_interval": "Opdaterings interval (sekunder)",
+                    "firmware_check": "Søg efter firmwareopdateringer online"
                 },
                 "data_description": {
-                    "update_interval": "Hvor ofte enheden forespørges om nye data (i sekunder, minimum 5)."
+                    "update_interval": "Hvor ofte enheden forespørges om nye data (i sekunder, minimum 5).",
+                    "firmware_check": "Lader gatewayen spørge Ecowitts opdateringsserver om ny firmware én gang i timen. Slå dette fra, hvis gatewayen holder op med at svare under kontrollen; den installerede version vises stadig."
                 }
             }
         }

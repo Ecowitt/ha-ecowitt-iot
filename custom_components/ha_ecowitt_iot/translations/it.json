@@ -34,10 +34,12 @@
                 "description": "Aggiorna le impostazioni del tuo dispositivo Ecowitt",
                 "data": {
                     "host": "Indirizzo IP del dispositivo",
-                    "update_interval": "Intervallo di aggiornamento (secondi)"
+                    "update_interval": "Intervallo di aggiornamento (secondi)",
+                    "firmware_check": "Cerca aggiornamenti firmware online"
                 },
                 "data_description": {
-                    "update_interval": "Frequenza con cui il dispositivo viene interrogato per nuovi dati (in secondi, minimo 5)."
+                    "update_interval": "Frequenza con cui il dispositivo viene interrogato per nuovi dati (in secondi, minimo 5).",
+                    "firmware_check": "Consente al gateway di chiedere al server di aggiornamento Ecowitt un nuovo firmware una volta all'ora. Disattiva questa opzione se il gateway smette di rispondere durante il controllo; la versione installata continua a essere mostrata."
                 }
             }
         }

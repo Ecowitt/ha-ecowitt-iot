@@ -34,10 +34,12 @@
                 "description": "Zaktualizuj ustawienia dla swojego urządzenia Ecowitt",
                 "data": {
                     "host": "Adres IP urządzenia",
-                    "update_interval": "Interwał aktualizacji (sekundy)"
+                    "update_interval": "Interwał aktualizacji (sekundy)",
+                    "firmware_check": "Sprawdzaj aktualizacje oprogramowania online"
                 },
                 "data_description": {
-                    "update_interval": "Jak często urządzenie jest odpytywane o nowe dane (w sekundach, minimum 5)."
+                    "update_interval": "Jak często urządzenie jest odpytywane o nowe dane (w sekundach, minimum 5).",
+                    "firmware_check": "Bramka raz na godzinę pyta serwer aktualizacji Ecowitt o nowe oprogramowanie. Wyłącz tę opcję, jeśli bramka przestaje odpowiadać podczas sprawdzania; zainstalowana wersja jest nadal wyświetlana."
                 }
             }
         }

@@ -34,10 +34,12 @@
                 "description": "Mettre à jour les réglages de votre appareil Ecowitt",
                 "data": {
                     "host": "Adresse IP de l'appareil",
-                    "update_interval": "Intervalle de mise à jour (secondes)"
+                    "update_interval": "Intervalle de mise à jour (secondes)",
+                    "firmware_check": "Rechercher des mises à jour du firmware en ligne"
                 },
                 "data_description": {
-                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5)."
+                    "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5).",
+                    "firmware_check": "Permet à la passerelle d'interroger le serveur de mise à jour Ecowitt une fois par heure. Désactivez cette option si la passerelle ne répond plus pendant la vérification ; la version installée reste affichée."
                 }
             }
         }

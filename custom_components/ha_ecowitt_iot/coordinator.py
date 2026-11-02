@@ -19,10 +19,12 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.helpers.translation import async_get_translations
 
 from .const import (
+    CONF_FIRMWARE_CHECK,
     CONF_MAC,
     CONF_SENSOR_ID_MAP,
     DOMAIN,
     CONF_UPDATE_INTERVAL,
+    DEFAULT_FIRMWARE_CHECK,
     DEFAULT_UPDATE_INTERVAL,
     SENSOR_ID_INVALID_VALUES,
 )
@@ -391,6 +393,13 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 "Firmware info fetch failed; keeping previous metadata: %s", err
             )
             return self._firmware_update_info or {}
+
+        # The online check makes the gateway contact the update server; some
+        # gateways stop answering until rebooted if that server does not reply.
+        if not self.config_entry.data.get(CONF_FIRMWARE_CHECK, DEFAULT_FIRMWARE_CHECK):
+            self._firmware_update_info = firmware_info
+            self._last_firmware_check = now
+            return firmware_info
 
         try:
             async with asyncio.timeout(REQUEST_TIMEOUT_SECONDS):
