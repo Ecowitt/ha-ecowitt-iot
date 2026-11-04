@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Forbindelses fejl",
             "no_devices": "Der er ingen enheder",
-            "device_mismatch": "Denne IP-adresse peger på en anden enhed. Opret venligst en ny integration til denne enhed."
+            "device_mismatch": "Denne IP-adresse peger på en anden enhed. Opret venligst en ny integration til denne enhed.",
+            "missing_mac": "Opret forbindelse én gang for at registrere gatewayens fulde MAC-adresse, før du aktiverer automatisk genstart."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "Enhed IP adresse",
                     "update_interval": "Opdaterings interval (sekunder)",
-                    "firmware_check": "Søg efter firmwareopdateringer online"
+                    "firmware_check": "Søg efter firmwareopdateringer online",
+                    "auto_restart": "Genstart automatisk en gateway, der ikke svarer"
                 },
                 "data_description": {
                     "update_interval": "Hvor ofte enheden forespørges om nye data (i sekunder, minimum 5).",
-                    "firmware_check": "Lader gatewayen spørge Ecowitts opdateringsserver om ny firmware én gang i timen. Slå dette fra, hvis gatewayen holder op med at svare under kontrollen; den installerede version vises stadig."
+                    "firmware_check": "Lader gatewayen spørge Ecowitts opdateringsserver om ny firmware én gang i timen. Slå dette fra, hvis gatewayen holder op med at svare under kontrollen; den installerede version vises stadig.",
+                    "auto_restart": "Efter et vedvarende HTTP-udfald (mindst 10 minutter og 6 mislykkede pollingforsøg) genstartes gatewayen via TCP-API'en. Kræver en registreret MAC-adresse; højst ét forsøg hver 30. minut og kun ét automatisk forsøg uden en vellykket polling. Deaktiveret som standard."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "upgrade_mismatch_message": "Opgradering registreret — enhedsidentiteten stemmer ikke overens.\n\nIP-adressen {host} peger ikke længere på {expected_name}.\n\nAktuel MAC-adresse: {actual_mac}\n\nGå til Indstillinger → Enheder og tjenester → Ecowitt Official Integration for at opdatere integrationens IP-adresse, eller tilføj en ny integration til denne enhed."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Genstart gateway"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

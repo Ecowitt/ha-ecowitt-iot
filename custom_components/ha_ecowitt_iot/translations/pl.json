@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Nie udało się połączyć",
             "no_devices": "Nie znaleziono urządzeń",
-            "device_mismatch": "Ten adres IP wskazuje na inne urządzenie. Utwórz nową integrację dla tego urządzenia."
+            "device_mismatch": "Ten adres IP wskazuje na inne urządzenie. Utwórz nową integrację dla tego urządzenia.",
+            "missing_mac": "Połącz się raz pomyślnie, aby zapisać pełny adres MAC bramki przed włączeniem automatycznego restartu."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "Adres IP urządzenia",
                     "update_interval": "Interwał aktualizacji (sekundy)",
-                    "firmware_check": "Sprawdzaj aktualizacje oprogramowania online"
+                    "firmware_check": "Sprawdzaj aktualizacje oprogramowania online",
+                    "auto_restart": "Automatycznie restartuj nieodpowiadającą bramkę"
                 },
                 "data_description": {
                     "update_interval": "Jak często urządzenie jest odpytywane o nowe dane (w sekundach, minimum 5).",
-                    "firmware_check": "Bramka raz na godzinę pyta serwer aktualizacji Ecowitt o nowe oprogramowanie. Wyłącz tę opcję, jeśli bramka przestaje odpowiadać podczas sprawdzania; zainstalowana wersja jest nadal wyświetlana."
+                    "firmware_check": "Bramka raz na godzinę pyta serwer aktualizacji Ecowitt o nowe oprogramowanie. Wyłącz tę opcję, jeśli bramka przestaje odpowiadać podczas sprawdzania; zainstalowana wersja jest nadal wyświetlana.",
+                    "auto_restart": "Po utrzymującym się awarii HTTP (co najmniej 10 minut i 6 nieudanych odpytywań) bramka jest restartowana przez API TCP. Wymaga zapisanego adresu MAC; maksymalnie jedna próba na 30 minut i tylko jedna automatyczna próba bez udanego odpytywania. Domyślnie wyłączone."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "upgrade_mismatch_message": "**Wykryto aktualizację** — niezgodność tożsamości urządzenia.\n\nAdres IP `{host}` nie wskazuje już na `{expected_name}`.\n\n- Aktualny adres MAC: `{actual_mac}`\n\nPrzejdź do **Ustawienia → Urządzenia i usługi → Oficjalna integracja Ecowitt**, aby zaktualizować adres IP tej integracji, lub dodaj nową integrację dla tego urządzenia."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Restartuj bramkę"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

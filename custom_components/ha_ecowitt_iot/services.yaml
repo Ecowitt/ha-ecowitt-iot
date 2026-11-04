@@ -1,0 +1,14 @@
+restart_gateway:
+  name: Restart gateway
+  description: >-
+    Restart a configured Ecowitt gateway through its TCP API, including when HTTP
+    is unavailable or the integration could not finish loading. Requires a
+    previously recorded MAC address and observes a 30-minute cooldown.
+  fields:
+    config_entry_id:
+      name: Integration
+      description: The Ecowitt integration instance to restart.
+      required: true
+      selector:
+        config_entry:
+          integration: ha_ecowitt_iot

@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Connessione non riuscita",
             "no_devices": "Nessun dispositivo trovato",
-            "device_mismatch": "Questo indirizzo IP corrisponde a un dispositivo diverso. Crea una nuova integrazione per questo dispositivo."
+            "device_mismatch": "Questo indirizzo IP corrisponde a un dispositivo diverso. Crea una nuova integrazione per questo dispositivo.",
+            "missing_mac": "Connetti con successo una volta per registrare l'indirizzo MAC completo del gateway prima di abilitare il riavvio automatico."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "Indirizzo IP del dispositivo",
                     "update_interval": "Intervallo di aggiornamento (secondi)",
-                    "firmware_check": "Cerca aggiornamenti firmware online"
+                    "firmware_check": "Cerca aggiornamenti firmware online",
+                    "auto_restart": "Riavvia automaticamente un gateway che non risponde"
                 },
                 "data_description": {
                     "update_interval": "Frequenza con cui il dispositivo viene interrogato per nuovi dati (in secondi, minimo 5).",
-                    "firmware_check": "Consente al gateway di chiedere al server di aggiornamento Ecowitt un nuovo firmware una volta all'ora. Disattiva questa opzione se il gateway smette di rispondere durante il controllo; la versione installata continua a essere mostrata."
+                    "firmware_check": "Consente al gateway di chiedere al server di aggiornamento Ecowitt un nuovo firmware una volta all'ora. Disattiva questa opzione se il gateway smette di rispondere durante il controllo; la versione installata continua a essere mostrata.",
+                    "auto_restart": "Dopo un'interruzione HTTP prolungata (almeno 10 minuti e 6 sondaggi falliti), riavvia il gateway tramite l'API TCP. Richiede un indirizzo MAC registrato; al massimo un tentativo ogni 30 minuti e un solo tentativo automatico senza un sondaggio riuscito. Disattivato per impostazione predefinita."
                 }
             }
         }
@@ -52,6 +55,11 @@
         "sensor_changed_message": "Dispositivo `{devname}` (`{host}`): il sensore `{channel}` ha cambiato ID da `{old_id}` a `{new_id}`. Ciò può indicare un riordino dei canali o la sostituzione di un sensore. Verifica la configurazione."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Riavvia gateway"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

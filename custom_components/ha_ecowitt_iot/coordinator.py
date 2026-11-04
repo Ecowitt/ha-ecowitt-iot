@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from aiohttp.client_exceptions import ClientError
@@ -28,6 +28,7 @@ from .const import (
     DEFAULT_UPDATE_INTERVAL,
     SENSOR_ID_INVALID_VALUES,
 )
+from .recovery import async_get_recovery
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -72,6 +73,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             hass, _LOGGER, name=DOMAIN, update_interval=timedelta(seconds=update_interval)
         )
         self.config_entry = config_entry
+        self.recovery = async_get_recovery(hass, config_entry)
         self.api = API(
             self.config_entry.data[CONF_HOST], session=async_get_clientsession(hass)
         )
@@ -97,6 +99,9 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             async with asyncio.timeout(REQUEST_TIMEOUT_SECONDS):
                 res: dict[str, Any] = await self.api.request_loc_allinfo()
         except _TRANSIENT_ERRORS as error:
+            # Never block the coordinator on TCP recovery attempts; the recovery
+            # manager serializes them with its lock and cooldown.
+            self.hass.async_create_task(self.recovery.async_poll_failed())
             return self._handle_fetch_failure(error)
 
         identity = self._check_device_identity(res)
@@ -130,7 +135,13 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         if now - self._last_seen_ts >= LAST_SEEN_INTERVAL_SECONDS:
             self._last_seen_value = now
             self._last_seen_ts = now
-        res["_last_seen"] = self._last_seen_value
+        # Expose a readable ISO 8601 UTC timestamp (seconds precision); the raw
+        # epoch float was rendered by the frontend as e.g. 1,793,782,724.27.
+        res["_last_seen"] = (
+            datetime.fromtimestamp(self._last_seen_value, timezone.utc)
+            .replace(microsecond=0)
+            .isoformat()
+        )
 
         if self._outage_logged:
             _LOGGER.info(
@@ -154,6 +165,7 @@ class EcowittDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 self.config_entry.data[CONF_HOST],
             )
         self._consecutive_failures = 0
+        self.recovery.reset_failures()
         self._last_good_data = res
         # 检测传感器身份变化（通道重排/更换），持久化映射并标记受影响的实体
         await self._check_sensor_identity(res)

@@ -17,6 +17,7 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import aiohttp_client
 
 from .const import (
+    CONF_AUTO_RESTART,
     CONF_FIRMWARE_CHECK,
     CONF_MAC,
     CONF_UPDATE_INTERVAL,
@@ -24,6 +25,7 @@ from .const import (
     DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
 )
+from .recovery import is_full_mac, normalize_mac
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -93,55 +95,29 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
         """Manage the options."""
-        errors = {}
+        errors: dict[str, str] = {}
 
         if user_input is not None:
-            api = API(
-                user_input[CONF_HOST],
-                session=aiohttp_client.async_get_clientsession(self.hass),
-            )
-
-            try:
-                devices = await api.request_loc_info()
-            except _CONNECT_ERRORS:
-                errors["base"] = "cannot_connect"
-            else:
-                if not devices:
-                    errors["base"] = "no_devices"
+            if user_input[CONF_HOST] == self.config_entry.data[CONF_HOST]:
+                # Recovery must be configurable while the HTTP service is down.
+                # An unchanged address does not require learning a new identity.
+                if user_input.get(
+                    CONF_AUTO_RESTART, False
+                ) and not is_full_mac(self.config_entry.data.get(CONF_MAC)):
+                    errors["base"] = "missing_mac"
                 else:
-                    try:
-                        all_info = await api.request_loc_allinfo()
-                        new_mac = all_info.get("mac", "")
-                    except _CONNECT_ERRORS:
-                        new_mac = ""
-                    
-                    expected_mac = self.config_entry.data.get(CONF_MAC, "")
-                    if expected_mac and new_mac and new_mac != expected_mac:
-                        _LOGGER.warning(
-                            "Refusing to update IP %s: device mismatch. "
-                            "Expected MAC %s, got %s. "
-                            "Please create a new integration for this device.",
-                            user_input[CONF_HOST],
-                            expected_mac,
-                            new_mac,
-                        )
-                        errors["base"] = "device_mismatch"
-                    else:
-                        if not expected_mac and new_mac:
-                            _LOGGER.info(
-                                "Updating config with MAC %s for device at %s",
-                                new_mac,
-                                user_input[CONF_HOST],
-                            )
-                        
-                        new_data = {**self.config_entry.data, **user_input, CONF_MAC: new_mac}
-                        self.hass.config_entries.async_update_entry(
-                            self.config_entry, data=new_data
-                        )
+                    self.hass.config_entries.async_update_entry(
+                        self.config_entry,
+                        data={**self.config_entry.data, **user_input},
+                    )
+                    return self.async_create_entry(title="", data={})
+            else:
+                return await self._async_update_host(user_input)
 
-                        return self.async_create_entry(title="", data={})
+        return self._show_form(errors)
 
-        # 显示表单，预填当前值
+    def _show_form(self, errors: dict[str, str]) -> FlowResult:
+        """Show the options form, pre-filled with the current values."""
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
@@ -155,13 +131,69 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                             CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
                         ),
                     ): vol.All(int, vol.Range(min=5)),
-                    vol.Required(
+                    vol.Optional(
                         CONF_FIRMWARE_CHECK,
                         default=self.config_entry.data.get(
                             CONF_FIRMWARE_CHECK, DEFAULT_FIRMWARE_CHECK
                         ),
                     ): bool,
+                    vol.Optional(
+                        CONF_AUTO_RESTART,
+                        default=self.config_entry.data.get(CONF_AUTO_RESTART, False),
+                    ): bool,
                 }
             ),
             errors=errors,
         )
+
+    async def _async_update_host(self, user_input: dict[str, Any]) -> FlowResult:
+        """Require HTTP identity validation before accepting a new gateway address."""
+        errors: dict[str, str] = {}
+        api = API(
+            user_input[CONF_HOST],
+            session=aiohttp_client.async_get_clientsession(self.hass),
+        )
+
+        try:
+            devices = await api.request_loc_info()
+        except _CONNECT_ERRORS:
+            errors["base"] = "cannot_connect"
+        else:
+            if not devices:
+                errors["base"] = "no_devices"
+
+        new_mac = ""
+        if not errors:
+            try:
+                all_info = await api.request_loc_allinfo()
+                new_mac = all_info.get("mac", "")
+            except _CONNECT_ERRORS:
+                errors["base"] = "cannot_connect"
+
+        # A new address must prove its identity: never persist a new host without
+        # a complete MAC address read from that host.
+        if not errors and not is_full_mac(new_mac):
+            errors["base"] = "cannot_connect"
+
+        if not errors:
+            expected_mac = self.config_entry.data.get(CONF_MAC, "")
+            if is_full_mac(expected_mac) and normalize_mac(new_mac) != normalize_mac(
+                expected_mac
+            ):
+                _LOGGER.warning(
+                    "Refusing to update IP %s: device mismatch. "
+                    "Expected MAC %s, got %s. "
+                    "Please create a new integration for this device.",
+                    user_input[CONF_HOST],
+                    expected_mac,
+                    new_mac,
+                )
+                errors["base"] = "device_mismatch"
+            else:
+                self.hass.config_entries.async_update_entry(
+                    self.config_entry,
+                    data={**self.config_entry.data, **user_input, CONF_MAC: new_mac},
+                )
+                return self.async_create_entry(title="", data={})
+
+        return self._show_form(errors)

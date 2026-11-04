@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Verbindungs Fehler",
             "no_devices": "Keine Geräte gefunden",
-            "device_mismatch": "Diese IP-Adresse zeigt auf ein anderes Gerät. Bitte erstellen Sie eine neue Integration für dieses Gerät."
+            "device_mismatch": "Diese IP-Adresse zeigt auf ein anderes Gerät. Bitte erstellen Sie eine neue Integration für dieses Gerät.",
+            "missing_mac": "Stellen Sie einmal eine erfolgreiche Verbindung her, um die vollständige MAC-Adresse des Gateways zu erfassen, bevor Sie den automatischen Neustart aktivieren."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "IP Adresse Gerät",
                     "update_interval": "Aktualisierungsintervall (Sekunden)",
-                    "firmware_check": "Online nach Firmware-Updates suchen"
+                    "firmware_check": "Online nach Firmware-Updates suchen",
+                    "auto_restart": "Nicht reagierendes Gateway automatisch neu starten"
                 },
                 "data_description": {
                     "update_interval": "Wie oft das Gerät nach neuen Daten abgefragt wird (in Sekunden, Minimum 5).",
-                    "firmware_check": "Lässt das Gateway einmal pro Stunde beim Ecowitt-Update-Server nach neuer Firmware fragen. Deaktivieren, wenn das Gateway während der Prüfung nicht mehr reagiert; die installierte Version wird weiterhin angezeigt."
+                    "firmware_check": "Lässt das Gateway einmal pro Stunde beim Ecowitt-Update-Server nach neuer Firmware fragen. Deaktivieren, wenn das Gateway während der Prüfung nicht mehr reagiert; die installierte Version wird weiterhin angezeigt.",
+                    "auto_restart": "Nach einem anhaltenden HTTP-Ausfall (mindestens 10 Minuten und 6 fehlgeschlagene Abfragen) wird das Gateway über die TCP-API neu gestartet. Erfordert eine erfasste MAC-Adresse; höchstens ein Versuch alle 30 Minuten und nur ein automatischer Versuch ohne erfolgreiche Abfrage. Standardmäßig deaktiviert."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "upgrade_mismatch_message": "**Upgrade erkannt** — Geräteidentität stimmt nicht überein.\n\nDie IP `{host}` zeigt nicht mehr auf `{expected_name}`.\n\n- Aktuelle MAC: `{actual_mac}`\n\nGehen Sie zu **Einstellungen → Geräte & Dienste → Ecowitt Official Integration**, um die IP-Adresse dieser Integration zu aktualisieren, oder fügen Sie eine neue Integration für dieses Gerät hinzu."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Gateway neu starten"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

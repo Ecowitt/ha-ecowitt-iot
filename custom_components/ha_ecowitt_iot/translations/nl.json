@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Verbinding maken mislukt",
             "no_devices": "Geen apparaten gevonden",
-            "device_mismatch": "Dit IP-adres verwijst naar een ander apparaat. Maak een nieuwe integratie aan voor dit apparaat."
+            "device_mismatch": "Dit IP-adres verwijst naar een ander apparaat. Maak een nieuwe integratie aan voor dit apparaat.",
+            "missing_mac": "Maak één keer een succesvolle verbinding om het volledige MAC-adres van de gateway vast te leggen voordat u automatisch herstart inschakelt."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "IP-adres van apparaat",
                     "update_interval": "Update interval (seconden)",
-                    "firmware_check": "Online naar firmware-updates zoeken"
+                    "firmware_check": "Online naar firmware-updates zoeken",
+                    "auto_restart": "Een niet-reagerende gateway automatisch herstarten"
                 },
                 "data_description": {
                     "update_interval": "Hoe vaak het apparaat wordt uitgelezen voor nieuwe gegevens (in seconden, minimaal 5).",
-                    "firmware_check": "Laat de gateway eenmaal per uur de updateserver van Ecowitt om nieuwe firmware vragen. Schakel dit uit als de gateway tijdens de controle niet meer reageert; de geïnstalleerde versie blijft zichtbaar."
+                    "firmware_check": "Laat de gateway eenmaal per uur de updateserver van Ecowitt om nieuwe firmware vragen. Schakel dit uit als de gateway tijdens de controle niet meer reageert; de geïnstalleerde versie blijft zichtbaar.",
+                    "auto_restart": "Na een aanhoudende HTTP-storing (minimaal 10 minuten en 6 mislukte peilingen) wordt de gateway via de TCP-API herstart. Vereist een vastgelegd MAC-adres; maximaal één poging per 30 minuten en slechts één automatische poging zonder een geslaagde peiling. Standaard uitgeschakeld."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "upgrade_mismatch_message": "**Upgrade gedetecteerd** — apparaat indentiteit komt niet overeen.\n\nHet IP-adres `{host}` verwijst niet langer naar `{expected_name}`.\n\n- Huidig MAC-adres: `{actual_mac}`\n\nGa naar **Instellingen → Apparaten & diensten → Ecowitt Official Integration** om het IP-adres van de integratie bij te werken, of maak een nieuwe integratie aan voor dit apparaat."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Gateway herstarten"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

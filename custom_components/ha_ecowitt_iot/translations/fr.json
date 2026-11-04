@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Erreur de connection",
             "no_devices": "Aucun appareil trouvé",
-            "device_mismatch": "Cette adresse IP pointe vers un appareil différent. Veuillez créer une nouvelle intégration pour cet appareil."
+            "device_mismatch": "Cette adresse IP pointe vers un appareil différent. Veuillez créer une nouvelle intégration pour cet appareil.",
+            "missing_mac": "Connectez-vous une fois avec succès pour enregistrer l'adresse MAC complète de la passerelle avant d'activer le redémarrage automatique."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "Adresse IP de l'appareil",
                     "update_interval": "Intervalle de mise à jour (secondes)",
-                    "firmware_check": "Rechercher des mises à jour du firmware en ligne"
+                    "firmware_check": "Rechercher des mises à jour du firmware en ligne",
+                    "auto_restart": "Redémarrer automatiquement une passerelle qui ne répond plus"
                 },
                 "data_description": {
                     "update_interval": "Fréquence d'interrogation de l'appareil (en secondes, minimum 5).",
-                    "firmware_check": "Permet à la passerelle d'interroger le serveur de mise à jour Ecowitt une fois par heure. Désactivez cette option si la passerelle ne répond plus pendant la vérification ; la version installée reste affichée."
+                    "firmware_check": "Permet à la passerelle d'interroger le serveur de mise à jour Ecowitt une fois par heure. Désactivez cette option si la passerelle ne répond plus pendant la vérification ; la version installée reste affichée.",
+                    "auto_restart": "Après une panne HTTP prolongée (au moins 10 minutes et 6 échecs d'interrogation), redémarre la passerelle via l'API TCP. Nécessite une adresse MAC enregistrée ; au plus une tentative toutes les 30 minutes et une seule tentative automatique sans interrogation réussie. Désactivé par défaut."
                 }
             }
         }
@@ -50,6 +53,11 @@
         "upgrade_mismatch_message": "**Mise à niveau détectée** — incohérence d'identité de l'appareil.\n\nL'adresse IP `{host}` ne pointe plus vers `{expected_name}`.\n\n- MAC actuelle : `{actual_mac}`\n\nAllez dans **Paramètres → Appareils et services → Ecowitt Official Integration** pour mettre à jour l'adresse IP de cette intégration, ou ajoutez une nouvelle intégration pour cet appareil."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Redémarrer la passerelle"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"

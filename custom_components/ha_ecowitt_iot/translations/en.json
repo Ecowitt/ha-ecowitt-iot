@@ -26,7 +26,8 @@
         "error": {
             "cannot_connect": "Failed to connect",
             "no_devices": "No devices found",
-            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device."
+            "device_mismatch": "This IP address points to a different device. Please create a new integration for this device.",
+            "missing_mac": "Connect successfully once to record the gateway's full MAC address before enabling automatic restart."
         },
         "step": {
             "init": {
@@ -35,11 +36,13 @@
                 "data": {
                     "host": "Device IP address",
                     "update_interval": "Update interval (seconds)",
-                    "firmware_check": "Check for firmware updates online"
+                    "firmware_check": "Check for firmware updates online",
+                    "auto_restart": "Automatically restart an unresponsive gateway"
                 },
                 "data_description": {
                     "update_interval": "How often the device is polled for new data (in seconds, minimum 5).",
-                    "firmware_check": "Lets the gateway ask the Ecowitt update server for new firmware once per hour. Turn this off if your gateway stops responding during the check; the installed version is still shown."
+                    "firmware_check": "Lets the gateway ask the Ecowitt update server for new firmware once per hour. Turn this off if your gateway stops responding during the check; the installed version is still shown.",
+                    "auto_restart": "After a sustained HTTP outage (at least 10 minutes and 6 failed polls), restarts the gateway through the TCP API. Requires a recorded MAC address; at most one attempt every 30 minutes, and only one automatic attempt without a successful poll. Disabled by default."
                 }
             }
         }
@@ -52,6 +55,11 @@
         "sensor_changed_message": "Device `{devname}` (`{host}`): sensor `{channel}` changed its ID from `{old_id}` to `{new_id}`. This may indicate a channel reorder or sensor replacement. Please verify your setup."
     },
     "entity": {
+        "button": {
+            "restart": {
+                "name": "Restart gateway"
+            }
+        },
         "sensor": {
             "bgt": {
                 "name": "BGT"
